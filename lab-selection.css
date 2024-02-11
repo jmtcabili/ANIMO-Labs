@@ -1,0 +1,51 @@
+
+body{
+    margin: 0; 
+}
+
+.user-details{
+    display: flex;  
+    align-items: center;
+    position: relative; 
+    right: 20px; 
+    margin-top: 7vh; 
+    width: 310px; 
+    height: 110px; 
+    border-radius: 15px;
+    border: solid black; 
+}
+
+.picture{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    margin-left: 10%; 
+    width: 30%; 
+    height: 80%; 
+    border-radius: 100px;
+    border: solid blue; 
+}
+
+.picture img{
+     width: 90%; 
+     height: 80%; 
+}
+
+.details{
+    margin-left: 5%; 
+    width: 50%; 
+}
+
+.selection{
+    display: flex; 
+    justify-content: space-between;
+    margin: 2%; 
+    height: 500px; 
+}
+
+.option{
+    width: 30%; 
+    height: 70%; 
+    border: solid black;
+    border-radius: 25px; 
+}
