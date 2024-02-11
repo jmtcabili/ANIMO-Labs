@@ -1,6 +1,10 @@
+:root{
+    --darkgreen: #095D40; 
+}
 
 body{
     margin: 0; 
+    background-image: url("assets/background.png");
 }
 
 .user-details{
@@ -12,6 +16,7 @@ body{
     width: 310px; 
     height: 110px; 
     border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.8);
     border: solid black; 
 }
 
@@ -23,7 +28,7 @@ body{
     width: 30%; 
     height: 80%; 
     border-radius: 100px;
-    border: solid blue; 
+    border: solid var(--darkgreen); 
 }
 
 .picture img{
@@ -40,12 +45,82 @@ body{
     display: flex; 
     justify-content: space-between;
     margin: 2%; 
-    height: 500px; 
+    height: 45vh; 
 }
 
+
 .option{
-    width: 30%; 
-    height: 70%; 
-    border: solid black;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    width: 32%; 
+    height: 100%; 
+    border: solid var(--darkgreen);
+    background-color: rgba(255, 255, 255, 0.85);
     border-radius: 25px; 
+}
+
+.lab-picture{
+    margin-top: 3%; 
+    margin-bottom: 3%; 
+    width: 85%; 
+    height: 70%; 
+    border-radius: 10px;
+    border: solid var(--darkgreen); 
+    overflow: hidden;
+}
+
+.lab-picture img{
+    width: 110%; 
+    height: 110%; 
+    border-radius: 10px;
+    
+}
+
+.lab-label{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    width: 85%; 
+    height: 15%; 
+    border-radius: 10px;
+    color: white; 
+}
+
+.lab-label button{
+    position: relative;
+    width: 100%; 
+    height: 100%;
+    background-color: var(--darkgreen);
+    border-radius: 15px;
+    border: solid var(--darkgreen);
+    color: white; 
+}
+
+button:hover{
+    cursor: pointer; 
+    background-color: #0C7652;
+}
+
+button:active{
+    top: 1px; 
+}
+
+.return{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2%;
+    margin-top: 4%; 
+    width: 15vw; 
+    height: 4vh; 
+    
+}
+
+.return button{
+    width: 100%; 
+    height: 100%;
+    border-radius: 10px;
+    color: white; 
+    background-color: var(--darkgreen); 
 }
