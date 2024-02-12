@@ -17,7 +17,7 @@ nav{
     display:flex;
     flex-direction: column;
     width: 15%;
-    height: 1100px;
+    height: 100vh;
     background-color: rgba(255, 255, 255, 0.9);
     padding-top: 1%;
 }
