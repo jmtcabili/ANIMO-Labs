@@ -13,7 +13,7 @@ body{
 }
 .menu-bar{
     position: relative;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
     display: flex;  
     flex-direction: column;
     width: 20%;
@@ -142,7 +142,7 @@ body{
     padding-top: 20px;
     justify-content: center;
 }
-.box{
+.box-small{
     display: flex;
     flex-direction: column;
     background-color: rgba(255, 255, 255, 0.8);
