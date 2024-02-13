@@ -3,8 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="profile-v2.css" type = "text/css">
+    <link rel="stylesheet" href="profile-home.css" type = "text/css">
     <title>Profile Home</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("#home").click(function(){
+	        $("#upcoming-reservations").show();
+            $("#recent-activity").show();
+            $("#test").hide();
+	    });
+	    $("#reserve").click(function(){
+	        $("#upcoming-reservations").hide();
+            $("#recent-activity").hide();
+            $("#test").show();
+	    });
+	    
+	});
+    </script>
 </head>
 <body>
     <div class = "main-container">
@@ -30,13 +46,13 @@
             </div>
             <hr class="separator">
             <div class="navigation">
-                <div class="navigation-item">
+                <div class="navigation-item" id = "home">
                     <img src="assets/home.png">
                     <div class = "text">
                         <u>Home</u>
                     </div>
                 </div>
-                <div class="navigation-item">
+                <div class="navigation-item" id = "reserve">
                     <img src="assets/reservation.png">
                     <div class = "text">
                         <u>Reserve a laboratory</u>
@@ -72,7 +88,7 @@
             </div>
         </div>
         <div class = "right-parent">
-            <div class = "box">
+            <div class = "box-small" id = "upcoming-reservations">
                 <div class = "box-header">
                     <h1 class>UPCOMING RESERVATIONS</h1>
                 </div>
@@ -94,7 +110,29 @@
                     </div>
                 </div>
             </div>
-            <div class = "box">
+            <div class = "box-small" id = "recent-activity">
+                <div class = "box-header">
+                    <h1 class>RECENT ACTIVITY</h1>
+                </div>
+                <div class = "box-content">
+                    <div class = "mini-box">
+                        <div><strong>Reservation #:</strong> 123123</div>
+                        <div><strong>Laboratory:</strong> Chemistry Lab</div>
+                        <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
+                    </div>
+                    <div class = "mini-box">
+                        <div><strong>Reservation #:</strong> 123456</div>
+                        <div><strong>Laboratory:</strong> Computer Lab</div>
+                        <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
+                    </div>
+                    <div class = "mini-box">
+                        <div><strong>Reservation #:</strong> 456123</div>
+                        <div><strong>Laboratory:</strong> Electronics Lab</div>
+                        <div><strong>Time:</strong> 2:00 PM - 4:00 PM</div>
+                    </div>
+                </div>
+            </div>
+            <div class = "box-small" id = "test">
                 <div class = "box-header">
                     <h1 class>UPCOMING RESERVATIONS</h1>
                 </div>

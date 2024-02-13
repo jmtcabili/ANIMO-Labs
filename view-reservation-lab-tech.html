@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="edit-profile.css" type = "text/css">
-    <title>Edit Reservation Lab Tech</title>
+    <title>View Reservation Lab Tech</title>
 </head>
 <body>
     <div class = "main-container">
@@ -75,37 +75,50 @@
                 <a>Animo-Labs</a>
             </div>
         </div>
-        
-    
         <div class = "right-side">
             <div class = "edit-reservation">
                 <div class = "box-header">
-                    <h1 class>Edit Reservation</h1>
+                    <h1 class>View Reservation</h1>
+                </div>
+                <div class="filter-content">
+                        <select id="laboratry" name="laboratry">
+                            <option value=" /">Select Laboratory</option>
+                            <option value="chemistry-lab">Chemistry Lab</option>
+                            <option value="computer-lab">Computer Lab</option>
+                            <option value="electronics-lab">Electronics Lab</option>
+                        </select>
+
+                        <select id="start-time" name="start-time">
+                            <option value=" /">Start Time</option>
+                            <option value="8:00">8:00 AM</option>
+                            <option value="9:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <!-- Add more options as needed -->
+                        </select>
+
+                        <select id="end-time" name="end-time">
+                            <option value=" /">End Time</option>
+                            <option value="17:00">5:00 PM</option>
+                            <option value="18:00">6:00 PM</option>
+                            <option value="19:00">7:00 PM</option>
+                            <!-- Add more options as needed -->
+                        </select>
                 </div>
                 <div class = "box-content">
                     <div class = "mini-box">
                         <div><strong>Reservation #:</strong> 123123</div>
                         <div><strong>Laboratory:</strong> Chemistry Lab</div>
                         <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
-                        <div class = "edit-pen">
-                            <img src="assets/edit-pen.png">
-                        </div>
                     </div>
                     <div class = "mini-box">
                         <div><strong>Reservation #:</strong> 123456</div>
                         <div><strong>Laboratory:</strong> Computer Lab</div>
                         <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
-                        <div class = "edit-pen">
-                            <img src="assets/edit-pen.png">
-                        </div>
                     </div>
                     <div class = "mini-box">
                         <div><strong>Reservation #:</strong> 123456</div>
                         <div><strong>Laboratory:</strong> Computer Lab</div>
                         <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
-                        <div class = "edit-pen">
-                            <img src="assets/edit-pen.png">
-                        </div>
                     </div>
                 </div>
             </div>

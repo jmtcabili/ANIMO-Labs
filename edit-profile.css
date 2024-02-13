@@ -81,14 +81,29 @@ body{
 }
 
 .navigation-item {
+    position: relative;
     display: flex;
     align-items: center;
     margin-bottom: 20px;
     cursor: pointer;
 }
+.navigation-item .text{
+    position: absolute;
+    left: 60px;
+    top: 12px;
+    color: black;
+}
 
 .navigation-item:hover {
     background-color: var(--lightgreen);
+}
+
+.navigation-item:hover .text u{
+    color: #fff; /* Set the color of the text to white */
+}
+
+.navigation-item:hover > img {
+    filter: invert(100%);
 }
 
 .navigation-item img {
@@ -246,8 +261,16 @@ body{
 }
 
 .edit-pen > img{
+    width: 35px;
+    height: 35px;
+}
+
+.remove-trash{
+    margin-top: 10%;
+}
+.remove-trash > img{
     width: 30px;
-    height: 30px;
+    height: 40px;
 }
 
 .edit-reservation{
@@ -260,4 +283,38 @@ body{
     width: 90%;
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.filter-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+select {
+    margin: 7px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 30px; 
+    border: solid var(--darkgreen); 
+    background-color: rgba(255, 255, 255, 0.8); 
+    color: var(--darkgreen); 
+    text-align: center;
+    font-size: 24px; 
+    appearance: none; /* Remove default dropdown arrow */
+}
+
+option {
+    border-radius: 30px; 
+    background-color: rgba(255, 255, 255, 0.8); 
+    border: solid var(--darkgreen);
+    color: var(--darkgreen); 
+    font-size: 16px; 
+}
+
+/* Style the select element when it's focused */
+select:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add a shadow when focused */
 }
