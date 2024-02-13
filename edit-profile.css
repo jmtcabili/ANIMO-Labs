@@ -113,23 +113,25 @@ body{
     border-top: 1px solid var(--darkgreen); /* Add top border */
 }
 
-.edit-user-profile{
-    display: flex;
+.right-side{
     width: 80%;
-    
-    margin: 5%;
+    display: flex;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 20px;
 }
 
-.right-side{
+.edit-user-profile{
     display: flex;
     flex-direction: column;
     background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 5%;
+    border-radius: 30px;
     border: solid var(--darkgreen); 
-    
-    width: 100%;
-    
-    padding-top: 20px;
+    width: 900%;
+    margin: 60px;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     align-items: center;
     text-align: center;
 }
@@ -181,4 +183,81 @@ body{
 
 .edit-profile-picture >img{
     width: 80%;
+}
+
+.right-parent{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5%;
+    padding-top: 20px;
+    justify-content: center;
+}
+
+.box{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    border: solid var(--darkgreen); 
+    margin: 20px;
+    width: 90%;
+    height: 40vh;
+    padding-left: 15px;
+    padding-right: 15px;
+
+}
+
+.box-header{
+    text-align: center;
+    color: var(--darkgreen)
+}
+.box-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mini-box{
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    border: solid var(--darkgreen); 
+    width: 30%;
+    height: 28vh;
+    margin: 7px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    color: var(--darkgreen);  
+    transition: .5s ease; 
+    font-size: 28px;
+}
+
+.mini-box:hover{
+    transition: .5s ease;
+    transform: scale(1.1);
+}
+
+.edit-pen{
+    margin-top: 10%;
+}
+
+.edit-pen > img{
+    width: 30px;
+    height: 30px;
+}
+
+.edit-reservation{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    border: solid var(--darkgreen); 
+    margin: 60px;
+    width: 90%;
+    padding-left: 15px;
+    padding-right: 15px;
 }
