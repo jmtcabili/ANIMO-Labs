@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "slot-reservation.css" type = "text/css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+
+    <title>Slot Reservation</title>
+</head>
+<body>
+    <div class="parent">
+        <div class="filter-parent">
+            <div class="logo">
+                <div class="logo-image">
+                    <img src = "assets/logo-flask.png">
+                </div>
+                <div class="logo-name">
+                    <a>ANIMO-LABS</a>
+                </div>
+                
+                
+            </div>
+            <div class="details-parent">
+                <div class="laboratory">
+                    <a><strong>Chemistry Laboratory</strong></a>
+                </div>
+                <div class="details">
+                    <span class="date">
+                        Date: March 1, 2024
+                    </span>
+                    <span class="start-time">
+                        Start: 11:00 AM
+                    </span>
+                    <span class="end-time">
+                        End: 12:00 PM
+                    </span>
+                    <span class="seats-selected">
+                        Seats selected: 3C, 3G
+                    </span>
+                </div>
+                <div class="buttons">
+                    <div class="button-parent">
+                        <button onclick = "window.location.href = 'lab-menu.html';">Return</button>
+                    </div>
+                    <div class="button-parent">
+                        <button>Apply</button>
+                    </div>
+                    <div class="button-parent">
+                        <button>Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slots-parent">
+            <div class="lab-details">
+                Seat status for
+                <a id= "date">March 1, 2024</a><br>
+                <a id= "room-num">Velasco 104</a><br>
+                <a id= "time-selected">11:00 AM - 12:00 PM</a><br>
+            </div>
+            <div class="seating">
+                <img src = "assets/chem-seating.png">
+            </div>
+            <div class="seat-legend">
+                <div class="legend" id = "available"></div>
+                <div class="legend" id = "reserved"></div>
+                <div class="legend" id = "selected"></div>
+                <div class="legend" id = "out-of-order"></div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
