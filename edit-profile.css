@@ -6,7 +6,7 @@
 body{
     margin: 0; 
     background-image: url("assets/background.png");
-    overflow: hidden;
+    
 }
 .main-container{
     display: flex;
@@ -26,6 +26,7 @@ body{
     display: flex;
     flex-direction: row;
     align-items: center;
+    
 }
 
 .profile-picture{
@@ -47,6 +48,7 @@ body{
 .details{
     margin-left: 5%; 
     width: 50%; 
+    font-size: 20px;
 }
 
 .name{
@@ -55,10 +57,15 @@ body{
 .name, .idnum, .occupation {
     color: var(--darkgreen);    
 }
-
+.edit-pen-profile > img{
+    width: 15px;
+}
 .edit-profile {
+    position: absolute;
+    align-items: center;
+    right: 20px;
     margin-top: 5px;
-    font-size: 12px;
+    font-size: 16px;
     margin-right: 10px; /* Add margin to move it closer to the right line/bar */
     color: var(--darkgreen);
     cursor: pointer;
@@ -120,20 +127,35 @@ body{
 .menu-bar-footer {
     position: absolute;
     bottom: 0;
-    right: 0; /* Align to the end of the page */
+    right: 75px; /* Align to the end of the page */
     padding: 10px; /* Add padding for better visibility */
-    font-family: "Animo-Labs", sans-serif;
     color: var(--darkgreen);
-    background-color: rgba(255, 255, 255, 0.8);
-    border-top: 1px solid var(--darkgreen); /* Add top border */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: justify;
+}
+.footer-text{
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Russo One', Arial;
 }
 
+.footer-image{
+    margin-right: 10px;
+}
+
+.footer-image > img{
+    width: 30px;
+}
 .right-side{
     width: 80%;
     display: flex;
     padding-left: 5%;
     padding-right: 5%;
     padding-top: 20px;
+    overflow-y: auto;
 }
 
 .edit-user-profile{
@@ -155,7 +177,6 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    
 }
 
 .text-profile {
@@ -168,6 +189,7 @@ body{
 }
 
 .text-name {
+    display: flex;
     margin-top: 6%;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 48px;
@@ -184,6 +206,10 @@ body{
     margin-top: 1%;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 36px;
+}
+
+.edit-profile-picture-parent{
+    display:flex;
 }
 
 .edit-profile-picture{
@@ -249,6 +275,7 @@ body{
     color: var(--darkgreen);  
     transition: .5s ease; 
     font-size: 28px;
+    
 }
 
 .mini-box:hover{
@@ -317,4 +344,48 @@ option {
 select:focus {
     outline: none; /* Remove default focus outline */
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add a shadow when focused */
+}
+
+#pagination {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+    margin-top: 20px;
+    text-align: center;
+    align-items: center;
+}
+
+#prevButton{
+    padding: 1%;
+    border: solid var(--darkgreen); 
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.8); 
+    color: var(--darkgreen); 
+}
+
+#nextButton{
+    padding: 1%;
+    border: solid var(--darkgreen); 
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.8); 
+    color: var(--darkgreen); 
+}
+
+#currentPage{
+    color: var(--lightgreen); 
+}
+
+.edit-pen-content-profile{
+    margin-left: 10px;
+}
+.edit-pen-content-profile > img {
+    
+    width: 30px;
+}
+
+.add-description{
+    display: flex;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
 }

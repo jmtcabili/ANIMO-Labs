@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="edit-profile.css" type = "text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <title>Edit Profile</title>
 </head>
 <body>
@@ -23,9 +24,14 @@
                     <div class="occupation">
                         <a>Student</a>
                     </div>
-                    <div class="edit-profile">
-                        <a>Edit</a>
-                    </div>
+                    <a href="edit-profile-student.html">
+                        <div class="edit-profile">
+                            <div class = "edit-pen-profile">
+                                <img src="assets/edit-pen.png">
+                                <u>Edit</u> 
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
             <hr class="separator">
@@ -68,7 +74,12 @@
                 </div>
             </div>
             <div class="menu-bar-footer">
-                <a>Animo-Labs</a>
+                <div class="footer-image">
+                    <img src="assets/logo-flask.png">
+                </div>
+                <div class="footer-text">
+                    <a>ANIMO-LABS</a>
+                </div>
             </div>
         </div>
         
@@ -79,11 +90,20 @@
                     <div class="text-profile">
                         <a>YOUR PROFILE</a>
                     </div>
-                    <div class="edit-profile-picture">
-                        <img src = "assets/user-dp.png">
+                    <div class="edit-profile-picture-parent">
+                        <div class="edit-profile-picture">
+                            <img src = "assets/user-dp.png">
+                        </div>
+                        <div class = "edit-pen-content-profile">
+                            <img src="assets/edit-pen.png">
+                        </div>
                     </div>
+                    
                     <div class="text-name">
                         <a>Juan Dela Cruz</a>
+                        <div class = "edit-pen-content-profile">
+                            <img src="assets/edit-pen.png">
+                        </div>
                     </div> 
                     <div class="text-student">
                         <a>Student</a>
@@ -94,7 +114,10 @@
                     
                 </div>
                 <div class="add-description">
-                    <h3>Add Description</h3>
+                    <a>Add Description</a>
+                    <div class = "edit-pen-content-profile">
+                        <img src="assets/edit-pen.png">
+                    </div>
                     <!-- Add input fields or textarea for adding description -->
                 </div>
             </div>
