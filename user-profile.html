@@ -3,24 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="profile-home.css" type = "text/css">
+    <link rel="stylesheet" href="user-profile.css" type = "text/css">
     <title>Profile Home</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-    $(document).ready(function(){
-        $("#home-button").click(function(){
-	        $("#upcoming-reservations").show();
-            $("#recent-activity").show();
-            $("#edit-reservation").hide();
-	    });
-	    $("#edit-reservation-button").click(function(){
-	        $("#upcoming-reservations").hide();
-            $("#recent-activity").hide();
-            $("#edit-reservation").show();
-	    });
-	    
-	});
-    </script>
+    <script src="user-profile.js" defer></script>
 </head>
 <body>
     <div class = "main-container">
@@ -39,9 +25,14 @@
                     <div class="occupation">
                         <a>Student</a>
                     </div>
-                    <div class="edit-profile">
-                        <a>Edit</a>
-                    </div>
+                    <a href="edit-profile-student.html">
+                        <div class="edit-profile">
+                            <div class = "edit-pen-profile">
+                                <img src="assets/edit-pen.png">
+                                <u>Edit</u> 
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
             <hr class="separator">
@@ -52,31 +43,33 @@
                         <u>Home</u>
                     </div>
                 </div>
-                <div class="navigation-item" id = "reserve">
-                    <img src="assets/reservation.png">
-                    <div class = "text">
-                        <u>Reserve a laboratory</u>
+                <a href = "lab-selection.html">
+                    <div class="navigation-item" id = "reserve">
+                        <img src="assets/reservation.png">
+                        <div class = "text">
+                            <u>Reserve a laboratory</u>
+                        </div>
                     </div>
-                </div>
+                </a>
                 <div class="navigation-item id" id = "edit-reservation-button">
                     <img src="assets/edit.png">
                     <div class = "text">
                         <u>Edit Reservation</u>
                     </div>
                 </div>
-                <div class="navigation-item">
+                <div class="navigation-item" id = "view-reservation-button">
                     <img src="assets/view.png">
                     <div class = "text">
                         <u>View Reservation</u>
                     </div>
                 </div>
-                <div class="navigation-item">
+                <div class="navigation-item" id = "contact-button">
                     <img src="assets/contact.png" >
                     <div class = "text">
                         <u>Contact A Lab Technician</u>
                     </div>
                 </div>
-                <div class="navigation-item">
+                <div class="navigation-item" id = "deactivate-button">
                     <img src="assets/delete.png">
                     <div class = "text">
                         <u>Deactivate Account</u>
@@ -84,7 +77,12 @@
                 </div>
             </div>
             <div class="menu-bar-footer">
-                <a>Animo-Labs</a>
+                <div class="footer-image">
+                    <img src="assets/logo-flask.png">
+                </div>
+                <div class="footer-text">
+                    <a>ANIMO-LABS</a>
+                </div>
             </div>
         </div>
         <div class = "right-parent">
@@ -132,13 +130,13 @@
                     </div>
                 </div>
             </div>
-            <div class = "box-big" id = "edit-reservation">
+            <div class = "box-big hide" id = "edit-reservation">
                 <div class = "box-header">
-                    <h1 class>Edit Reservation</h1>
+                    <h1 class>EDIT RESERVATION</h1>
                 </div>
                 <div class = "box-content">
                     <div class = "mini-box">
-                        <div><strong>Reservation #:</strong> 123123</div>
+                        <div><strong>Reservation #:</strong> 123456</div>
                         <div><strong>Laboratory:</strong> Chemistry Lab</div>
                         <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
                         <div class = "edit-pen">
@@ -146,7 +144,7 @@
                         </div>
                     </div>
                     <div class = "mini-box">
-                        <div><strong>Reservation #:</strong> 123456</div>
+                        <div><strong>Reservation #:</strong> 123789</div>
                         <div><strong>Laboratory:</strong> Computer Lab</div>
                         <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
                         <div class = "edit-pen">
@@ -154,13 +152,83 @@
                         </div>
                     </div>
                     <div class = "mini-box">
-                        <div><strong>Reservation #:</strong> 123456</div>
-                        <div><strong>Laboratory:</strong> Computer Lab</div>
-                        <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
+                        <div><strong>Reservation #:</strong> 123111</div>
+                        <div><strong>Laboratory:</strong> Electronics Lab</div>
+                        <div><strong>Time:</strong> 1:00 PM - 4:00 PM</div>
                         <div class = "edit-pen">
                             <img src="assets/edit-pen.png">
                         </div>
+                    </div>
                 </div>
+            </div>
+            <div class = "box-big hide" id = "view-reservation">
+                <div class = "box-header">
+                    <h1 class>VIEW RESERVATION</h1>
+                </div>
+                <div class="filter-content">
+                    <select id="laboratry" name="laboratry">
+                        <option value="">Select Laboratory</option>
+                        <option value="Chemistry Lab">Chemistry Lab</option>
+                        <option value="Computer Lab">Computer Lab</option>
+                        <option value="Electronics Lab">Electronics Lab</option>
+                    </select>
+                    <select id="start-time" name="start-time">
+                        <option value="">Start Time</option>
+                    </select>
+                    <select id="end-time" name="end-time">
+                        <option value="">End Time</option>
+                    </select>
+                </div>
+                <div class = "box-content"  id="content"></div>
+                <div id="pagination">
+                    <button id="prevButton" onclick="prevPage()">Previous</button>
+                    <span id="currentPage">Page 1</span>
+                    <button id="prevButton" onclick="nextPage()">Next</button>
+                </div>
+            </div>
+            <div class = "box-big hide" id = "contact">
+                <div class = "box-header">
+                    <h1 class>CONTACT LAB TECHNICIAN</h1>
+                </div>
+                <div class = "contact-content">
+                    <div class = "to-field">
+                        <form method = "get">
+                            <label>To:</label>
+                            <select name="technician">
+                                <option value="technician1">Sir Computer</option>
+                                <option value="technician2">Sir Chemistry</option>
+                                <option value="technician3">Sir Electronics</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div class = "message-field">
+                        <textarea id="message" placeholder="Enter your message here"></textarea>
+                    </div>
+                    <div class = "send-field">
+                        <input type ="button" value ="send" id = "send-button" onclick = "messageModal()">
+                    </div>
+                    <div id="send-modal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                          <span class="close">&times;</span>
+                          <p>Message sent!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="deactivate-modal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <p>Are you sure you want to <strong>deactivate your account?</strong></p>
+              <p>Deactivating your account will <strong>render all of your reservations invalid</strong> and will remove them from the reservation list.</p>
+              <input type="checkbox" name="confirm" id="confirm" onclick="changeColor()">I understand and want to push through with the deactivation</input><br/>
+               
+              <div class ="button-container">
+                <div class = "button-child"><input type ="button" value ="Cancel" id = "cancel-button"></div>
+                <div class = "button-child"></div>
+                <div class = "button-child"><input type ="button" value ="Deactivate" id = "confirm-button" disabled></div>
+              </div>
             </div>
         </div>
     </div>
