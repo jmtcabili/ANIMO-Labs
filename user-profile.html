@@ -73,14 +73,13 @@
                         <u>Deactivate Account</u>
                     </div>
                 </div>
-                <div class="navigation-item" id = "log-out-button" onclick >
-                    <img src="assets/log-out.png">
+                <div class="navigation-item" id = "log-out-button" onclick= "window.location.href = ''" > 
+                    <img src="assets/logout.png" id = "log-out">
                     <div class = "text">
                         <u>Log Out</u>
                     </div>
                 </div>
             </div>
-            <div>Log out</div>
             <div class="menu-bar-footer">
                 <div class="footer-image">
                     <img src="assets/logo-flask.png">
@@ -265,7 +264,7 @@
               <div class ="button-container">
                 <div class = "button-child"><input type ="button" value ="Cancel" id = "cancel-button"></div>
                 <div class = "button-child"></div>
-                <div class = "button-child"><input type ="button" value ="Deactivate" id = "confirm-button" disabled></div>
+                <div class = "button-child"><input type ="button" value ="Deactivate" id = "confirm-button" onClick="window.open('lab-selection.html');" disabled ></div>
               </div>
             </div>
         </div>

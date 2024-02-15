@@ -18,7 +18,6 @@ body{
     flex-direction: column;
     width: 20%;
     height: 100vh;
-    border: 1px solid black;
 }
 
 .user-details-bar{
@@ -120,6 +119,12 @@ body{
     margin-left: 10px;
     margin-right: 10px;
 }   
+#log-out{
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
 .text{
     font-size: 16px;
