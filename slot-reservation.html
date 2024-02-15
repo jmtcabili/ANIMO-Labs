@@ -21,8 +21,6 @@
                 <div class="logo-name">
                     <a>ANIMO-LABS</a>
                 </div>
-                
-                
             </div>
             <div class="details-parent">
                 <div class="laboratory">
@@ -47,7 +45,7 @@
                         <button onclick = "window.location.href = 'lab-menu.html';">Return</button>
                     </div>
                     <div class="button-parent">
-                        <button>Apply</button>
+                        <button>Apply Filter</button>
                     </div>
                     <div class="button-parent">
                         <button>Next</button>
@@ -62,14 +60,65 @@
                 <a id= "room-num">Velasco 104</a><br>
                 <a id= "time-selected">11:00 AM - 12:00 PM</a><br>
             </div>
-            <div class="seating">
-                <img src = "assets/chem-seating.png">
+            <div class="seating-chem">
+                <div class="set">
+                    <div class="column left">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="table"></div>
+                    <div class="column right">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                <div class="set">
+                    <div class="column left">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="table"></div>
+                    <div class="column right">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                <div class="set">
+                    <div class="column left">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="table"></div>
+                    <div class="column right">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                
             </div>
             <div class="seat-legend">
-                <div class="legend" id = "available"></div>
-                <div class="legend" id = "reserved"></div>
-                <div class="legend" id = "selected"></div>
-                <div class="legend" id = "out-of-order"></div>
+                <div class="legend-container">
+                    <div class="legend" id = "available"></div>
+                    <a>Available</a>
+                </div>
+                <div class="legend-container">
+                    <div class="legend" id = "reserved"></div>
+                    <a>Reserved</a>
+                </div>
+                <div class="legend-container">
+                    <div class="legend" id = "selected"></div>
+                    <a>Selected</a>
+                </div>
+                <div class="legend-container">
+                    <div class="legend" id = "out-of-order"></div>
+                    <a>Out-of-Order</a>
+                </div>
             </div>
         </div>
     </div>

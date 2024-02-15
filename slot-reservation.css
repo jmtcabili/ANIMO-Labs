@@ -120,9 +120,52 @@ body{
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.seating{
+.seating-chem{
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-around;
     height: 55%;
+    width: 80%;
     margin-bottom: 2%; 
+}
+
+.set{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    width: 33%; 
+    height: 100%; 
+}
+
+.column{
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;  
+}
+
+.seat{
+    width: 2vw; 
+    height: 2vw;
+    border: solid black; 
+}
+
+.left .seat{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.right .seat{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.table{
+    width: 30%;
+    height: 90%; 
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    border: solid black;  
 }
 
 .seat-legend{
@@ -133,8 +176,28 @@ body{
     padding: 2%; 
 }
 
+.legend-container{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+
 .legend{
-    height: 5vh; 
-    width: 5vh; 
+    height: 4vh; 
+    width: 4vh; 
     border: solid black; 
 }
+
+#available{
+    background-color: var(--darkgreen);
+}
+#reserved{
+    background-color: red;
+}
+#selected{
+    background-color: lightblue;
+}
+#out-of-order{
+    background-color: orange;
+}
+
