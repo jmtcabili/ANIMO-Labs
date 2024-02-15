@@ -212,6 +212,7 @@ body{
 
 .edit-profile-picture-parent{
     display:flex;
+    justify-content: center;
 }
 
 .edit-profile-picture{

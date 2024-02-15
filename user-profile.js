@@ -1,4 +1,13 @@
 $(document).ready(function(){
+    $("#edit-profile-button").click(function(){
+        $("#upcoming-reservations").hide();
+        $("#recent-activity").hide();
+        $("#edit-reservation").hide();
+        $("#view-reservation").hide();
+        $("#contact").hide();
+        $("#deactivate").hide();
+        $("#edit-profile").show();
+    });
     $("#home-button").click(function(){
         $("#upcoming-reservations").show();
         $("#recent-activity").show();
@@ -6,6 +15,7 @@ $(document).ready(function(){
         $("#view-reservation").hide();
         $("#contact").hide();
         $("#deactivate").hide();
+        $("#edit-profile").hide();
     });
     $("#edit-reservation-button").click(function(){
         $("#upcoming-reservations").hide();
@@ -14,6 +24,7 @@ $(document).ready(function(){
         $("#view-reservation").hide();
         $("#contact").hide();
         $("#deactivate").hide();
+        $("#edit-profile").hide();
     });
     $("#view-reservation-button").click(function(){
         $("#upcoming-reservations").hide();
@@ -22,6 +33,7 @@ $(document).ready(function(){
         $("#view-reservation").show();
         $("#contact").hide();
         $("#deactivate").hide();
+        $("#edit-profile").hide();
     });
     $("#contact-button").click(function(){
         $("#upcoming-reservations").hide();
@@ -30,6 +42,7 @@ $(document).ready(function(){
         $("#view-reservation").hide();
         $("#contact").show();
         $("#deactivate").hide();
+        $("#edit-profile").hide();
     });
     $("#deactivate-button").click(function(){
         var modal = document.getElementById("deactivate-modal");

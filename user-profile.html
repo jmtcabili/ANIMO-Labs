@@ -25,14 +25,12 @@
                     <div class="occupation">
                         <a>Student</a>
                     </div>
-                    <a href="edit-profile-student.html">
-                        <div class="edit-profile">
-                            <div class = "edit-pen-profile">
-                                <img src="assets/edit-pen.png">
-                                <u>Edit</u> 
-                            </div>
+                    <div class="edit-profile" id = "edit-profile-button">
+                        <div class = "edit-pen-profile">
+                            <img src="assets/edit-pen.png">
+                            <u>Edit</u> 
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
             <hr class="separator">
@@ -75,7 +73,14 @@
                         <u>Deactivate Account</u>
                     </div>
                 </div>
+                <div class="navigation-item" id = "log-out-button" onclick >
+                    <img src="assets/log-out.png">
+                    <div class = "text">
+                        <u>Log Out</u>
+                    </div>
+                </div>
             </div>
+            <div>Log out</div>
             <div class="menu-bar-footer">
                 <div class="footer-image">
                     <img src="assets/logo-flask.png">
@@ -135,7 +140,7 @@
                     <h1 class>EDIT RESERVATION</h1>
                 </div>
                 <div class = "box-content">
-                    <div class = "mini-box">
+                    <div class = "mini-box " onclick= "window.location.href = 'lab-selection.html'">
                         <div><strong>Reservation #:</strong> 123456</div>
                         <div><strong>Laboratory:</strong> Chemistry Lab</div>
                         <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
@@ -143,7 +148,7 @@
                             <img src="assets/edit-pen.png">
                         </div>
                     </div>
-                    <div class = "mini-box">
+                    <div class = "mini-box" onclick= "window.location.href = 'lab-selection.html'">
                         <div><strong>Reservation #:</strong> 123789</div>
                         <div><strong>Laboratory:</strong> Computer Lab</div>
                         <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
@@ -151,7 +156,7 @@
                             <img src="assets/edit-pen.png">
                         </div>
                     </div>
-                    <div class = "mini-box">
+                    <div class = "mini-box" onclick= "window.location.href = 'lab-selection.html'">
                         <div><strong>Reservation #:</strong> 123111</div>
                         <div><strong>Laboratory:</strong> Electronics Lab</div>
                         <div><strong>Time:</strong> 1:00 PM - 4:00 PM</div>
@@ -215,6 +220,39 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class = "box-big hide" id = "edit-profile">
+                <div class = "box-header">
+                    <h1 class>YOUR PROFILE</h1>
+                </div>
+                <div class = "edit-profile-picture-parent">
+                    <div class="edit-profile-picture">
+                        <img src = "assets/user-dp.png">
+                    </div>
+                    <div class = "edit-pen-content-profile">
+                        <img src="assets/edit-pen.png">
+                    </div>
+                </div>
+                <div class = "profile">
+                    <div class="text-name">
+                        <a>Juan Dela Cruz</a><img src="assets/edit-pen.png">
+                    </div> 
+                    <div class="text-student">
+                        <a>Student</a>
+                    </div> 
+                    <div class="text-idnumber">
+                        <a>12274534</a>
+                    </div> 
+                    <div class="add-description">
+                        <a><br/>Add Description</a>
+                        <div class = "edit-pen-content-profile">
+                            <img src="assets/edit-pen.png">
+                        </div>
+                        <!-- Add input fields or textarea for adding description -->
+                    </div>
+                </div>
+                
+
             </div>
         </div>
         <div id="deactivate-modal" class="modal">
