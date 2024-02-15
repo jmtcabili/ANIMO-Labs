@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SignUp</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('background.png');
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      width: 500px;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-header {
+      margin-bottom: 20px;
+      text-align: center;
+      color: #666;
+    }
+
+    .form-field {
+      margin-bottom: 0.5rem;
+      align-items: center;
+    }
+
+    .form-field label {
+      display: flex;
+      margin-bottom: 0.25rem;
+      color: #666;
+    }
+
+    .form-field input[type="text"],
+    .form-field input[type="password"] {
+      width: 90%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      align-items: center;
+    }
+
+    .form-field select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      align-items: center;
+    }
+
+    .form-field button {
+      width: 100%;
+      height: 40px;
+      background-color: SeaGreen;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .form-field button:hover {
+      background-color: #444;
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 1rem;
+      color: #666;
+    }
+
+    .form-footer a {
+      color: seagreen;
+    }
+
+    .form-header {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-header img {
+      width: 350px;
+      margin-bottom: 20px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="form-header">
+      <img class="logo" src="ANIMO-LABS LOGO.png" alt="Animo Labs Logo">
+      <p>Sign up to reserve a lab.</p>
+    </div>
+    <form>
+      <div class="form-field">
+        <label for="user-id">User ID</label>
+        <input type="text" id="user-id" name="user-id">
+      </div>
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+      </div>
+      <div class="form-field">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password">
+      </div>
+      <div class="form-field">
+        <label for="account-type">Account Type</label>
+        <select id="account-type" name="account-type">
+          <option value="student">Student</option>
+          <option value="lab-administrator">Lab Administrator</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <button type="submit">Sign up</button>
+      </div>
+    </form>
+    <div class="form-footer">
+      <p>Have an account? <a href="Login.html">Log In</a></p>
+    </div>
+  </div>
+</body>
+</html>
