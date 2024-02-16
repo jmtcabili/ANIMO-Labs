@@ -165,7 +165,7 @@ body{
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 30px;
     border: solid var(--darkgreen); 
-    width: 900%;
+    width: 90%;
     margin: 60px;
     padding-top: 10px;
     padding-bottom: 15px;
@@ -192,26 +192,30 @@ body{
 
 .text-name {
     display: flex;
-    margin-top: 6%;
+    margin-top: 8%;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 48px;
     font-weight: bold;
+    align-items: baseline;
 }
 
 .text-student {
-    margin-top: 3%;
+    margin-top: 10%;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 36px;
 }
 
 .text-idnumber {
-    margin-top: 1%;
+    margin-top: 5%;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 36px;
 }
 
 .edit-profile-picture-parent{
     display:flex;
+    padding-left:20px;
+    justify-content: center;
+    margin-bottom: 10%;
 }
 
 .edit-profile-picture{
@@ -364,15 +368,15 @@ select:focus {
     margin-left: 10px;
 }
 .edit-pen-content-profile > img {
-    
     width: 30px;
 }
 
 .add-description{
     display: flex;
-    margin-top: 10px;
+    margin-top: 5%;
     font-size: 20px;
     font-weight: bold;
+    align-items: baseline;
 }
 
 .input-info{
