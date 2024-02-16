@@ -530,5 +530,7 @@ button:hover{
     width: 80%;
 }
 
-
+.edit-pen > img{
+    width: 30px;
+}
   
