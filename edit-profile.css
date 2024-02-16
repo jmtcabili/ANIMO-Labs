@@ -212,7 +212,6 @@ body{
 
 .edit-profile-picture-parent{
     display:flex;
-    justify-content: center;
 }
 
 .edit-profile-picture{
@@ -392,4 +391,55 @@ select:focus {
     margin-top: 10px;
     font-size: 20px;
     font-weight: bold;
+}
+
+.accept-parent-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.profile-name{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.walk-in-profile > img{
+    width: 90px;
+}
+
+.walk-in-name-id{
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+    font-size: 20px;
+}
+.room-details{
+    font-size: 20px;
+}
+
+.check-button, .x-button {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #000000;
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+  
+.check-button::before {
+    content: '\2713'; /* Unicode character for checkmark */
+    font-size: 30px;
+    color: green;
+}
+  
+.x-button::before {
+    content: '\00D7'; /* Unicode character for cross (X) */
+    font-size: 30px;
+    color: red;
 }
