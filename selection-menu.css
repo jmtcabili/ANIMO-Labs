@@ -112,6 +112,10 @@ body{
     height: 5vh; 
 }
 
+.to-main-menu{
+    width: 30vw;
+}
+
 .return button{
     position: relative;
     width: 100%; 
@@ -160,7 +164,7 @@ body{
     font-style: normal; 
 }
 
-.menu{
+.menu, .receipt{
     display: flex; 
     justify-content: center; 
     align-items: center;
@@ -218,6 +222,55 @@ body{
     border: solid var(--darkgreen);
     color: white; 
 }
+
+.receipt-container{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    width: 70%; 
+    height: 90%; 
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 15px;
+    padding: 2%; 
+}
+
+.receipt-body{
+    width: 98%;
+    height: 90%; 
+    border: 3px solid var(--darkgreen);
+    border-radius: 10px;
+    padding: 2%;
+}
+.receipt-title{
+    height: 10%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: var(--darkgreen);
+    font-weight: bold;
+    margin-bottom: 1%; 
+}
+
+.receipt-details{
+    display: flex;
+    height: 80%; 
+    padding-top: 2%;
+}
+
+.reservation-details{
+    display: flex; 
+    flex-direction: column;
+    width: 50%;   
+}
+
+.detail, .equipment-details{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 5%;
+}
+
+.equipment{
+    margin-top: 2%;
+}
+
 
 button:active{
     top: 1px; 
