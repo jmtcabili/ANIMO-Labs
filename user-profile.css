@@ -6,7 +6,7 @@
 body{
     margin: 0; 
     background-image: url("assets/background.png");
-    overflow: hidden;
+    background-attachment: fixed;
 }
 .main-container{
     display: flex;
@@ -17,7 +17,7 @@ body{
     display: flex;  
     flex-direction: column;
     width: 20%;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .user-details-bar{
@@ -131,11 +131,15 @@ body{
 }
 
 .menu-bar-footer {
+    position: absolute;
+    bottom: 0;
+    right: 75px; /* Align to the end of the page */
+    padding: 10px; /* Add padding for better visibility */
     color: var(--darkgreen);
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
     text-align: justify;
 }
 .footer-text{
@@ -226,11 +230,12 @@ body{
     border: solid var(--darkgreen); 
     margin: 20px;
     width: 90%;
-    height: 40vh;
+    min-height: 40vh;
     padding-left: 15px;
     padding-right: 15px;
-
 }
+
+
 
 .box-header{
     text-align: center;
@@ -240,10 +245,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    flex-wrap: wrap; 
-    height: 65%;
-
-    
+    flex-wrap: wrap;
 }
 .contact-content{
     display: flex;
@@ -254,7 +256,8 @@ body{
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 30px;
     border: solid var(--darkgreen); 
-    width: 33%;
+    width: 30%;
+    height: 28vh;
     margin: 7px;
     padding-left: 10px;
     display: flex;
@@ -263,8 +266,10 @@ body{
     align-items: center;
     color: var(--darkgreen);  
     transition: .5s ease; 
-    font-size: 1em;
+    font-size: 20px;
 }
+
+
 
 .mini-box:hover{
     transition: .5s ease;

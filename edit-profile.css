@@ -157,7 +157,6 @@ body{
     padding-right: 5%;
     padding-top: 20px;
     overflow-y: auto;
-    border: solid black;
 }
 
 .edit-user-profile{
@@ -277,8 +276,7 @@ body{
     align-items: center;
     color: var(--darkgreen);  
     transition: .5s ease; 
-    font-size: 1em;
-    
+    font-size: 20px;
 }
 
 .mini-box:hover{
@@ -377,53 +375,39 @@ select:focus {
     font-weight: bold;
 }
 
-.accept-parent-box{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-.profile-name{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.walk-in-profile > img{
-    width: 90px;
-}
-
-.walk-in-name-id{
+.input-info{
     display: flex;
     flex-direction: column;
-    margin-left: 5px;
-    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40%;
+    margin-right: 40%;
 }
-.room-details{
+
+.input-info > label{
+    font-weight: bold;
+    font-size: 24px;
+    
+}
+
+.input-info > input{
+    border-radius: 30px;
+    width: 100%;
+    height: 20px;
+    margin-bottom: 15px;
+}
+
+#accept-walk-in{
+    border-radius: 30px;
+    width: 100%;
+    height: 50px;
     font-size: 20px;
 }
 
-.check-button, .x-button {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    border: 1px solid #000000;
-    background-color: rgba(255, 255, 255, 0.8); 
-    border-radius: 50%;
-    text-align: center;
-    line-height: 50px;
-    cursor: pointer;
-    margin-right: 10px;
+.remove-trash > img{ 
+    width: 30px;
 }
-  
-.check-button::before {
-    content: '\2713'; /* Unicode character for checkmark */
-    font-size: 30px;
-    color: green;
-}
-  
-.x-button::before {
-    content: '\00D7'; /* Unicode character for cross (X) */
-    font-size: 30px;
-    color: red;
+
+.edit-pen > img{ 
+    width: 30px;
 }
