@@ -285,23 +285,6 @@ body{
     transform: scale(1.1);
 }
 
-.edit-pen{
-    margin-top: 10%;
-}
-
-.edit-pen > img{
-    width: 35px;
-    height: 35px;
-}
-
-.remove-trash{
-    margin-top: 10%;
-}
-.remove-trash > img{
-    width: 30px;
-    height: 40px;
-}
-
 .lab-reservation{
     display: flex;
     flex-direction: column;
