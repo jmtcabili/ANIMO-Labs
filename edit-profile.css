@@ -157,6 +157,7 @@ body{
     padding-right: 5%;
     padding-top: 20px;
     overflow-y: auto;
+    border: solid black;
 }
 
 .edit-user-profile{

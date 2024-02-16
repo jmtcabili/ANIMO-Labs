@@ -64,10 +64,11 @@ body{
 .laboratory{ 
     font-family: Arial, Helvetica, sans-serif;
     color: var(--darkgreen);
-    margin-bottom: 2%;
+    margin-bottom: 1%;
 }
 
 .details{
+    max-height: 30%;
     display: flex;
     justify-content:space-between; 
     font-family: Arial, Helvetica, sans-serif;
@@ -160,6 +161,21 @@ body{
     border-bottom-left-radius: 5px;
 }
 
+/*Sample Reservation Status*/
+
+#one, #three, #five ,#six, #nine{
+    background-color: red;
+}
+#eight, #eleven{
+    background-color: lightblue;
+}
+#eighteen{
+    background-color: orange;
+}
+#two, #four, #five, #seven, #nine, #ten, #twelve, #thirteen, #fourteen, #fifteen, #sixteen, #seventeen{
+    background-color: green;
+}
+
 .table{
     width: 30%;
     height: 90%; 
@@ -188,8 +204,9 @@ body{
     border: solid black; 
 }
 
+
 #available{
-    background-color: var(--darkgreen);
+    background-color:green; 
 }
 #reserved{
     background-color: red;
@@ -200,4 +217,7 @@ body{
 #out-of-order{
     background-color: orange;
 }
+
+
+
 
