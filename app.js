@@ -17,7 +17,7 @@ server.get('/', function(req, resp){
   resp.render('login',{
       layout: 'index',
       title: 'Login Page',
-      style: 'login-style.css'
+      style: '/common/login-style.css'
   });
 });
 
@@ -25,14 +25,25 @@ server.get('/sign-up', function(req, resp){
   resp.render('sign-up',{
       layout: 'index',
       title: 'Sign Up',
-      style: 'signup-style.css'
+      style: '/common/signup-style.css'
   });
 });
 
 server.get('/user-profile', function(req, resp){
   resp.render('user-profile',{
       layout: 'user-index',
-      title: 'User Profile'
+      title: 'User Profile',
+      style: '/common/user-style.css',
+      script: '/common/user-profile.js'
+  });
+});
+
+server.get('/lab-profile', function(req, resp){
+  resp.render('lab-profile',{
+      layout: 'user-index',
+      title: 'Lab Profile',
+      style: '/common/lab-style.css',
+      script: '/common/lab-profile.js'
   });
 });
 

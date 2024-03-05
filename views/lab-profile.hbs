@@ -1,0 +1,262 @@
+<div class="main-container">
+    {{>lab-sidebar}}
+    <div class = "right-parent" id = "upcoming-reservations">
+        <div class = "box">
+            <div class = "box-header">
+                <h1 class>UPCOMING RESERVATIONS</h1>
+            </div>
+            <div class = "box-content">
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123123</div>
+                    <div><strong>Laboratory:</strong> Chemistry Lab</div>
+                    <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123456</div>
+                    <div><strong>Laboratory:</strong> Computer Lab</div>
+                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 456123</div>
+                    <div><strong>Laboratory:</strong> Electronics Lab</div>
+                    <div><strong>Time:</strong> 2:00 PM - 4:00 PM</div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123123</div>
+                    <div><strong>Laboratory:</strong> Chemistry Lab</div>
+                    <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123456</div>
+                    <div><strong>Laboratory:</strong> Computer Lab</div>
+                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 456123</div>
+                    <div><strong>Laboratory:</strong> Electronics Lab</div>
+                    <div><strong>Time:</strong> 2:00 PM - 4:00 PM</div>
+                </div>  
+            </div>
+        </div>
+        <div class = "box">
+            <div class = "box-header">
+                <h1 class>UPCOMING RESERVATIONS</h1>
+            </div>
+            <div class = "box-content">
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123123</div>
+                    <div><strong>Laboratory:</strong> Chemistry Lab</div>
+                    <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123456</div>
+                    <div><strong>Laboratory:</strong> Computer Lab</div>
+                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 456123</div>
+                    <div><strong>Laboratory:</strong> Electronics Lab</div>
+                    <div><strong>Time:</strong> 2:00 PM - 4:00 PM</div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123123</div>
+                    <div><strong>Laboratory:</strong> Chemistry Lab</div>
+                    <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123456</div>
+                    <div><strong>Laboratory:</strong> Computer Lab</div>
+                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 456123</div>
+                    <div><strong>Laboratory:</strong> Electronics Lab</div>
+                    <div><strong>Time:</strong> 2:00 PM - 4:00 PM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div cla="right-side" > 
+        <div class="edit-user-profile" id = "edit-profile">
+            <div class="profile">
+                <div class="text-profile">
+                    <a>YOUR PROFILE</a>
+                </div>
+                <div class="edit-profile-picture-parent">
+                    <div class="edit-profile-picture">
+                        <img src = "/common/assets/user-dp.png">
+                    </div>
+                    <div class = "edit-pen-content-profile">
+                        <img src="/common/assets/edit-pen.png">
+                    </div>
+                </div>
+                
+                <div class="text-name">
+                    <a>Lab Admin</a>
+                    <div class = "edit-pen-content-profile">
+                        <img src="/common/assets/edit-pen.png">
+                    </div>  
+                </div> 
+                <div class="text-student">
+                    <a>Lab Technician</a>
+                </div> 
+                <div class="text-idnumber">
+                    <a>12274534</a>
+                </div> 
+                
+            </div>
+            <div class="add-description">
+                <a>Add Description</a>
+                <div class = "edit-pen-content-profile">
+                    <img src="/common/assets/edit-pen.png">
+                </div>
+                <!-- Add input fields or textarea for adding description -->
+            </div>
+        </div>
+        <div class = "lab-reservation" id = "accept-walk-in">
+            <div class = "box-header">
+                <h1 class>Accept Walk-in</h1>
+            </div>
+            <div class="input-info">
+                <label id="name">Name</label>
+                <input type="text" id="name" name="name">
+                <label id="id">ID</label>
+                <input type="text" id="id" name="id">
+                <select id="laboratry" name="laboratry">
+                    <option value="">Select Laboratory</option>
+                    <option value="Chemistry Lab">Chemistry Lab</option>
+                    <option value="Computer Lab">Computer Lab</option>
+                    <option value="Electronics Lab">Electronics Lab</option>
+                </select>
+                <select id="room" name="room">
+                    <option value="">Select Room</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <select id="end-time" name="end-time">
+                    <option value="">End Time</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <button id="accept-walk-in">Sent</button>
+            </div>
+        </div>
+        <div class = "lab-reservation" id = "edit-reservation">
+            <div class = "box-header">
+                <h1 class>Edit Reservation</h1>
+            </div>
+            <div class="filter-content">
+                <select id="laboratry" name="laboratry">
+                    <option value="">Select Laboratory</option>
+                    <option value="Chemistry Lab">Chemistry Lab</option>
+                    <option value="Computer Lab">Computer Lab</option>
+                    <option value="Electronics Lab">Electronics Lab</option>
+                </select>
+                <select id="start-time" name="start-time">
+                    <option value="">Start Time</option>
+                </select>
+                <select id="end-time" name="end-time">
+                    <option value="">End Time</option>
+                </select>
+            </div>
+            <div class = "box-content">
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123123</div>
+                    <div><strong>Laboratory:</strong> Chemistry Lab</div>
+                    <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
+                    <div class = "edit-pen">
+                        <img src="/common/assets/edit-pen.png">
+                    </div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123456</div>
+                    <div><strong>Laboratory:</strong> Computer Lab</div>
+                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
+                    <div class = "edit-pen">
+                        <img src="/common/assets/edit-pen.png">
+                    </div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123456</div>
+                    <div><strong>Laboratory:</strong> Computer Lab</div>
+                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
+                    <div class = "edit-pen">
+                        <img src="/common/assets/edit-pen.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "lab-reservation" id = "view-reservation">
+            <div class = "box-header">
+                <h1 class>View Reservation</h1>
+            </div>
+            <div class="filter-content">
+                    <select id="laboratry" name="laboratry">
+                        <option value="">Select Laboratory</option>
+                        <option value="Chemistry Lab">Chemistry Lab</option>
+                        <option value="Computer Lab">Computer Lab</option>
+                        <option value="Electronics Lab">Electronics Lab</option>
+                    </select>
+                    <select id="start-time" name="start-time">
+                        <option value="">Start Time</option>
+                    </select>
+                    <select id="end-time" name="end-time">
+                        <option value="">End Time</option>
+                    </select>
+            </div>
+            <div class = "box-content"  id="content"></div>
+            <div id="pagination">
+                <button id="prevButton" onclick="prevPage()">Previous</button>
+                <span id="currentPage">Page 1</span>
+                <button id="prevButton" onclick="nextPage()">Next</button>
+            </div>
+        </div> 
+        <div class = "lab-reservation" id = "remove-reservation">
+            <div class = "box-header">
+                <h1 class>Delete Reservation</h1>
+            </div>
+            <div class="filter-content">
+                <select id="laboratry" name="laboratry">
+                    <option value="">Select Laboratory</option>
+                    <option value="Chemistry Lab">Chemistry Lab</option>
+                    <option value="Computer Lab">Computer Lab</option>
+                    <option value="Electronics Lab">Electronics Lab</option>
+                </select>
+                <select id="start-time" name="start-time">
+                    <option value="">Start Time</option>
+                </select>
+                <select id="end-time" name="end-time">
+                    <option value="">End Time</option>
+                </select>
+            </div>
+            <div class = "box-content">
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123123</div>
+                    <div><strong>Laboratory:</strong> Chemistry Lab</div>
+                    <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
+                    <div class = "remove-trash">
+                        <img src="/common/assets/delete-lab.png">
+                    </div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123456</div>
+                    <div><strong>Laboratory:</strong> Computer Lab</div>
+                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
+                    <div class = "remove-trash">
+                        <img src="/common/assets/delete-lab.png">
+                    </div>
+                </div>
+                <div class = "mini-box">
+                    <div><strong>Reservation #:</strong> 123456</div>
+                    <div><strong>Laboratory:</strong> Computer Lab</div>
+                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
+                    <div class = "remove-trash">
+                        <img src="/common/assets/delete-lab.png">
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
+</div>
