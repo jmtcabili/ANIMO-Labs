@@ -1,7 +1,7 @@
 <div class="main-container">
     {{>lab-sidebar}}
-    <div class = "right-parent" id = "upcoming-reservations">
-        <div class = "box">
+    <div class="right-side">
+        <div class = "box" id = "upcoming-reservations">
             <div class = "box-header">
                 <h1 class>UPCOMING RESERVATIONS</h1>
             </div>
@@ -38,7 +38,7 @@
                 </div>  
             </div>
         </div>
-        <div class = "box">
+        <div class = "box" id = "recent-activity">
             <div class = "box-header">
                 <h1 class>UPCOMING RESERVATIONS</h1>
             </div>
@@ -75,9 +75,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div cla="right-side" > 
-        <div class="edit-user-profile" id = "edit-profile">
+        <div class="edit-user-profile hide" id = "edit-profile">
             <div class="profile">
                 <div class="text-profile">
                     <a>YOUR PROFILE</a>
@@ -113,7 +111,7 @@
                 <!-- Add input fields or textarea for adding description -->
             </div>
         </div>
-        <div class = "lab-reservation" id = "accept-walk-in">
+        <div class = "lab-reservation hide" id = "accept">
             <div class = "box-header">
                 <h1 class>Accept Walk-in</h1>
             </div>
@@ -143,7 +141,7 @@
                 <button id="accept-walk-in">Sent</button>
             </div>
         </div>
-        <div class = "lab-reservation" id = "edit-reservation">
+        <div class = "lab-reservation hide" id = "edit-reservation">
             <div class = "box-header">
                 <h1 class>Edit Reservation</h1>
             </div>
@@ -188,7 +186,7 @@
                 </div>
             </div>
         </div>
-        <div class = "lab-reservation" id = "view-reservation">
+        <div class = "lab-reservation hide" id = "view-reservation">
             <div class = "box-header">
                 <h1 class>View Reservation</h1>
             </div>
@@ -213,7 +211,7 @@
                 <button id="prevButton" onclick="nextPage()">Next</button>
             </div>
         </div> 
-        <div class = "lab-reservation" id = "remove-reservation">
+        <div class = "lab-reservation hide" id = "remove-reservation">
             <div class = "box-header">
                 <h1 class>Delete Reservation</h1>
             </div>

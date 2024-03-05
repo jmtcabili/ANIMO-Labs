@@ -1,48 +1,54 @@
 $(document).ready(function(){
     $("#edit-profile-button").click(function(){
         $("#upcoming-reservations").hide();
+        $("#recent-activity").hide();
         $("#edit-profile").show();
-        $("#accept-walk-in").hide();
+        $("#accept").hide();
         $("#edit-reservation").hide();
         $("#view-reservation").hide();
         $("#remove-reservation").hide();
     });
     $("#home-button").click(function(){
         $("#upcoming-reservations").show();
+        $("#recent-activity").show();
         $("#edit-profile").hide();
-        $("#accept-walk-in").hide();
+        $("#accept").hide();
         $("#edit-reservation").hide();
         $("#view-reservation").hide();
         $("#remove-reservation").hide();
     });
     $("#accept-button").click(function(){
         $("#upcoming-reservations").hide();
+        $("#recent-activity").hide();
         $("#edit-profile").hide();
-        $("#accept-walk-in").show();
+        $("#accept").show();
         $("#edit-reservation").hide();
         $("#view-reservation").hide();
         $("#remove-reservation").hide();
     });
     $("#edit-reservation-button").click(function(){
         $("#upcoming-reservations").hide();
+        $("#recent-activity").hide();
         $("#edit-profile").hide();
-        $("#accept-walk-in").hide();
+        $("#accept").hide();
         $("#edit-reservation").show();
         $("#view-reservation").hide();
         $("#remove-reservation").hide();
     });
     $("#view-reservation-button").click(function(){
         $("#upcoming-reservations").hide();
+        $("#recent-activity").hide();
         $("#edit-profile").hide();
-        $("#accept-walk-in").hide();
+        $("#accept").hide();
         $("#edit-reservation").hide();
         $("#view-reservation").show();
         $("#remove-reservation").hide();
     });
     $("#remove-button").click(function(){
         $("#upcoming-reservations").hide();
+        $("#recent-activity").hide();
         $("#edit-profile").hide();
-        $("#accept-walk-in").hide();
+        $("#accept").hide();
         $("#edit-reservation").hide();
         $("#view-reservation").hide();
         $("#remove-reservation").show();

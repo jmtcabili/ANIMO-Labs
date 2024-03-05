@@ -47,6 +47,22 @@ server.get('/lab-profile', function(req, resp){
   });
 });
 
+server.get('/lab-selection', function(req, resp){
+  resp.render('lab-selection',{
+      layout: 'selection-index',
+      title: 'Lab Selection',
+      style: '/common/selection-style.css'
+  });
+});
+
+server.get('/chem-lab', function(req, resp){
+  resp.render('lab-menu',{
+      layout: 'selection-index',
+      title: 'Chem Lab',
+      style: '/common/selection-style.css'
+  });
+});
+
 
 const port = process.env.PORT | 3000;
 server.listen(port, function(){
