@@ -55,11 +55,27 @@ server.get('/lab-selection', function(req, resp){
   });
 });
 
-server.get('/chem-lab', function(req, resp){
-  resp.render('lab-menu',{
-      layout: 'selection-index',
-      title: 'Chem Lab',
-      style: '/common/selection-style.css'
+server.get('/slot-reservation', function(req, resp){
+  resp.render('slot-reservation',{
+      layout: 'index',
+      title: 'Chemistry Lab(need to make param)',
+      style: '/common/slot-style.css'
+  });
+});
+
+server.get('/add-equipment', function(req, resp){
+  resp.render('add-equipment',{
+      layout: 'index',
+      title: 'Add Equipment(need to make dynamic url to mention lab)',
+      style: '/common/equipment-style.css'
+  });
+});
+
+server.get('/receipt', function(req, resp){
+  resp.render('receipt',{
+      layout: 'index',
+      title: 'receipt',
+      style: '/common/receipt-style.css'
   });
 });
 

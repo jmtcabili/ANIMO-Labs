@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="form-header">
+      <img class="logo" src="/common/assets/ANIMO-LABS LOGO.png" alt="Animo Labs Logo">
+      <h2>Chemistry Laboratory Equipment</h2>
+    </div>
+    <form>
+      <div class="equipment-list">
+        <div class="equipment-item">
+          <span class="equipment-name">Beaker (100 ml)</span>
+          <label for="beaker" class="equipment-quantity">
+            <input type="number" id="beaker" name="beaker" value="1" min="0">
+          </label>
+        </div>
+        <div class="equipment-item">
+          <span class="equipment-name">Erlenmeyer Flask</span>
+          <label for="erlenmeyer-flask" class="equipment-quantity">
+            <input type="number" id="erlenmeyer-flask" name="erlenmeyer-flask" value="1" min="0">
+          </label>
+        </div>
+        <div class="equipment-item">
+          <span class="equipment-name">Bunsen Burner</span>
+          <label for="bunsen-burner" class="equipment-quantity">
+            <input type="number" id="bunsen-burner" name="bunsen-burner" value="1" min="0">
+          </label>
+        </div>
+      </div>
+      <div class="reserve-checkbox">
+        <input type="checkbox" id="reserve-checkbox" name="reserve-checkbox">
+        <label for="reserve-checkbox">Reserve as Anonymous</label>
+      </div>
+    </form>
+    <button onclick = "window.location.href = '/receipt'" class="submit-button">Submit</button>
+      <button type="reset" class="reset-button">Reset</button>
+      <button onclick = "window.location.href = '/slot-reservation'" class="return-button">Return</button>
+  </div>

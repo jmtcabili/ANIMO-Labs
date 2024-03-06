@@ -1,0 +1,123 @@
+<div class="parent">
+        <div class="filter-parent">
+            <div class="logo">
+                <div class="logo-image">
+                    <img src = "/common/assets/logo-flask.png">
+                </div>
+                <div class="logo-name">
+                    <a>ANIMO-LABS</a>
+                </div>
+            </div>
+            <div class="details-parent">
+                <div class="laboratory">
+                    <a><strong>Chemistry Laboratory</strong></a>
+                </div>
+                <div class="details">
+                    <span class="date">
+                        Date:
+                        <input type = "date">
+                    </span>
+                    <span class="room-number">
+                        Room:
+                        <select name = "room" id = "room">
+                            <option value = V101>V101</option>
+                            <option value = V102>V102</option>
+                            <option value = V103>V103</option>
+                            <option value = V104>V104</option>
+                            <option value = V105>V105</option>
+                        </select>
+                    </span>
+                    <span class="start-time">
+                        Start: 
+                        <input type="time" value="08:30:00" min="09:00" max="20:00">
+                    </span>
+                    <span class="end-time">
+                        End:
+                        <input type="time" value="08:30:00" min="09:00" max="20:00">
+                    </span>
+                    <span class="seats-selected">
+                        Seats selected: 3C, 3G
+                    </span>
+                </div>
+                <div class="buttons">
+                    <div class="button-parent">
+                        <button onclick = "window.location.href = '/lab-selection'">Return</button>
+                    </div>
+                    <div class="button-parent">
+                        <button>Apply Filter</button>
+                    </div>
+                    <div class="button-parent">
+                        <button onclick = "window.location.href = '/add-equipment'">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slots-parent">
+            <div class="lab-details">
+                Seat status for
+                <a id= "date">March 1, 2024</a><br>
+                <a id= "room-num">Velasco 104</a><br>
+                <a id= "time-selected">11:00 AM - 12:00 PM</a><br>
+            </div>
+            <div class="seating-chem">
+                <div class="set">
+                    <div class="column left">
+                        <div class="seat" id = "one"></div>
+                        <div class="seat" id = "two"></div>
+                        <div class="seat" id = "three"></div>
+                    </div>
+                    <div class="table"></div>
+                    <div class="column right">
+                        <div class="seat" id = "four"></div>
+                        <div class="seat" id = "five"></div>
+                        <div class="seat" id = "six"></div>
+                    </div>
+                </div>
+                <div class="set">
+                    <div class="column left">
+                        <div class="seat" id = "seven"></div>
+                        <div class="seat" id = "eight"></div>
+                        <div class="seat" id = "nine"></div>
+                    </div>
+                    <div class="table"></div>
+                    <div class="column right">
+                        <div class="seat" id = "ten"></div>
+                        <div class="seat" id = "eleven"></div>
+                        <div class="seat" id = "twelve"></div>
+                    </div>
+                </div>
+                <div class="set">
+                    <div class="column left">
+                        <div class="seat" id = "thirteen"></div>
+                        <div class="seat" id = "fourteen"></div>
+                        <div class="seat" id = "fifteen"></div>
+                    </div>
+                    <div class="table"></div>
+                    <div class="column right">
+                        <div class="seat" id = "sixteen"></div>
+                        <div class="seat" id = "seventeen"></div>
+                        <div class="seat" id = "eighteen"></div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="seat-legend">
+                <div class="legend-container">
+                    <div class="legend" id = "available"></div>
+                    <a>Available</a>
+                </div>
+                <div class="legend-container">
+                    <div class="legend" id = "reserved"></div>
+                    <a>Reserved</a>
+                </div>
+                <div class="legend-container">
+                    <div class="legend" id = "selected"></div>
+                    <a>Selected</a>
+                </div>
+                <div class="legend-container">
+                    <div class="legend" id = "out-of-order"></div>
+                    <a>Out-of-Order</a>
+                </div>
+            </div>
+        </div>
+    </div>
