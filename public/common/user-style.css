@@ -188,6 +188,14 @@ body{
     font-weight: bold;
 }
 
+.text-name > a{
+    margin-right: 10px;
+}
+
+.text-name > img{
+    width: 30px;
+}
+
 .text-student {
     margin-top: 3%;
     font-family: Helvetica, Arial, sans-serif;

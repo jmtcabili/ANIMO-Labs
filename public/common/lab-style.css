@@ -158,22 +158,6 @@ body{
     padding-top: 20px;
 }
 
-.edit-user-profile{
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 30px;
-    border: solid var(--darkgreen); 
-    width: 90%;
-    margin: 60px;
-    padding-top: 10px;
-    padding-bottom: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    align-items: center;
-    text-align: center;
-}
-
 .profile{
     display: flex;
     flex-direction: column;
@@ -190,31 +174,36 @@ body{
 }
 
 .text-name {
-    display: flex;
-    margin-top: 8%;
+    margin-top: 6%;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 48px;
     font-weight: bold;
-    align-items: baseline;
+}
+
+.text-name > a{
+    margin-right: 10px;
+}
+
+.text-name > img{
+    width: 30px;
 }
 
 .text-student {
-    margin-top: 10%;
+    margin-top: 3%;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 36px;
 }
 
 .text-idnumber {
-    margin-top: 5%;
+    margin-top: 1%;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 36px;
 }
 
 .edit-profile-picture-parent{
-    display:flex;
     padding-left:20px;
+    display:flex;
     justify-content: center;
-    margin-bottom: 10%;
 }
 
 .edit-profile-picture{
@@ -371,10 +360,9 @@ select:focus {
 
 .add-description{
     display: flex;
-    margin-top: 5%;
+    margin-top: 10px;
     font-size: 20px;
     font-weight: bold;
-    align-items: baseline;
 }
 
 .input-info{
@@ -508,4 +496,36 @@ select:focus {
     border-radius: 15px;
     border: solid var(--darkgreen);
     color: white;   
+}
+
+.input-info button {
+    height: 40px;
+    width: 320px;
+    background-color: SeaGreen;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.input-info button:hover {
+    background-color: #444;
+}
+
+.send-field input{
+    height: 40px;
+    width: 320px;
+    background-color: SeaGreen;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.send-field input:hover {
+    background-color: #444;
 }
