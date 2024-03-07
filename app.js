@@ -21,7 +21,8 @@ const databaseURL = "mongodb://localhost:27017/";
 const mongoClient = new MongoClient(databaseURL);
 
 const databaseName = "labDB";
-const collectionName = "lab";
+const lab_upcoming = "lab-upcoming";
+const lab_recent = "lab-recent";
 
 function errorFn(err){
   console.log('Error fond. Please trace!');
@@ -39,15 +40,21 @@ mongoClient.connect().then(function(con){
   console.log("Attempt to create!");
   const dbo = mongoClient.db(databaseName);
   //Will create a collection if it has not yet been made
-  dbo.createCollection(collectionName)
+  dbo.createCollection(lab_upcoming)
     .then(successFn)
     .catch(function (err){
       console.log('Collection already exists');
   });
+  dbo.createCollection(lab_recent)
+  .then(successFn)
+  .catch(function (err){
+    console.log('Collection already exists');
+});
+
 }).catch(errorFn);
 
 
-const Reservation = require('./public/common/func');
+const Reservation = require('./public/common/script');
 
 server.get('/', function(req, resp){
   resp.render('login',{
@@ -74,24 +81,37 @@ server.get('/user-profile', function(req, resp){
   });
 });
 
-server.get('/lab-profile', async  function(req, resp){
+server.get('/lab-profile', async function(req, resp){
   try {
+    // Connect to MongoDB
+    await mongoClient.connect();
+    console.log("Connected to MongoDB");
+
+    // Get reference to the database and collection
     const db = mongoClient.db(databaseName);
-    const collection = db.collection(collectionName);
+    const lab_upcoming = db.collection("lab-upcoming");
+    const lab_recent = db.collection("lab-recent");
 
-    const upcomingReservations = await Reservation.find().exec();
+    // Query MongoDB to retrieve upcoming reservations
+    const upcomingReservations = await lab_upcoming.find({}).toArray();
+    const recentActivity = await lab_recent.find({}).toArray();
 
+    // Render the 'lab-profile' view and pass the retrieved data
     resp.render('lab-profile', {
-      layout: 'user-index',
-      title: 'Lab Profile',
-      style: '/common/lab-style.css',
-      script: '/common/lab-profile.js',
-      upcomingReservations: upcomingReservations
+        layout: 'user-index',
+        title: 'Lab Profile',
+        style: '/common/lab-style.css',
+        script: '/common/lab-profile.js',
+        upcomingReservations: upcomingReservations,
+        recentActivity: recentActivity
     });
-  } catch (err) {
-    console.error('Error fetching upcoming reservations:', err);
+} catch (err) {
+    console.error('Error fetching data:', err);
     resp.status(500).send('Internal Server Error');
-  }
+} finally {
+    // Close the MongoDB connection
+    await mongoClient.close();
+}
 });
 
 server.get('/lab-selection', function(req, resp){
