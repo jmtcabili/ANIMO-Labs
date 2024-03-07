@@ -8,69 +8,42 @@
             <div class="box-content">
                 {{#each upcomingReservations}}
                 <div class="mini-box">
-                    <div><strong>Reservation #:</strong> {{this.reservationNumber}}</div>
-                    <div><strong>Laboratory:</strong> {{this.laboratory}}</div>
-                    <div><strong>Time:</strong> {{this.time}}</div>
+                    <div><strong>Reservation #:</strong> {{reservationNumber}}</div>
+                    <div><strong>Laboratory:</strong> {{laboratory}}</div>
+                    <div><strong>Time:</strong> {{time}}</div>
                 </div>
                 {{/each}}
             </div>
         </div>
         <div class = "box" id = "recent-activity">
             <div class = "box-header">
-                <h1 class>UPCOMING RESERVATIONS</h1>
+                <h1 class>RECENT ACTIVITY</h1>
             </div>
-            <div class = "box-content">
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123123</div>
-                    <div><strong>Laboratory:</strong> Chemistry Lab</div>
-                    <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
+            <div class="box-content">
+                {{#each recentActivity}}
+                <div class="mini-box">
+                    <div><strong>Reservation #:</strong> {{reservationNumber}}</div>
+                    <div><strong>Laboratory:</strong> {{laboratory}}</div>
+                    <div><strong>Time:</strong> {{time}}</div>
                 </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123456</div>
-                    <div><strong>Laboratory:</strong> Computer Lab</div>
-                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
-                </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 456123</div>
-                    <div><strong>Laboratory:</strong> Electronics Lab</div>
-                    <div><strong>Time:</strong> 2:00 PM - 4:00 PM</div>
-                </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123123</div>
-                    <div><strong>Laboratory:</strong> Chemistry Lab</div>
-                    <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
-                </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123456</div>
-                    <div><strong>Laboratory:</strong> Computer Lab</div>
-                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
-                </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 456123</div>
-                    <div><strong>Laboratory:</strong> Electronics Lab</div>
-                    <div><strong>Time:</strong> 2:00 PM - 4:00 PM</div>
-                </div>
+                {{/each}}
             </div>
         </div>
-        <div class= "edit-user-profile hide" id = "edit-profile">
+        <div class= "lab-reservation hide" id = "edit-profile">
+            <div class = "box-header">
+                <h1>YOUR PROFILE</h1>
+            </div>
+            <div class="edit-profile-picture-parent">
+                <div class="edit-profile-picture">
+                    <img src = "/common/assets/user-dp.png">
+                </div>
+                <div class = "edit-pen-content-profile">
+                    <img src="/common/assets/edit-pen.png">
+                </div>
+            </div>
             <div class="profile">
-                <div class="text-profile">
-                    <a>YOUR PROFILE</a>
-                </div>
-                <div class="edit-profile-picture-parent">
-                    <div class="edit-profile-picture">
-                        <img src = "/common/assets/user-dp.png">
-                    </div>
-                    <div class = "edit-pen-content-profile">
-                        <img src="/common/assets/edit-pen.png">
-                    </div>
-                </div>
-                
                 <div class="text-name">
-                    <a>Lab Admin</a>
-                    <div class = "edit-pen-content-profile">
-                        <img src="/common/assets/edit-pen.png">
-                    </div>  
+                    <a>Lab Admin</a><img src="/common/assets/edit-pen.png">
                 </div> 
                 <div class="text-student">
                     <a>Lab Technician</a>
@@ -78,14 +51,13 @@
                 <div class="text-idnumber">
                     <a>12274534</a>
                 </div> 
-                
-            </div>
-            <div class="add-description">
-                <a>Add Description</a>
-                <div class = "edit-pen-content-profile">
-                    <img src="/common/assets/edit-pen.png">
+                <div class="add-description">
+                    <a>Add Description</a>
+                    <div class = "edit-pen-content-profile">
+                        <img src="/common/assets/edit-pen.png">
+                    </div>
+                    <!-- Add input fields or textarea for adding description -->
                 </div>
-                <!-- Add input fields or textarea for adding description -->
             </div>
         </div>
         <div class = "lab-reservation hide" id = "accept">
