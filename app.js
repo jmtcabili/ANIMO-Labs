@@ -1,5 +1,8 @@
+//npm i express express-handlebars body-parser mongodb mongoose
+
 const express = require('express');
 const server = express();
+
 
 const bodyParser = require('body-parser');
 server.use(express.json()); 
@@ -12,6 +15,39 @@ server.engine('hbs', handlebars.engine({
 }));
 
 server.use(express.static('public'));
+
+const { MongoClient } = require('mongodb');
+const databaseURL = "mongodb://localhost:27017/";
+const mongoClient = new MongoClient(databaseURL);
+
+const databaseName = "labDB";
+const collectionName = "lab";
+
+function errorFn(err){
+  console.log('Error fond. Please trace!');
+  console.error(err);
+}
+
+function successFn(res){
+  console.log('Database query successful!');
+}
+
+mongoClient.connect().then(function(con){
+  //Only do database manipulation inside of the connection
+  //When a connection is made, it will try to make the database
+  //automatically. The collection(like a table) needs to be made.
+  console.log("Attempt to create!");
+  const dbo = mongoClient.db(databaseName);
+  //Will create a collection if it has not yet been made
+  dbo.createCollection(collectionName)
+    .then(successFn)
+    .catch(function (err){
+      console.log('Collection already exists');
+  });
+}).catch(errorFn);
+
+
+const Reservation = require('./public/common/func');
 
 server.get('/', function(req, resp){
   resp.render('login',{
@@ -38,13 +74,24 @@ server.get('/user-profile', function(req, resp){
   });
 });
 
-server.get('/lab-profile', function(req, resp){
-  resp.render('lab-profile',{
+server.get('/lab-profile', async  function(req, resp){
+  try {
+    const db = mongoClient.db(databaseName);
+    const collection = db.collection(collectionName);
+
+    const upcomingReservations = await Reservation.find().exec();
+
+    resp.render('lab-profile', {
       layout: 'user-index',
       title: 'Lab Profile',
       style: '/common/lab-style.css',
-      script: '/common/lab-profile.js'
-  });
+      script: '/common/lab-profile.js',
+      upcomingReservations: upcomingReservations
+    });
+  } catch (err) {
+    console.error('Error fetching upcoming reservations:', err);
+    resp.status(500).send('Internal Server Error');
+  }
 });
 
 server.get('/lab-selection', function(req, resp){
@@ -55,27 +102,11 @@ server.get('/lab-selection', function(req, resp){
   });
 });
 
-server.get('/slot-reservation', function(req, resp){
-  resp.render('slot-reservation',{
-      layout: 'index',
-      title: 'Chemistry Lab(need to make param)',
-      style: '/common/slot-style.css'
-  });
-});
-
-server.get('/add-equipment', function(req, resp){
-  resp.render('add-equipment',{
-      layout: 'index',
-      title: 'Add Equipment(need to make dynamic url to mention lab)',
-      style: '/common/equipment-style.css'
-  });
-});
-
-server.get('/receipt', function(req, resp){
-  resp.render('receipt',{
-      layout: 'index',
-      title: 'receipt',
-      style: '/common/receipt-style.css'
+server.get('/chem-lab', function(req, resp){
+  resp.render('lab-menu',{
+      layout: 'selection-index',
+      title: 'Chem Lab',
+      style: '/common/selection-style.css'
   });
 });
 

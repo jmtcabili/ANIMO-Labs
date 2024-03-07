@@ -1,0 +1,11 @@
+[   { "reservationNumber": "123123", "laboratory": "Chemistry Lab", "time": "10:00 AM - 1:00 PM", "studentid":"12235466" },
+    { "reservationNumber": "123456", "laboratory": "Chemistry Lab", "time": "10:00 AM - 2:00 PM" , "studentid":"12235466" },
+    { "reservationNumber": "123122", "laboratory": "Chemistry Lab", "time": "1:00 PM - 4:00 PM", "studentid":"12235466"  },
+    { "reservationNumber": "123433", "laboratory": "Computer Lab", "time": "1:00 PM - 3:00 PM" , "studentid":"12235346" },
+    { "reservationNumber": "123424", "laboratory": "Computer Lab", "time": "3:00 PM - 5:00 PM" , "studentid":"12235346"},
+    { "reservationNumber": "123456", "laboratory": "Computer Lab", "time": "3:00 PM - 4:00 PM" , "studentid":"12235346"},
+    { "reservationNumber": "123485", "laboratory": "Electronics Lab", "time": "12:00 PM - 3:00 PM", "studentid":"12123346" },
+    { "reservationNumber": "123025", "laboratory": "Electronics Lab", "time": "12:00 PM - 5:00 PM" , "studentid":"12123346" },
+    { "reservationNumber": "123444", "laboratory": "Electronics Lab", "time": "11:00 AM - 2:00 PM" , "studentid":"12123346" },
+    { "reservationNumber": "123999", "laboratory": "Computer Lab", "time": "11:00 AM - 3:00 PM", "studentid":"12123346"  },
+    { "reservationNumber": "123967", "laboratory": "Chemistry Lab", "time": "6:00 AM - 10:00 AM" , "studentid":"12123346" }]

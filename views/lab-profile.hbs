@@ -5,37 +5,14 @@
             <div class = "box-header">
                 <h1 class>UPCOMING RESERVATIONS</h1>
             </div>
-            <div class = "box-content">
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123123</div>
-                    <div><strong>Laboratory:</strong> Chemistry Lab</div>
-                    <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
+            <div class="box-content">
+                {{#each upcomingReservations}}
+                <div class="mini-box">
+                    <div><strong>Reservation #:</strong> {{this.reservationNumber}}</div>
+                    <div><strong>Laboratory:</strong> {{this.laboratory}}</div>
+                    <div><strong>Time:</strong> {{this.time}}</div>
                 </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123456</div>
-                    <div><strong>Laboratory:</strong> Computer Lab</div>
-                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
-                </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 456123</div>
-                    <div><strong>Laboratory:</strong> Electronics Lab</div>
-                    <div><strong>Time:</strong> 2:00 PM - 4:00 PM</div>
-                </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123123</div>
-                    <div><strong>Laboratory:</strong> Chemistry Lab</div>
-                    <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
-                </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123456</div>
-                    <div><strong>Laboratory:</strong> Computer Lab</div>
-                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
-                </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 456123</div>
-                    <div><strong>Laboratory:</strong> Electronics Lab</div>
-                    <div><strong>Time:</strong> 2:00 PM - 4:00 PM</div>
-                </div>  
+                {{/each}}
             </div>
         </div>
         <div class = "box" id = "recent-activity">
@@ -75,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <div class="edit-user-profile hide" id = "edit-profile">
+        <div class= "edit-user-profile hide" id = "edit-profile">
             <div class="profile">
                 <div class="text-profile">
                     <a>YOUR PROFILE</a>
@@ -252,6 +229,36 @@
                     <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
                     <div class = "remove-trash">
                         <img src="/common/assets/delete-lab.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "lab-reservation hide" id = "contact">
+            <div class = "box-header">
+                <h1 class>CONTACT STUDENT</h1>
+            </div>
+            <div class = "contact-content">
+                <div class = "to-field">
+                    <form method = "get">
+                        <label>To:</label>
+                        <select    name="technician">
+                            <option value="12345678">Shawn</option>
+                            <option value="12254689">Sean</option>
+                            <option value="12145698">Shaun</option>
+                        </select>
+                    </form>
+                </div>
+                <div class = "message-field">
+                    <textarea id="message" placeholder="Enter your message here"></textarea>
+                </div>
+                <div class = "send-field">
+                    <input type ="button" value ="send" id = "send-button" onclick = "messageModal()">
+                </div>
+                <div id="send-modal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>Message sent!</p>
                     </div>
                 </div>
             </div>

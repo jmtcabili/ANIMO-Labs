@@ -7,6 +7,7 @@ $(document).ready(function(){
         $("#edit-reservation").hide();
         $("#view-reservation").hide();
         $("#remove-reservation").hide();
+        $("#contact").hide();
     });
     $("#home-button").click(function(){
         $("#upcoming-reservations").show();
@@ -16,6 +17,7 @@ $(document).ready(function(){
         $("#edit-reservation").hide();
         $("#view-reservation").hide();
         $("#remove-reservation").hide();
+        $("#contact").hide();
     });
     $("#accept-button").click(function(){
         $("#upcoming-reservations").hide();
@@ -25,6 +27,7 @@ $(document).ready(function(){
         $("#edit-reservation").hide();
         $("#view-reservation").hide();
         $("#remove-reservation").hide();
+        $("#contact").hide();
     });
     $("#edit-reservation-button").click(function(){
         $("#upcoming-reservations").hide();
@@ -34,6 +37,7 @@ $(document).ready(function(){
         $("#edit-reservation").show();
         $("#view-reservation").hide();
         $("#remove-reservation").hide();
+        $("#contact").hide();
     });
     $("#view-reservation-button").click(function(){
         $("#upcoming-reservations").hide();
@@ -43,6 +47,7 @@ $(document).ready(function(){
         $("#edit-reservation").hide();
         $("#view-reservation").show();
         $("#remove-reservation").hide();
+        $("#contact").hide();
     });
     $("#remove-button").click(function(){
         $("#upcoming-reservations").hide();
@@ -52,6 +57,18 @@ $(document).ready(function(){
         $("#edit-reservation").hide();
         $("#view-reservation").hide();
         $("#remove-reservation").show();
+        $("#contact").hide();
+    });
+
+    $("#contact-button").click(function(){
+        $("#upcoming-reservations").hide();
+        $("#recent-activity").hide();
+        $("#edit-profile").hide();
+        $("#accept").hide();
+        $("#edit-reservation").hide();
+        $("#view-reservation").hide();
+        $("#remove-reservation").hide();
+        $("#contact").show();
     });
 });
 
