@@ -92,6 +92,8 @@ server.get('/lab-profile', async function(req, resp){
     const lab_upcoming = db.collection("lab-upcoming");
     const lab_recent = db.collection("lab-recent");
 
+    
+
     // Query MongoDB to retrieve upcoming reservations
     const upcomingReservations = await lab_upcoming.find({}).toArray();
     const recentActivity = await lab_recent.find({}).toArray();
