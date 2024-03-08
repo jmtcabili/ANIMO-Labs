@@ -174,18 +174,11 @@ body{
 }
 
 .text-name {
+    display: flex;
     margin-top: 6%;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 48px;
     font-weight: bold;
-}
-
-.text-name > a{
-    margin-right: 10px;
-}
-
-.text-name > img{
-    width: 30px;
 }
 
 .text-student {
@@ -295,6 +288,17 @@ body{
     justify-content: space-around;
 }
 
+input{
+    margin: 7px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 30px;
+    border: solid var(--darkgreen); 
+    background-color: rgba(255, 255, 255, 0.8); 
+    color: var(--darkgreen); 
+    font-size: 24px; 
+}
+
 select {
     margin: 7px;
     width: 100%;
@@ -352,6 +356,7 @@ select:focus {
 }
 
 .edit-pen-content-profile{
+    cursor: pointer;
     margin-left: 10px;
 }
 .edit-pen-content-profile > img {

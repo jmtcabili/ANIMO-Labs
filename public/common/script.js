@@ -7,3 +7,11 @@ const reservationSchema = new mongoose.Schema({
   studentId: { type: String }
 });
 
+
+
+const UserProfile = new mongoose.Schema({
+  name: { type: String },
+  description: { type: String },
+  image: { type : Buffer}
+});
+
