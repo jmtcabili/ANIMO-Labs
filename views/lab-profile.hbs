@@ -35,16 +35,23 @@
             </div>
             <div class="edit-profile-picture-parent">
                 <div class="edit-profile-picture">
-                    <img src = "/common/assets/user-dp.png">
+                     <img id="profile-image" src="/common/assets/user-dp.png">
                 </div>
-                <div class = "edit-pen-content-profile">
-                    <img src="/common/assets/edit-pen.png">
+                <div class="edit-pen-content-profile">
+                    <input type="file" id="image-upload" accept="image/*">
+                    <label for="image-upload">
+                        <img src="/common/assets/edit-pen.png" class="edit-pen" alt="Edit">
+                    </label>
                 </div>
             </div>
             <div class="profile">
                 <div class="text-name">
-                    <a>Lab Admin</a><img src="/common/assets/edit-pen.png">
-                </div> 
+                    <span class="display-name">Lab Admin</span>
+                    <input type="text" class="edit-name hide">
+                    <div class="edit-pen-content-profile">
+                        <img src="/common/assets/edit-pen.png" class="edit-pen-name" alt="Edit">
+                    </div>
+                </div>
                 <div class="text-student">
                     <a>Lab Technician</a>
                 </div> 
@@ -52,11 +59,11 @@
                     <a>12274534</a>
                 </div> 
                 <div class="add-description">
-                    <a>Add Description</a>
-                    <div class = "edit-pen-content-profile">
-                        <img src="/common/assets/edit-pen.png">
+                    <span class="display-description">Enter your description</span>
+                    <textarea class="edit-description hide" placeholder="Enter your description"></textarea>
+                    <div class="edit-pen-content-profile">
+                        <img src="/common/assets/edit-pen.png" class="edit-pen-description" alt="Edit">
                     </div>
-                    <!-- Add input fields or textarea for adding description -->
                 </div>
             </div>
         </div>
@@ -95,6 +102,7 @@
                 <h1 class>Edit Reservation</h1>
             </div>
             <div class="filter-content">
+                <input type="text" class="student-id" placeholder="Student ID: 12234567">
                 <select id="laboratry" name="laboratry">
                     <option value="">Select Laboratory</option>
                     <option value="Chemistry Lab">Chemistry Lab</option>
@@ -140,18 +148,19 @@
                 <h1 class>View Reservation</h1>
             </div>
             <div class="filter-content">
-                    <select id="laboratry" name="laboratry">
-                        <option value="">Select Laboratory</option>
-                        <option value="Chemistry Lab">Chemistry Lab</option>
-                        <option value="Computer Lab">Computer Lab</option>
-                        <option value="Electronics Lab">Electronics Lab</option>
-                    </select>
-                    <select id="start-time" name="start-time">
-                        <option value="">Start Time</option>
-                    </select>
-                    <select id="end-time" name="end-time">
-                        <option value="">End Time</option>
-                    </select>
+                <input type="text" class="student-id" placeholder="Student ID: 12234567">
+                <select id="laboratry" name="laboratry">
+                    <option value="">Select Laboratory</option>
+                    <option value="Chemistry Lab">Chemistry Lab</option>
+                    <option value="Computer Lab">Computer Lab</option>
+                    <option value="Electronics Lab">Electronics Lab</option>
+                </select>
+                <select id="start-time" name="start-time">
+                    <option value="">Start Time</option>
+                </select>
+                <select id="end-time" name="end-time">
+                    <option value="">End Time</option>
+                </select>
             </div>
             <div class = "box-content"  id="content"></div>
             <div id="pagination">
@@ -165,6 +174,7 @@
                 <h1 class>Delete Reservation</h1>
             </div>
             <div class="filter-content">
+                <input type="text" class="student-id" placeholder="Student ID: 12234567">
                 <select id="laboratry" name="laboratry">
                     <option value="">Select Laboratory</option>
                     <option value="Chemistry Lab">Chemistry Lab</option>
