@@ -8,9 +8,9 @@
             <div class="box-content">
                 {{#each upcomingReservations}}
                 <div class="mini-box">
-                    <div><strong>Reservation #:</strong> {{reservationNumber}}</div>
+                    <div><strong>Reservation #:</strong>{{reservation_id}}</div>
                     <div><strong>Laboratory:</strong> {{laboratory}}</div>
-                    <div><strong>Time:</strong> {{time}}</div>
+                    <div><strong>Time:</strong> {{time_start}} - {{time_end}}</div>
                 </div>
                 {{/each}}
             </div>
@@ -20,13 +20,11 @@
                 <h1 class>RECENT ACTIVITY</h1>
             </div>
             <div class="box-content">
-                {{#each recentActivity}}
                 <div class="mini-box">
-                    <div><strong>Reservation #:</strong> {{reservationNumber}}</div>
-                    <div><strong>Laboratory:</strong> {{laboratory}}</div>
-                    <div><strong>Time:</strong> {{time}}</div>
+                    <div><strong>Reservation #:</strong> </div>
+                    <div><strong>Laboratory:</strong> </div>
+                    <div><strong>Time:</strong> </div>
                 </div>
-                {{/each}}
             </div>
         </div>
         <div class= "lab-reservation hide" id = "edit-profile">

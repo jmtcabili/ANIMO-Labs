@@ -28,12 +28,48 @@
                         </select>
                     </span>
                     <span class="start-time">
-                        Start: 
-                        <input type="time" value="08:30:00" min="09:00" max="20:00">
+                        <label>Start: </label>
+                        <select name = "start-hour" id = "start-hour">
+                            <option value = "12">12</option> <option value = "11">11</option>
+                            <option value = "10">10</option> <option value = "9">9</option>
+                            <option value = "8">8</option>   <option value = "7">7</option>
+                            <option value = "6">6</option>   <option value = "5">5</option>
+                            <option value = "4">4</option>   <option value = "3">3</option>
+                            <option value = "2">2</option>   <option value = "1">1</option>
+                        </select>
+                        <a><b>:</b></a>
+                        <select name = "start-min" id = "start-min">
+                            <option value = "0">00</option>
+                            <option value = "15">15</option>
+                            <option value = "30">30</option>
+                            <option value = "45">45</option>
+                        </select>
+                        <select name = "start-period" id = "start-period">
+                            <option value = "AM">AM</option>
+                            <option value = "PM">PM</option>
+                        </select>
                     </span>
                     <span class="end-time">
-                        End:
-                        <input type="time" value="08:30:00" min="09:00" max="20:00">
+                        <label>End: </label>
+                        <select name = "end-hour" id = "end-hour">
+                            <option value = "12">12</option> <option value = "11">11</option>
+                            <option value = "10">10</option> <option value = "9">9</option>
+                            <option value = "8">8</option>   <option value = "7">7</option>
+                            <option value = "6">6</option>   <option value = "5">5</option>
+                            <option value = "4">4</option>   <option value = "3">3</option>
+                            <option value = "2">2</option>   <option value = "1">1</option>
+                        </select>
+                        <a><b>:</b></a>
+                        <select name = "end-min" id = "end-min">
+                            <option value = "0">00</option>
+                            <option value = "15">15</option>
+                            <option value = "30">30</option>
+                            <option value = "45">45</option>
+                        </select>
+                        <select name = "end-period" id = "end-period">
+                            <option value = "AM">AM</option>
+                            <option value = "PM">PM</option>
+                        </select>
                     </span>
                     <span class="seats-selected">
                         Seats selected: 3C, 3G
