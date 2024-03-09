@@ -52,9 +52,8 @@ server.get('/lab-profile', function(req, resp){
         title: 'Lab Profile',
         style: '/common/lab-style.css',
         script: '/common/lab-profile.js',
-        upcomingReservations: reservation_data
-        //upcomingReservations: upcomingReservations,
-        //recentActivity: recentActivity
+        upcomingReservations: reservation_data,
+        viewReservation: reservation_data
     });
   }).catch(responder.errorFn());
 });
@@ -93,11 +92,32 @@ server.get('/receipt', function(req, resp){
 });
 
 server.get('/reservation-details', function(req, resp){
-  resp.render('reservation-details',{
-      layout: 'index',
-      title: 'Reservation Details',
-      style: '/common/receipt-style.css'
-  });
+const searchQuery = {
+        name: req.query.name,
+        reservation_id: req.query.reservation_id,
+        laboratory: req.query.laboratory,
+        time_start: req.query.time_start
+    };
+
+    // Assuming you have a reservationModel schema/model
+    responder.reservationModel.findOne(searchQuery).lean().then(function(details_data){
+        if (details_data) {
+            // If reservation details are found in the database, render the page with the retrieved data
+            resp.render('reservation-details',{
+                layout: 'index',
+                title: 'Reservation Details',
+                style: '/common/receipt-style.css',
+                details: details_data
+            });
+        } else {
+            // If reservation details are not found, handle the error or display a message
+            resp.status(404).send('Reservation not found');
+        }
+    }).catch(function(err){
+        // Handle errors
+        console.error(err);
+        resp.status(500).send('Internal Server Error');
+    });
 });
 
 
