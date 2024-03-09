@@ -1,11 +1,24 @@
-[   { "reservationNumber": "123123", "laboratory": "Chemistry Lab", "time": "10:00 AM - 1:00 PM", "studentid":"12235466" },
-    { "reservationNumber": "123456", "laboratory": "Chemistry Lab", "time": "10:00 AM - 2:00 PM" , "studentid":"12235466" },
-    { "reservationNumber": "123122", "laboratory": "Chemistry Lab", "time": "1:00 PM - 4:00 PM", "studentid":"12235466"  },
-    { "reservationNumber": "123433", "laboratory": "Computer Lab", "time": "1:00 PM - 3:00 PM" , "studentid":"12235346" },
-    { "reservationNumber": "123424", "laboratory": "Computer Lab", "time": "3:00 PM - 5:00 PM" , "studentid":"12235346"},
-    { "reservationNumber": "123456", "laboratory": "Computer Lab", "time": "3:00 PM - 4:00 PM" , "studentid":"12235346"},
-    { "reservationNumber": "123485", "laboratory": "Electronics Lab", "time": "12:00 PM - 3:00 PM", "studentid":"12123346" },
-    { "reservationNumber": "123025", "laboratory": "Electronics Lab", "time": "12:00 PM - 5:00 PM" , "studentid":"12123346" },
-    { "reservationNumber": "123444", "laboratory": "Electronics Lab", "time": "11:00 AM - 2:00 PM" , "studentid":"12123346" },
-    { "reservationNumber": "123999", "laboratory": "Computer Lab", "time": "11:00 AM - 3:00 PM", "studentid":"12123346"  },
-    { "reservationNumber": "123967", "laboratory": "Chemistry Lab", "time": "6:00 AM - 10:00 AM" , "studentid":"12123346" }]
+[
+    {
+        "name": "John Doe",
+        "reservation_id": "123456",
+        "laboratory": "Chemistry Lab",
+        "room": "Room 101",
+        "date": "February 6, 2024",
+        "time_start": "09:00 AM",
+        "time_end": "11:00 AM",
+        "seat_ids": ["A1", "A2", "B1"],
+        "equipment": ["Bunsen Burner", "Microscope"]
+    },
+    {
+        "name": "Jane Smith",
+        "reservation_id": "789012",
+        "laboratory": "Physics Lab",
+        "room": "Room 201",
+        "date": "October 3, 2023",
+        "time_start": "01:00 PM",
+        "time_end": "03:00 PM",
+        "seat_ids": ["C1", "C2", "D1"],
+        "equipment": ["Telescope", "Oscilloscope"]
+    }
+]

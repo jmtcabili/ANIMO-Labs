@@ -16,6 +16,8 @@ server.engine('hbs', handlebars.engine({
 
 server.use(express.static('public'));
 
+const responder = require('./models/responder');
+
 server.get('/', function(req, resp){
   resp.render('login',{
       layout: 'index',
@@ -42,15 +44,21 @@ server.get('/user-profile', function(req, resp){
 });
 
 server.get('/lab-profile', function(req, resp){
-    resp.render('lab-profile', {
+
+    const searchQuery = {}; 
+    responder.reservationModel.find(searchQuery).lean().then(function(reservation_data){
+      resp.render('lab-profile', {
         layout: 'user-index',
         title: 'Lab Profile',
         style: '/common/lab-style.css',
         script: '/common/lab-profile.js',
-        upcomingReservations: upcomingReservations,
-        recentActivity: recentActivity
+        upcomingReservations: reservation_data
+        //upcomingReservations: upcomingReservations,
+        //recentActivity: recentActivity
     });
+  }).catch(responder.errorFn());
 });
+    
 
 server.get('/lab-selection', function(req, resp){
   resp.render('lab-selection',{
