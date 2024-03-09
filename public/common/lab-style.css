@@ -534,3 +534,10 @@ select:focus {
 .send-field input:hover {
     background-color: #444;
 }
+
+button:hover{
+    cursor: pointer; 
+    background-color: #0C7652;
+    transition: .5s ease;
+    transform: scale(1.1);
+}

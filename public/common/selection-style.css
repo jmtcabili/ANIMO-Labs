@@ -278,5 +278,7 @@ button:active{
 
 button:hover{
     cursor: pointer; 
-    background-color: #0C7652;
+    background-color: #444;
+    transition: .5s ease;
+    transform: scale(1.1);
 }
