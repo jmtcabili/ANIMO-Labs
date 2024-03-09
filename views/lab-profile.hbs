@@ -8,7 +8,7 @@
             <div class="box-content">
                 {{#each upcomingReservations}}
                 <div class="mini-box">
-                    <div><strong>Reservation #:</strong>{{reservation_id}}</div>
+                    <div><strong>Reservation #:</strong> {{reservation_id}}</div>
                     <div><strong>Laboratory:</strong> {{laboratory}}</div>
                     <div><strong>Time:</strong> {{time_start}} - {{time_end}}</div>
                 </div>
@@ -20,11 +20,13 @@
                 <h1 class>RECENT ACTIVITY</h1>
             </div>
             <div class="box-content">
+                
                 <div class="mini-box">
-                    <div><strong>Reservation #:</strong> </div>
-                    <div><strong>Laboratory:</strong> </div>
-                    <div><strong>Time:</strong> </div>
+                    <div><strong>Reservation #:</strong></div>
+                    <div><strong>Laboratory:</strong></div>
+                    <div><strong>Time:</strong></div>
                 </div>
+                
             </div>
         </div>
         <div class= "lab-reservation hide" id = "edit-profile">
@@ -95,52 +97,6 @@
                 <button id="accept-walk-in">Sent</button>
             </div>
         </div>
-        <div class = "lab-reservation hide" id = "edit-reservation">
-            <div class = "box-header">
-                <h1 class>Edit Reservation</h1>
-            </div>
-            <div class="filter-content">
-                <input type="text" class="student-id" placeholder="Student ID: 12234567">
-                <select id="laboratry" name="laboratry">
-                    <option value="">Select Laboratory</option>
-                    <option value="Chemistry Lab">Chemistry Lab</option>
-                    <option value="Computer Lab">Computer Lab</option>
-                    <option value="Electronics Lab">Electronics Lab</option>
-                </select>
-                <select id="start-time" name="start-time">
-                    <option value="">Start Time</option>
-                </select>
-                <select id="end-time" name="end-time">
-                    <option value="">End Time</option>
-                </select>
-            </div>
-            <div class = "box-content">
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123123</div>
-                    <div><strong>Laboratory:</strong> Chemistry Lab</div>
-                    <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
-                    <div class = "edit-pen">
-                        <img src="/common/assets/edit-pen.png">
-                    </div>
-                </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123456</div>
-                    <div><strong>Laboratory:</strong> Computer Lab</div>
-                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
-                    <div class = "edit-pen">
-                        <img src="/common/assets/edit-pen.png">
-                    </div>
-                </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123456</div>
-                    <div><strong>Laboratory:</strong> Computer Lab</div>
-                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
-                    <div class = "edit-pen">
-                        <img src="/common/assets/edit-pen.png">
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class = "lab-reservation hide" id = "view-reservation">
             <div class = "box-header">
                 <h1 class>View Reservation</h1>
@@ -160,16 +116,18 @@
                     <option value="">End Time</option>
                 </select>
             </div>
-            <div class = "box-content"  id="content">
-                <a href="/reservation-details"> 
+            <div class = "box-content">
+                {{#each viewReservation}}
+                <a href="/reservation-details?reservation_id={{reservation_id}}&name={{name}}&laboratory={{laboratory}}&time_start={{time_start}}"> 
                     <div class = "mini-box">
-                        <div><strong>Student:</strong> John Ong</div>
+                        <div><strong>Student:</strong> {{name}}</div>
                         <div><strong>Student ID:</strong> 12345678</div>
-                        <div><strong>Reservation #:</strong> 123123</div>
-                        <div><strong>Laboratory:</strong> Chemistry Lab</div>
-                        <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
+                        <div><strong>Reservation #:</strong> {{reservation_id}}</div>
+                        <div><strong>Laboratory:</strong> {{laboratory}}</div>
+                        <div><strong>Time:</strong> {{time_start}} - {{time_end}}</div>
                     </div>
                 </a>
+                {{/each}}
             </div>
             <div id="pagination">
                 <button id="prevButton" onclick="prevPage()">Previous</button>
@@ -177,52 +135,6 @@
                 <button id="prevButton" onclick="nextPage()">Next</button>
             </div>
         </div> 
-        <div class = "lab-reservation hide" id = "remove-reservation">
-            <div class = "box-header">
-                <h1 class>Delete Reservation</h1>
-            </div>
-            <div class="filter-content">
-                <input type="text" class="student-id" placeholder="Student ID: 12234567">
-                <select id="laboratry" name="laboratry">
-                    <option value="">Select Laboratory</option>
-                    <option value="Chemistry Lab">Chemistry Lab</option>
-                    <option value="Computer Lab">Computer Lab</option>
-                    <option value="Electronics Lab">Electronics Lab</option>
-                </select>
-                <select id="start-time" name="start-time">
-                    <option value="">Start Time</option>
-                </select>
-                <select id="end-time" name="end-time">
-                    <option value="">End Time</option>
-                </select>
-            </div>
-            <div class = "box-content">
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123123</div>
-                    <div><strong>Laboratory:</strong> Chemistry Lab</div>
-                    <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
-                    <div class = "remove-trash">
-                        <img src="/common/assets/delete-lab.png">
-                    </div>
-                </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123456</div>
-                    <div><strong>Laboratory:</strong> Computer Lab</div>
-                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
-                    <div class = "remove-trash">
-                        <img src="/common/assets/delete-lab.png">
-                    </div>
-                </div>
-                <div class = "mini-box">
-                    <div><strong>Reservation #:</strong> 123456</div>
-                    <div><strong>Laboratory:</strong> Computer Lab</div>
-                    <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
-                    <div class = "remove-trash">
-                        <img src="/common/assets/delete-lab.png">
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class = "lab-reservation hide" id = "contact">
             <div class = "box-header">
                 <h1 class>CONTACT STUDENT</h1>

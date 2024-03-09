@@ -7,7 +7,7 @@
             <a>Student Information<a>
         </div>
         <div class="name">
-            <a>Juan Dela Cruz</a>
+            <a>{{details.name}}</a>
         </div>
         <div class="idnum">
             <a>12274534</a>
@@ -28,30 +28,26 @@
                 <div class="reservation-details">
                     <div class = detail>
                         <b>Reservation #: </b>
-                        <a id="reservation-number">123123</a>
+                        <a id="reservation-number">{{details.reservation_id}}</a>
                     </div>
                     <div class="detail">
                         <b>Laboratory: </b>
-                        <a id = "laboratory-type">Chemistry</a>
+                        <a id = "laboratory-type">{{details.laboratory}}</a>
                     </div>
                     <div class="detail">
                         <b>Seats reserved: </b>
-                        <a id = "seats-reserved">3C, 3G</a>
+                        <a id = "seats-reserved">{{details.seat_ids}}</a>
                     </div>
                     <div class="detail">
                         <b>Time: </b>
-                        <a id = "time">11:00 AM - 12:00 PM</a>
+                        <a id = "time">{{details.time_start}} - {{details.time_end}}</a>
                     </div>
                 </div>
                 <div class="equipment-details">
                     <b>Equipment Reserved:</b>
                     <div class="equipment">
                         <span id="number">1.</span>
-                        <span id="item">Erlenmeyer flask</span>
-                    </div>
-                    <div class="equipment">
-                        <span id="number">2.</span>
-                        <span id="item">Beaker</span>
+                        <span id="item">{{details.equipment}}</span>
                     </div>
                 </div>
             </div>
@@ -71,7 +67,7 @@
 
     <div class="logo">
         <div class="logo-image">
-            <img src = "assets/logo-flask.png">
+            <img src = "/common/assets/logo-flask.png">
         </div>
         <div class="text">
             <h1>ANIMO LABS</h1>
