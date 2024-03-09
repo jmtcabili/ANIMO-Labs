@@ -8,7 +8,6 @@ const reservationSchema = new mongoose.Schema({
 });
 
 
-
 const UserProfile = new mongoose.Schema({
   name: { type: String },
   description: { type: String },
