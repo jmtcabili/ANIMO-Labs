@@ -16,46 +16,6 @@ server.engine('hbs', handlebars.engine({
 
 server.use(express.static('public'));
 
-const { MongoClient } = require('mongodb');
-const databaseURL = "mongodb://127.0.0.1:27017/";
-const mongoClient = new MongoClient(databaseURL);
-
-const databaseName = "labDB";
-const lab_upcoming = "lab-upcoming";
-const lab_recent = "lab-recent";
-
-function errorFn(err){
-  console.log('Error fond. Please trace!');
-  console.error(err);
-}
-
-function successFn(res){
-  console.log('Database query successful!');
-}
-
-mongoClient.connect().then(function(con){
-  //Only do database manipulation inside of the connection
-  //When a connection is made, it will try to make the database
-  //automatically. The collection(like a table) needs to be made.
-  console.log("Attempt to create!");
-  const dbo = mongoClient.db(databaseName);
-  //Will create a collection if it has not yet been made
-  dbo.createCollection(lab_upcoming)
-    .then(successFn)
-    .catch(function (err){
-      console.log('Collection already exists');
-  });
-  dbo.createCollection(lab_recent)
-  .then(successFn)
-  .catch(function (err){
-    console.log('Collection already exists');
-});
-
-}).catch(errorFn);
-
-
-const Reservation = require('./public/common/script');
-
 server.get('/', function(req, resp){
   resp.render('login',{
       layout: 'index',
@@ -81,24 +41,7 @@ server.get('/user-profile', function(req, resp){
   });
 });
 
-server.get('/lab-profile', async function(req, resp){
-  try {
-    // Connect to MongoDB
-    await mongoClient.connect();
-    console.log("Connected to MongoDB");
-
-    // Get reference to the database and collection
-    const db = mongoClient.db(databaseName);
-    const lab_upcoming = db.collection("lab-upcoming");
-    const lab_recent = db.collection("lab-recent");
-
-    
-
-    // Query MongoDB to retrieve upcoming reservations
-    const upcomingReservations = await lab_upcoming.find({}).toArray();
-    const recentActivity = await lab_recent.find({}).toArray();
-
-    // Render the 'lab-profile' view and pass the retrieved data
+server.get('/lab-profile', function(req, resp){
     resp.render('lab-profile', {
         layout: 'user-index',
         title: 'Lab Profile',
@@ -107,13 +50,6 @@ server.get('/lab-profile', async function(req, resp){
         upcomingReservations: upcomingReservations,
         recentActivity: recentActivity
     });
-} catch (err) {
-    console.error('Error fetching data:', err);
-    resp.status(500).send('Internal Server Error');
-} finally {
-    // Close the MongoDB connection
-    await mongoClient.close();
-}
 });
 
 server.get('/lab-selection', function(req, resp){
