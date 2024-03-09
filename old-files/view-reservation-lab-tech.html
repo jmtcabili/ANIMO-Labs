@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="edit-profile.css" type = "text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <script src="view-reservation-lab-tech.js" defer></script>
+    <title>View Reservation Lab Tech</title>
+    
+</head>
+<body>
+    <div class = "main-container">
+        <div class = "menu-bar">
+            <div class = "user-details-bar">
+                <div class="profile-picture">
+                    <img src = "assets/user-dp.png">
+                </div>
+                <div class="details">
+                    <div class="name">
+                        <a>Lab Admin</a>
+                    </div>
+                    <div class="idnum">
+                        <a>12274534</a>
+                    </div>
+                    <div class="occupation">
+                        <a>Lab Technician</a>
+                    </div>
+                    <a href="edit-profile-lab-tech.html">
+                        <div class="edit-profile">
+                            <div class = "edit-pen-profile">
+                                <img src="assets/edit-pen.png">
+                                <u>Edit</u> 
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <hr class="separator">
+            <div class="navigation">
+                <a href="home-lab-tech.html">
+                    <div class="navigation-item">
+                        <img src="assets/home.png">
+                        <div class = "text">
+                            <u>Home</u>
+                        </div>
+                    </div>
+                </a>
+                <a href="accept-walk-in-lab-tech.html">
+                    <div class="navigation-item">
+                        <img src="assets/reservation.png">
+                        <div class = "text">
+                            <u>Accept Walk-In</u>
+                        </div>
+                    </div>
+                </a>
+                <a href="edit-reservation-lab-tech.html">
+                    <div class="navigation-item">
+                        <img src="assets/edit.png">
+                        <div class="text">
+                            <u>Edit Reservation</u>
+                        </div>
+                    </div>
+                </a>
+                <a href="view-reservation-lab-tech.html">
+                    <div class="navigation-item">
+                        <img src="assets/view.png">
+                        <div class = "text">
+                            <u>View Reservation</u>
+                         </div>
+                    </div>
+                </a>
+                <a href="remove-reservation-lab-tech.html">
+                    <div class="navigation-item">
+                        <img src="assets/delete.png">
+                        <div class = "text">
+                            <u>Remove Reservation</u>
+                        </div>
+                    </div>
+                </a>
+                <div class="navigation-item" id = "log-out-button" onclick= "window.location.href = 'Login.html'"> 
+                    <img src="assets/logout.png" id = "log-out">
+                    <div class = "text">
+                        <u>Log Out</u>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-bar-footer">
+                <div class="footer-image">
+                    <img src="assets/logo-flask.png">
+                </div>
+                <div class="footer-text">
+                    <a>ANIMO-LABS</a>
+                </div>
+            </div>
+        </div>
+        <div class = "right-side">
+            <div class = "lab-reservation">
+                <div class = "box-header">
+                    <h1 class>View Reservation</h1>
+                </div>
+                <div class="filter-content">
+                        <select id="laboratry" name="laboratry">
+                            <option value="">Select Laboratory</option>
+                            <option value="Chemistry Lab">Chemistry Lab</option>
+                            <option value="Computer Lab">Computer Lab</option>
+                            <option value="Electronics Lab">Electronics Lab</option>
+                        </select>
+                        <select id="start-time" name="start-time">
+                            <option value="">Start Time</option>
+                        </select>
+                        <select id="end-time" name="end-time">
+                            <option value="">End Time</option>
+                        </select>
+                </div>
+                <div class = "box-content"  id="content"></div>
+                <div id="pagination">
+                    <button id="prevButton" onclick="prevPage()">Previous</button>
+                    <span id="currentPage">Page 1</span>
+                    <button id="prevButton" onclick="nextPage()">Next</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            displayItems();
+        </script>
+    </div>
+</body>
+</html>
