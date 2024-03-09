@@ -148,6 +148,14 @@ server.get('/receipt', function(req, resp){
   });
 });
 
+server.get('/reservation-details', function(req, resp){
+  resp.render('reservation-details',{
+      layout: 'index',
+      title: 'Reservation Details',
+      style: '/common/receipt-style.css'
+  });
+});
+
 
 const port = process.env.PORT | 3000;
 server.listen(port, function(){
