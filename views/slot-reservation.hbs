@@ -12,80 +12,83 @@
                 <div class="laboratory">
                     <a><strong>Chemistry Laboratory</strong></a>
                 </div>
-                <div class="details">
-                    <span class="date">
-                        Date:
-                        <input type = "date">
-                    </span>
-                    <span class="room-number">
-                        Room:
-                        <select name = "room" id = "room">
-                            <option value = V101>V101</option>
-                            <option value = V102>V102</option>
-                            <option value = V103>V103</option>
-                            <option value = V104>V104</option>
-                            <option value = V105>V105</option>
-                        </select>
-                    </span>
-                    <span class="start-time">
-                        <label>Start: </label>
-                        <select name = "start-hour" id = "start-hour">
-                            <option value = "12">12</option> <option value = "11">11</option>
-                            <option value = "10">10</option> <option value = "9">9</option>
-                            <option value = "8">8</option>   <option value = "7">7</option>
-                            <option value = "6">6</option>   <option value = "5">5</option>
-                            <option value = "4">4</option>   <option value = "3">3</option>
-                            <option value = "2">2</option>   <option value = "1">1</option>
-                        </select>
-                        <a><b>:</b></a>
-                        <select name = "start-min" id = "start-min">
-                            <option value = "0">00</option>
-                            <option value = "15">15</option>
-                            <option value = "30">30</option>
-                            <option value = "45">45</option>
-                        </select>
-                        <select name = "start-period" id = "start-period">
-                            <option value = "AM">AM</option>
-                            <option value = "PM">PM</option>
-                        </select>
-                    </span>
-                    <span class="end-time">
-                        <label>End: </label>
-                        <select name = "end-hour" id = "end-hour">
-                            <option value = "12">12</option> <option value = "11">11</option>
-                            <option value = "10">10</option> <option value = "9">9</option>
-                            <option value = "8">8</option>   <option value = "7">7</option>
-                            <option value = "6">6</option>   <option value = "5">5</option>
-                            <option value = "4">4</option>   <option value = "3">3</option>
-                            <option value = "2">2</option>   <option value = "1">1</option>
-                        </select>
-                        <a><b>:</b></a>
-                        <select name = "end-min" id = "end-min">
-                            <option value = "0">00</option>
-                            <option value = "15">15</option>
-                            <option value = "30">30</option>
-                            <option value = "45">45</option>
-                        </select>
-                        <select name = "end-period" id = "end-period">
-                            <option value = "AM">AM</option>
-                            <option value = "PM">PM</option>
-                        </select>
-                    </span>
-                    <span class="seats-selected">
-                        Seats selected: 3C, 3G
-                    </span>
-                </div>
-                <div class="buttons">
-                    <div class="button-parent">
-                        <button onclick = "window.location.href = '/lab-selection'">Return</button>
+                <form action="/add-equipment">
+                    <div class="details">
+                        <span class="date">
+                            Date:
+                            <input type = "date" id = "date">
+                        </span>
+                        <span class="room-number">
+                            Room:
+                            <select name = "room" id = "room">
+                                <option value = V101>V101</option>
+                                <option value = V102>V102</option>
+                                <option value = V103>V103</option>
+                                <option value = V104>V104</option>
+                                <option value = V105>V105</option>
+                            </select>
+                        </span>
+                        <span class="start-time">
+                            <label>Start: </label>
+                            <select name = "start-hour" id = "start-hour">
+                                <option value = 12>12</option> <option value = 11>11</option>
+                                <option value = 10>10</option> <option value = 9>9</option>
+                                <option value = 8>8</option>   <option value = 7>7</option>
+                                <option value = 6>6</option>   <option value = 5>5</option>
+                                <option value = 4>4</option>   <option value = 3>3</option>
+                                <option value = 2>2</option>   <option value = 1>1</option>
+                            </select>
+                            <a><b>:</b></a>
+                            <select name = "start-min" id = "start-min">
+                                <option value = 00>00</option>
+                                <option value = 15>15</option>
+                                <option value = 30>30</option>
+                                <option value = 45>45</option>
+                            </select>
+                            <select name = "start-period" id = "start-period">
+                                <option value = "AM">AM</option>
+                                <option value = "PM">PM</option>
+                            </select>
+                        </span>
+                        <span class="end-time">
+                            <label>End: </label>
+                            <select name = "end-hour" id = "end-hour">
+                                <option value = 12>12</option> <option value = 11>11</option>
+                                <option value = 10>10</option> <option value = 9>9</option>
+                                <option value = 8>8</option>   <option value = 7>7</option>
+                                <option value = 6>6</option>   <option value = 5>5</option>
+                                <option value = 4>4</option>   <option value = 3>3</option>
+                                <option value = 2>2</option>   <option value = 1>1</option>
+                            </select>
+                            <a><b>:</b></a>
+                            <select name = "end-min" id = "end-min">
+                                <option value = 00>00</option>
+                                <option value = 15>15</option>
+                                <option value = 30>30</option>
+                                <option value = 45>45</option>
+                            </select>
+                            <select name = "end-period" id = "end-period">
+                                <option value = "AM">AM</option>
+                                <option value = "PM">PM</option>
+                            </select>
+                        </span>
+                        <span class="seats-selected">
+                            Seats Selected: 
+                            <input type = "text" id = "seats-selected" readonly value = "3C 3G">
+                        </span>
                     </div>
-                    <div class="button-parent">
-                        <button>Apply Filter</button>
+                    <div class="buttons">
+                            <div class="button-parent">
+                                <a href = "/lab-selection">
+                                    <input type = "button" value = "Return" class = "button" size = "100">
+                                </a>
+                            </div>
+                            <div class="button-parent">
+                                <input type = "submit" value = "Next" class ="button">
+                            </div>
                     </div>
-                    <div class="button-parent">
-                        <button onclick = "window.location.href = '/add-equipment'">Next</button>
-                    </div>
-                </div>
+                </form>
+                
             </div>
         </div>
         <div class="slots-parent">
@@ -98,60 +101,60 @@
             <div class="seating-chem">
                 <div class="set">
                     <div class="column left">
-                        <div class="seat" id = "one"></div>
-                        <div class="seat" id = "two"></div>
-                        <div class="seat" id = "three"></div>
+                        <div class="seat reserved" id = "S1"></div>
+                        <div class="seat available" id = "S2"></div>
+                        <div class="seat available" id = "S3"></div>
                     </div>
                     <div class="table"></div>
                     <div class="column right">
-                        <div class="seat" id = "four"></div>
-                        <div class="seat" id = "five"></div>
-                        <div class="seat" id = "six"></div>
+                        <div class="seat reserved" id = "S4"></div>
+                        <div class="seat available" id = "S5"></div>
+                        <div class="seat available" id = "S6"></div>
                     </div>
                 </div>
                 <div class="set">
                     <div class="column left">
-                        <div class="seat" id = "seven"></div>
-                        <div class="seat" id = "eight"></div>
-                        <div class="seat" id = "nine"></div>
+                        <div class="seat available" id = "S7"></div>
+                        <div class="seat available" id = "S8"></div>
+                        <div class="seat available" id = "S9"></div>
                     </div>
                     <div class="table"></div>
                     <div class="column right">
-                        <div class="seat" id = "ten"></div>
-                        <div class="seat" id = "eleven"></div>
-                        <div class="seat" id = "twelve"></div>
+                        <div class="seat available" id = "S10"></div>
+                        <div class="seat available" id = "S11"></div>
+                        <div class="seat available" id = "S12"></div>
                     </div>
                 </div>
                 <div class="set">
                     <div class="column left">
-                        <div class="seat" id = "thirteen"></div>
-                        <div class="seat" id = "fourteen"></div>
-                        <div class="seat" id = "fifteen"></div>
+                        <div class="seat available" id = "S13"></div>
+                        <div class="seat available" id = "S14"></div>
+                        <div class="seat available" id = "S15"></div>
                     </div>
                     <div class="table"></div>
                     <div class="column right">
-                        <div class="seat" id = "sixteen"></div>
-                        <div class="seat" id = "seventeen"></div>
-                        <div class="seat" id = "eighteen"></div>
+                        <div class="seat reserved" id = "S16"></div>
+                        <div class="seat reserved" id = "S17"></div>
+                        <div class="seat reserved" id = "S18"></div>
                     </div>
                 </div>
                 
             </div>
             <div class="seat-legend">
                 <div class="legend-container">
-                    <div class="legend" id = "available"></div>
+                    <div class="legend available"></div>
                     <a>Available</a>
                 </div>
                 <div class="legend-container">
-                    <div class="legend" id = "reserved"></div>
+                    <div class="legend reserved"></div>
                     <a>Reserved</a>
                 </div>
                 <div class="legend-container">
-                    <div class="legend" id = "selected"></div>
+                    <div class="legend selected"></div>
                     <a>Selected</a>
                 </div>
                 <div class="legend-container">
-                    <div class="legend" id = "out-of-order"></div>
+                    <div class="legend out-of-order"></div>
                     <a>Out-of-Order</a>
                 </div>
             </div>

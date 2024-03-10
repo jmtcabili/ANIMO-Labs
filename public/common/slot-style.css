@@ -84,12 +84,20 @@ body{
 
 .button-parent{
     display: flex; 
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
     width: 33%;    
+    border: solid black;
 }
 
-.button-parent button{
-    position: relative;
+.button-parent > a{
+    display: flex; 
+    justify-content: center;
+    width: 100%; 
+}
+
+.button-parent button, .button{
     width: 70%;
     color: white; 
     background-color: var(--darkgreen);
@@ -97,11 +105,8 @@ body{
     border-radius: 10px;
 }
 
-.button-parent button:active{
-    top: 1px; 
-}
 
-.button-parent button:hover{
+.button-parent button:hover, .button:hover{
     cursor: pointer; 
     background-color: #444;
     transition: .5s ease;
@@ -207,16 +212,16 @@ body{
 }
 
 
-#available{
+.available{
     background-color:green; 
 }
-#reserved{
+.reserved{
     background-color: red;
 }
-#selected{
+.selected{
     background-color: lightblue;
 }
-#out-of-order{
+.out-of-order{
     background-color: orange;
 }
 

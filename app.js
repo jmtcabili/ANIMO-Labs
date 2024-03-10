@@ -68,10 +68,37 @@ server.get('/lab-selection', function(req, resp){
 });
 
 server.get('/slot-reservation', function(req, resp){
+  //need student id
+  //note that time should be in military format for easier checking
+  //the reservations that you have to show have to be within range  
   resp.render('slot-reservation',{
-      layout: 'index',
-      title: 'Chemistry Lab(need to make param)',
-      style: '/common/slot-style.css'
+    layout: 'slot-index',
+    title: 'Chemistry Lab(need to make param)',
+    style: '/common/slot-style.css',
+    script: '/common/slot-script.js',
+  });
+
+});
+
+server.post('/slot-ajax', function(req, resp){
+
+  let date = req.body.date; 
+  let room = String(req.body.room);
+  let start_hour = req.body.start_hour; 
+  let start_min = req.body.start_min; 
+  let end_hour = req.body.end_hour;
+  let end_min = req.body.end_min; 
+
+  //convert to military time 
+  let start_time = Number(start_hour+start_min); 
+  let end_time = Number(end_hour+end_min);
+
+  console.log(start_time); 
+  const searchQuery = {
+    room: room
+  }
+  responder.reservationModel.findOne(searchQuery).lean().then(function(reservations){
+    resp.send(reservations);
   });
 });
 
@@ -96,7 +123,7 @@ const searchQuery = {
         name: req.query.name,
         reservation_id: req.query.reservation_id,
         laboratory: req.query.laboratory,
-        time_start: req.query.time_start
+        time_start: req.query.start_time
     };
 
     // Assuming you have a reservationModel schema/model
@@ -120,6 +147,10 @@ const searchQuery = {
     });
 });
 
+
+process.on('SIGTERM',responder.finalClose);  //general termination signal
+process.on('SIGINT', responder.finalClose);   //catches when ctrl + c is used
+process.on('SIGQUIT', responder.finalClose); //catches other termination commands
 
 const port = process.env.PORT | 3000;
 server.listen(port, function(){

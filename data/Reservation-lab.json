@@ -2,23 +2,25 @@
     {
         "name": "John Doe",
         "reservation_id": "123456",
+        "student_id": "122345",
         "laboratory": "Chemistry Lab",
-        "room": "Room 101",
+        "room": "V101",
         "date": "February 6, 2024",
-        "time_start": "09:00 AM",
-        "time_end": "11:00 AM",
-        "seat_ids": ["A1", "A2", "B1"],
+        "start_time": 900, 
+        "end_time": 1100, 
+        "seat_ids": ["S1", "S2", "S3"],
         "equipment": ["Bunsen Burner", "Microscope"]
     },
     {
         "name": "Jane Smith",
         "reservation_id": "789012",
-        "laboratory": "Physics Lab",
-        "room": "Room 201",
+        "student_id": "122347",
+        "laboratory": "Chemistry Lab",
+        "room": "V101",
         "date": "October 3, 2023",
-        "time_start": "01:00 PM",
-        "time_end": "03:00 PM",
-        "seat_ids": ["C1", "C2", "D1"],
+        "start_time": 1300, 
+        "end_time": 1500, 
+        "seat_ids": ["S4", "S7", "S9"],
         "equipment": ["Telescope", "Oscilloscope"]
     }
 ]
