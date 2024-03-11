@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/labDB');
 
 const reservationSchema = new mongoose.Schema({
-    name: {type: String }, 
+    name: {type: String, default: function() { return this.parent().name; } }, 
     reservation_id:  {type : String}, 
-    student_id: {type: String},
+    student_id: {type: String, default: function() { return this.parent().student_id; } },
     laboratory: {type: String}, 
     room: {type: String}, 
     date: {type: Date},
@@ -18,13 +18,16 @@ const reservationSchema = new mongoose.Schema({
     }],
 }, {versionKey: false});
 
+
+// was thinking maybe we split the user and lab tech schema 
 const userSchema = new mongoose.Schema({
     name: {type: String}, 
     student_id: {type: String}, 
     image: {type: Buffer},
-    desc : {type: String},
-    type: {type: String},
+    desc : {type: String}
 }, {versionKey: false});
+
+
 
 const reservationModel = mongoose.model('reservation', reservationSchema);
 const userModel = mongoose.model('user', userSchema); 

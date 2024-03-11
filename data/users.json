@@ -1,0 +1,15 @@
+[
+    {
+        "name": "John Doe",
+        "student_id": "122345",
+        "image": "binary_data_here",
+        "desc": "Description of John Doe"
+    },
+
+    {
+        "name": "Jane Smith",
+        "student_id": "122347",
+        "image": "binary_data_here",
+        "desc": "Description of Jane Smith"
+    }
+]

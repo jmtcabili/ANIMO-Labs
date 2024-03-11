@@ -6,31 +6,13 @@
                     <h1 class>UPCOMING RESERVATIONS</h1>
                 </div>
                 <div class = "box-content">
-                    <div class = "mini-box">
-                        <div><strong>Reservation #:</strong> 123123</div>
-                        <div><strong>Laboratory:</strong> Chemistry Lab</div>
-                        <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
+                    {{#each reservationData}}
+                    <div class="mini-box">
+                        <div><strong>Reservation #:</strong> {{this.reservation_id}}</div>
+                        <div><strong>Laboratory:</strong> {{this.laboratory}}</div>
+                        <div><strong>Time:</strong> {{this.start_time}} - {{this.end_time}}</div>
                     </div>
-                    <div class = "mini-box">
-                        <div><strong>Reservation #:</strong> 123456</div>
-                        <div><strong>Laboratory:</strong> Computer Lab</div>
-                        <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
-                    </div>
-                    <div class = "mini-box">
-                        <div><strong>Reservation #:</strong> 456123</div>
-                        <div><strong>Laboratory:</strong> Electronics Lab</div>
-                        <div><strong>Time:</strong> 2:00 PM - 4:00 PM</div>
-                    </div>
-                    <div class = "mini-box">
-                        <div><strong>Reservation #:</strong> 456123</div>
-                        <div><strong>Laboratory:</strong> Electronics Lab</div>
-                        <div><strong>Time:</strong> 2:00 PM - 4:00 PM</div>
-                    </div>
-                    <div class = "mini-box">
-                        <div><strong>Reservation #:</strong> 456123</div>
-                        <div><strong>Laboratory:</strong> Electronics Lab</div>
-                        <div><strong>Time:</strong> 2:00 PM - 4:00 PM</div>
-                    </div>
+                    {{/each}}
                 </div>
             </div>
             <div class = "box-small" id = "recent-activity">
@@ -42,47 +24,6 @@
                         <div><strong>Reservation #:</strong> 123123</div>
                         <div><strong>Laboratory:</strong> Chemistry Lab</div>
                         <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
-                    </div>
-                    <div class = "mini-box">
-                        <div><strong>Reservation #:</strong> 123456</div>
-                        <div><strong>Laboratory:</strong> Computer Lab</div>
-                        <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
-                    </div>
-                    <div class = "mini-box">
-                        <div><strong>Reservation #:</strong> 456123</div>
-                        <div><strong>Laboratory:</strong> Electronics Lab</div>
-                        <div><strong>Time:</strong> 2:00 PM - 4:00 PM</div>
-                    </div>
-                </div>
-            </div>
-            <div class = "box-big hide" id = "edit-reservation">
-                <div class = "box-header">
-                    <h1 class>EDIT RESERVATION</h1>
-                </div>
-                <div class = "box-content">
-                    <div class = "mini-box " onclick= "window.location.href = 'lab-selection.html'">
-                        <div><strong>Reservation #:</strong> 123456</div>
-                        <div><strong>Laboratory:</strong> Chemistry Lab</div>
-                        <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
-                        <div class = "edit-pen">
-                            <img src="/common/assets/edit-pen.png">
-                        </div>
-                    </div>
-                    <div class = "mini-box" onclick= "window.location.href = 'lab-selection.html'">
-                        <div><strong>Reservation #:</strong> 123789</div>
-                        <div><strong>Laboratory:</strong> Computer Lab</div>
-                        <div><strong>Time:</strong> 10:00 AM - 11:00 AM</div>
-                        <div class = "edit-pen">
-                            <img src="/common/assets/edit-pen.png">
-                        </div>
-                    </div>
-                    <div class = "mini-box" onclick= "window.location.href = 'lab-selection.html'">
-                        <div><strong>Reservation #:</strong> 123111</div>
-                        <div><strong>Laboratory:</strong> Electronics Lab</div>
-                        <div><strong>Time:</strong> 1:00 PM - 4:00 PM</div>
-                        <div class = "edit-pen">
-                            <img src="/common/assets/edit-pen.png">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -104,7 +45,19 @@
                         <option value="">End Time</option>
                     </select>
                 </div>
-                <div class = "box-content"  id="content"></div>
+                <div class = "box-content"  id="content">
+                    {{#each reservationData}}
+                    <a href="/reservation-details?reservation_id={{reservation_id}}&name={{name}}&laboratory={{laboratory}}&time_start={{time_start}}"> 
+                        <div class = "mini-box">
+                            <div><strong>Student:</strong> {{name}}</div>
+                            <div><strong>Student ID:</strong> 12345678</div>
+                            <div><strong>Reservation #:</strong> {{this.reservation_id}}</div>
+                            <div><strong>Laboratory:</strong> {{this.laboratory}}</div>
+                            <div><strong>Time:</strong> {{this.start_time}} - {{this.end_time}}</div>
+                        </div>
+                    </a>
+                    {{/each}}
+                </div>
                 <div id="pagination">
                     <button id="prevButton" onclick="prevPage()">Previous</button>
                     <span id="currentPage">Page 1</span>

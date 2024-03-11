@@ -257,6 +257,10 @@ body{
     justify-content: center;
     flex-wrap: wrap;
 }
+
+.box-content > a{
+    width: 100%; 
+}
 .contact-content{
     display: flex;
     flex-direction: row;

@@ -35,12 +35,26 @@ server.get('/sign-up', function(req, resp){
 });
 
 server.get('/user-profile', function(req, resp){
-  resp.render('user-profile',{
-      layout: 'user-index',
-      title: 'User Profile',
-      style: '/common/user-style.css',
-      script: '/common/user-profile.js'
-  });
+  const searchQuery = { name: "John Doe" }; //replace with proper parameter once log in is working
+  // Fetch user data
+  const userPromise = responder.userModel.find(searchQuery).lean();
+    
+  // Fetch reservation data
+  const reservationPromise = responder.reservationModel.find(searchQuery).lean();
+  
+  // Wait for both promises to resolve
+  Promise.all([userPromise, reservationPromise])
+      .then(function([user_data, reservation_data]){
+          resp.render('user-profile',{
+              layout: 'user-index',
+              title: 'User Profile',
+              style: '/common/user-style.css',
+              script: '/common/user-profile.js',
+              currentUser: user_data,
+              reservationData: reservation_data
+          });
+      })
+      .catch(responder.errorFn());
 });
 
 server.get('/lab-profile', function(req, resp){
