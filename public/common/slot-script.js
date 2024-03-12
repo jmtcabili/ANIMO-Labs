@@ -12,11 +12,30 @@ function displaySlots(){
     }, 
     function(data, status){
       if (status === 'success'){
-        for(const reservation of data){
-          console.log(reservation.start_time); 
-      }
-      }
-    }
+        $(".seat").removeClass("reserved").addClass("available");
+        reserved_seats = new Array(); 
+        data.forEach(function(reservation){
+          console.log("Room:" + reservation.room);
+          console.log("Seats: " + reservation.seat_ids);
+          reservation.seat_ids.forEach(function(seats){
+            reserved_seats.push(seats);
+          });//seats
+        });//reservations
+      }//status
+
+      //changing seat status
+      reserved_seats.forEach(function(seat){
+       $("#"+seat).removeClass("available").addClass("reserved"); 
+      }); 
+
+      //changing displayed details
+      let start_time_text = $('#start-hour').val() + ":" + $('#start-min').val() + " " + $('#start-period').val();
+      let end_time_text = $('#end-hour').val() + ":" + $('#end-min').val() + " " + $('#end-period').val();
+      $("#date-selected").text($('#date').val());
+      $("#room-selected").text($('#room').val());
+      $("#time-selected").text(start_time_text + " - " + end_time_text);
+
+    }//data,status
   ); 
 }
 

@@ -107,12 +107,21 @@ server.post('/slot-ajax', function(req, resp){
   let start_time = Number(start_hour+start_min); 
   let end_time = Number(end_hour+end_min);
 
-  console.log(start_time); 
+  console.log("Start time (node): " + start_time); 
   const searchQuery = {
-    room: room
+    room: room,
+    start_time: {$gte: start_time},
+    end_time: {$lte: end_time}
   }
-  responder.reservationModel.findOne(searchQuery).lean().then(function(reservations){
-    resp.send(reservations);
+  responder.reservationModel.find(searchQuery).lean().then(function(reservations){
+    if (reservations){
+      console.log("Found"); 
+      console.log(reservations);
+      resp.send(reservations);
+    }else{
+      console.log("Not found"); 
+      resp.status(404).send("Reservation not found");
+    }
   });
 });
 
