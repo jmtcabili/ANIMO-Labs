@@ -81,15 +81,37 @@ server.get('/lab-selection', function(req, resp){
   });
 });
 
-server.get('/slot-reservation', function(req, resp){
+//things that change with lab 
+//css, partial hbs for seating
+
+
+
+
+server.get('/slot-reservation/:lab', function(req, resp){
   //need student id
   //note that time should be in military format for easier checking
-  //the reservations that you have to show have to be within range  
+  //the reservations that you have to show have to be within range
+  let isChem = req.params.lab === 'Chemistry Laboratory';
+  let isComp = req.params.lab === 'Computer Laboratory';
+  let isElec = req.params.lab === 'Electronics Laboratory';
+  let style = "";
+  if (isChem){
+    style = '/common/slot-style-chem.css';
+  }else if (isComp){
+    style = "/common/slot-style-comp.css";
+  }else
+    style = "/common/slot-style-elec.css";
+
+
   resp.render('slot-reservation',{
     layout: 'slot-index',
-    title: 'Chemistry Lab(need to make param)',
-    style: '/common/slot-style.css',
+    title: req.params.lab,
+    style: style, 
     script: '/common/slot-script.js',
+    lab: req.params.lab,
+    isChem: isChem,
+    isComp: isComp, 
+    isElec: isElec
   });
 
 });

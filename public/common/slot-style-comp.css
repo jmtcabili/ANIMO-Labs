@@ -88,7 +88,6 @@ body{
     justify-content: center;
     align-items: center;
     width: 33%;    
-    border: solid black;
 }
 
 .button-parent > a{
@@ -127,8 +126,7 @@ body{
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
 }
-
-.seating-chem{
+.seating{
     display: flex;
     flex-direction: row; 
     justify-content: space-around;
@@ -139,56 +137,55 @@ body{
 
 .set{
     display: flex; 
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 33%; 
-    height: 100%; 
+    width: 100%;  
+    height: 33%; 
+    margin: 2%; 
 }
 
 .column{
     display: flex; 
     flex-direction: column;
-    justify-content: space-around;
-    height: 100%;  
+    justify-content: center; 
+    align-items: center;
+    width: 30%;
+
+}
+.seats{
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%; 
+    height: 50%;
 }
 
 .seat{
-    width: 2vw; 
-    height: 2vw;
+    width: 20%; 
+    height: 70%;
     border: solid black; 
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
 }
 
-.left .seat{
+.left1 .seat1{
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
-.right .seat{
+.right1 .seat1{
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 
 /*Sample Reservation Status*/
 
-#one, #three, #five ,#six, #nine{
-    background-color: red;
-}
-#eight, #eleven{
-    background-color: lightblue;
-}
-#eighteen{
-    background-color: orange;
-}
-#two, #four, #five, #seven, #nine, #ten, #twelve, #thirteen, #fourteen, #fifteen, #sixteen, #seventeen{
-    background-color: green;
-}
-
 .table{
-    width: 30%;
-    height: 90%; 
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-    border: solid black;  
+    width: 70%; 
+    height: 50%; 
+    border: solid black;
 }
 
 .seat-legend{

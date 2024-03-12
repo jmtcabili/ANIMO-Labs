@@ -10,7 +10,7 @@
             </div>
             <div class="details-parent">
                 <div class="laboratory">
-                    <a><strong>Chemistry Laboratory</strong></a>
+                    <a><strong>{{lab}}</strong></a>
                 </div>
                 <form action="/add-equipment">
                     <div class="details">
@@ -98,48 +98,15 @@
                 <a id= "room-selected">Velasco 104</a><br>
                 <a id= "time-selected">11:00 AM - 12:00 PM</a><br>
             </div>
-            <div class="seating-chem">
-                <div class="set">
-                    <div class="column left">
-                        <div class="seat available" id = "S1"></div>
-                        <div class="seat available" id = "S2"></div>
-                        <div class="seat available" id = "S3"></div>
-                    </div>
-                    <div class="table"></div>
-                    <div class="column right">
-                        <div class="seat available" id = "S4"></div>
-                        <div class="seat available" id = "S5"></div>
-                        <div class="seat available" id = "S6"></div>
-                    </div>
-                </div>
-                <div class="set">
-                    <div class="column left">
-                        <div class="seat available" id = "S7"></div>
-                        <div class="seat available" id = "S8"></div>
-                        <div class="seat available" id = "S9"></div>
-                    </div>
-                    <div class="table"></div>
-                    <div class="column right">
-                        <div class="seat available" id = "S10"></div>
-                        <div class="seat available" id = "S11"></div>
-                        <div class="seat available" id = "S12"></div>
-                    </div>
-                </div>
-                <div class="set">
-                    <div class="column left">
-                        <div class="seat available" id = "S13"></div>
-                        <div class="seat available" id = "S14"></div>
-                        <div class="seat available" id = "S15"></div>
-                    </div>
-                    <div class="table"></div>
-                    <div class="column right">
-                        <div class="seat available" id = "S16"></div>
-                        <div class="seat available" id = "S17"></div>
-                        <div class="seat available" id = "S18"></div>
-                    </div>
-                </div>
-                
-            </div>
+            {{#if isChem}}
+                {{>chem-seating}}
+            {{/if}}
+            {{#if isComp}}
+                {{>comp-seating}}
+            {{/if}}
+            {{#if isElec}}
+                {{>elec-seating}}
+            {{/if}}
             <div class="seat-legend">
                 <div class="legend-container">
                     <div class="legend available"></div>

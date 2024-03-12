@@ -1,7 +1,7 @@
 
 function displaySlots(){
   $.post(
-    'slot-ajax', 
+     '/slot-ajax', 
     {
       date: $('#date').val(),
       room: $('#room').val(),
@@ -12,11 +12,12 @@ function displaySlots(){
     }, 
     function(data, status){
       if (status === 'success'){
+        console.log("Query Success")
         $(".seat").removeClass("reserved").addClass("available");
         reserved_seats = new Array(); 
         data.forEach(function(reservation){
-          console.log("Room:" + reservation.room);
-          console.log("Seats: " + reservation.seat_ids);
+          //console.log("Room:" + reservation.room);
+          //console.log("Seats: " + reservation.seat_ids);
           reservation.seat_ids.forEach(function(seats){
             reserved_seats.push(seats);
           });//seats
