@@ -91,8 +91,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
 // Function to handle image upload
-$(document).getElementById('image-upload').addEventListener('change', function(event) {
+document.getElementById('image-upload').addEventListener('change', function(event) {
     const file = event.target.files[0]; // Get the selected image file
 
     // Display the selected image as a preview
@@ -168,12 +169,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to update filtered data
     async function updateFilteredData() {
+        console.log("Function updateFilteredData is being called.");
         const laboratory = laboratorySelect.value;
         const startTime = startTimeSelect.value;
         const endTime = endTimeSelect.value;
 
+        console.log('Laboratory:', laboratory);
+        console.log('Start Time:', startTime);
+        console.log('End Time:', endTime);
+
         const response = await fetch(`/lab-profile?laboratory=${laboratory}&start_time=${startTime}&end_time=${endTime}`);
         const data = await response.json();
+
+        console.log('Filtered Data:', data);
 
         // Update reservation list container
         const reservationListContainer = document.getElementById('reservation-list-container');
