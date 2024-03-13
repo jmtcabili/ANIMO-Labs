@@ -4,6 +4,7 @@ let start_time = 0;
 let end_hour = 0; 
 let end_min = 0; 
 let end_time = 0; 
+let flag = 0; 
 
 
 function getTime(){
@@ -87,13 +88,14 @@ $(document).ready(function(){
 
   $('.details').change(function(){
     getTime(); 
-    if (checkTime() == 1)
+    if (flag == 1)
       displaySlots();
-    
-
-  
-    
-
+  });
+  $('.start-time').change(function(){
+    if (checkTime() == 1)
+      flag = 1; 
+    else 
+      flag = 0; 
   });
 });
 

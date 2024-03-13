@@ -21,11 +21,9 @@
                         <span class="room-number">
                             Room:
                             <select name = "room" id = "room">
-                                <option value = V101>V101</option>
-                                <option value = V102>V102</option>
-                                <option value = V103>V103</option>
-                                <option value = V104>V104</option>
-                                <option value = V105>V105</option>
+                                {{#each rooms}}
+                                    <option value = {{room}}>{{room}}</option>
+                                {{/each}}
                             </select>
                         </span>
                         <span class="start-time">
@@ -74,7 +72,7 @@
                         </span>
                         <span class="seats-selected">
                             Seats Selected: 
-                            <input type = "text" id = "seats-selected" readonly value = "3C 3G">
+                            <input type = "text" id = "seats-selected" readonly value = "">
                         </span>
                     </div>
                     <div class="buttons">

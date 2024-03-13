@@ -89,6 +89,15 @@ server.get('/lab-selection', function(req, resp){
   });
 });
 
+const chem_rooms = '[{"room": "V101"}, {"room": "V102"},{"room": "V103"},{"room": "V104"},{"room": "V105"}]';
+const comp_rooms = '[{"room": "G302"},{"room": "G303"},{"room": "G304"},{"room": "G305"}]';
+const elec_rooms = '[{"room": "G403"}, {"room": "G404"}]';
+
+let chem_list = JSON.parse(chem_rooms);
+let comp_list = JSON.parse(comp_rooms);
+let elec_list = JSON.parse(elec_rooms);
+
+
 server.get('/slot-reservation/:lab', function(req, resp){
   //need student id
   //note that time should be in military format for easier checking
@@ -97,14 +106,18 @@ server.get('/slot-reservation/:lab', function(req, resp){
   let isComp = req.params.lab === 'Computer Laboratory';
   let isElec = req.params.lab === 'Electronics Laboratory';
   let style = "";
+  let room = "";
   if (isChem){
     style = '/common/slot-style-chem.css';
+    room = chem_list; 
   }else if (isComp){
     style = "/common/slot-style-comp.css";
-  }else
+    room = comp_list; 
+  }else{
     style = "/common/slot-style-elec.css";
-
-
+    room = elec_list;
+  } 
+  
   resp.render('slot-reservation',{
     layout: 'slot-index',
     title: req.params.lab,
@@ -113,7 +126,8 @@ server.get('/slot-reservation/:lab', function(req, resp){
     lab: req.params.lab,
     isChem: isChem,
     isComp: isComp, 
-    isElec: isElec
+    isElec: isElec,
+    rooms: room
   });
 
 });
