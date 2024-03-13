@@ -1,3 +1,36 @@
+let start_hour = 0; 
+let start_min = 0; 
+let start_time = 0; 
+let end_hour = 0; 
+let end_min = 0; 
+let end_time = 0; 
+
+
+function getTime(){
+  start_hour = Number($('#start-hour').val());
+  end_hour = Number($('#end-hour').val());
+  start_min = Number($('#start-min').val());
+  end_min = Number($("#end-min").val());
+
+  if ($('#start-period').val() === 'PM')
+    start_hour += 12;    
+  if ($('#end-period').val() === 'PM')
+    end_hour += 12;
+  start_time = start_hour*100 + start_min; 
+  end_time = end_hour*100 + end_min; 
+}
+
+function checkTime(){
+  let isValid = 0;
+
+  getTime();
+  if (end_time - start_time <= 0){
+    alert("End time should be after start time.");
+  }else
+    isValid = 1; 
+  
+  return isValid;    
+}
 
 function displaySlots(){
   $.post(
@@ -5,10 +38,8 @@ function displaySlots(){
     {
       date: $('#date').val(),
       room: $('#room').val(),
-      start_hour: $('#start-hour').val(), 
-      start_min: $('#start-min').val(), 
-      end_hour: $('#end-hour').val(), 
-      end_min: $('#end-min').val(), 
+      start_time: start_time, 
+      end_time: end_time
     }, 
     function(data, status){
       if (status === 'success'){
@@ -42,10 +73,27 @@ function displaySlots(){
 
 
 $(document).ready(function(){
+  const date = new Date();
+  let curr_day = date.getDate();
+  let curr_month = date.getMonth()+1; 
+  let curr_year = date.getFullYear();
+
+  if (curr_day < 10)
+    curr_day = '0' + String(curr_day);
+  if (curr_month < 10)
+    curr_month = '0' + String(curr_month);
+  $("#date").val(curr_year + '-' + curr_month + '-' + curr_day);
+
+
   $('.details').change(function(){
-    displaySlots();
-  });
+    getTime(); 
+    if (checkTime() == 1)
+      displaySlots();
+    
 
   
+    
+
+  });
 });
 

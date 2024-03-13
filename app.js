@@ -89,12 +89,6 @@ server.get('/lab-selection', function(req, resp){
   });
 });
 
-//things that change with lab 
-//css, partial hbs for seating
-
-
-
-
 server.get('/slot-reservation/:lab', function(req, resp){
   //need student id
   //note that time should be in military format for easier checking
@@ -128,16 +122,11 @@ server.post('/slot-ajax', function(req, resp){
 
   let date = req.body.date; 
   let room = String(req.body.room);
-  let start_hour = req.body.start_hour; 
-  let start_min = req.body.start_min; 
-  let end_hour = req.body.end_hour;
-  let end_min = req.body.end_min; 
-
-  //convert to military time 
-  let start_time = Number(start_hour+start_min); 
-  let end_time = Number(end_hour+end_min);
+  let start_time = req.body.start_time; 
+  let end_time = req.body.end_time; 
 
   console.log("Start time (node): " + start_time); 
+  console.log("End time (node): " + end_time); 
   const searchQuery = {
     room: room,
     start_time: {$gte: start_time},
