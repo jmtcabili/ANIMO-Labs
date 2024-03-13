@@ -48,7 +48,7 @@
                 <div class = "box-content"  id="content">
                     {{#each reservationData}}
                     <a href="/reservation-details?reservation_id={{reservation_id}}&name={{name}}&laboratory={{laboratory}}&time_start={{time_start}}"> 
-                        <div class = "mini-box">
+                        <div class = "mini-box-click">
                             <div><strong>Student:</strong> {{name}}</div>
                             <div><strong>Student ID:</strong> 12345678</div>
                             <div><strong>Reservation #:</strong> {{this.reservation_id}}</div>
@@ -102,26 +102,33 @@
                     <div class="edit-profile-picture">
                         <img src = "/common/assets/user-dp.png">
                     </div>
-                    <div class = "edit-pen-content-profile">
-                        <img src="/common/assets/edit-pen.png">
+                    <div class="edit-pen-content-profile">
+                        <input type="file" id="image-upload" accept="image/*">
+                        <label for="image-upload">
+                            <img src="/common/assets/edit-pen.png" class="edit-pen" alt="Edit">
+                        </label>
                     </div>
                 </div>
-                <div class = "profile">
+                <div class="profile">
                     <div class="text-name">
-                        <a>Juan Dela Cruz</a><img src="/common/assets/edit-pen.png">
-                    </div> 
+                        <span class="display-name">Lab Admin</span>
+                        <input type="text" class="edit-name hide">
+                        <div class="edit-pen-content-profile">
+                            <img src="/common/assets/edit-pen.png" class="edit-pen-name" alt="Edit">
+                        </div>
+                    </div>
                     <div class="text-student">
-                        <a>Student</a>
+                        <a>Lab Technician</a>
                     </div> 
                     <div class="text-idnumber">
                         <a>12274534</a>
                     </div> 
                     <div class="add-description">
-                        <a><br/>Add Description</a>
-                        <div class = "edit-pen-content-profile">
-                            <img src="/common/assets/edit-pen.png">
+                        <span class="display-description">Enter your description</span>
+                        <textarea class="edit-description hide" placeholder="Enter your description"></textarea>
+                        <div class="edit-pen-content-profile">
+                            <img src="/common/assets/edit-pen.png" class="edit-pen-description" alt="Edit">
                         </div>
-                        <!-- Add input fields or textarea for adding description -->
                     </div>
                 </div>
                 

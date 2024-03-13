@@ -260,6 +260,32 @@ body{
 
 .box-content > a{
     width: 100%; 
+    width: 30%;
+    height: 100%;
+    
+    text-decoration: none;
+    
+}
+
+.mini-box-click{
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    border: solid var(--darkgreen); 
+    height: 28vh;
+    margin: 7px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    color: var(--darkgreen);  
+    transition: .5s ease; 
+    font-size: 20px;
+}
+
+.mini-box-click:hover{
+    transition: .5s ease;
+    transform: scale(1.1);
 }
 .contact-content{
     display: flex;
@@ -365,10 +391,10 @@ select:focus {
 }
 
 .edit-pen-content-profile{
+    cursor: pointer;
     margin-left: 10px;
 }
 .edit-pen-content-profile > img {
-    
     width: 30px;
 }
 
