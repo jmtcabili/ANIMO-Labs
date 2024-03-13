@@ -41,7 +41,7 @@ $(document).ready(function(){
     });
 });
 
-$(document).addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Select edit pens
     const editPenName = document.querySelector('.edit-pen-name');
     const editPenDescription = document.querySelector('.edit-pen-description');
@@ -90,7 +90,6 @@ $(document).addEventListener('DOMContentLoaded', function() {
         editDescription.classList.add('hide');
     });
 });
-
 
 // Function to handle image upload
 $(document).getElementById('image-upload').addEventListener('change', function(event) {
