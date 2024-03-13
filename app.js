@@ -58,16 +58,24 @@ server.get('/user-profile', function(req, resp){
 });
 
 server.get('/lab-profile', function(req, resp){
-
-    const searchQuery = {}; 
-    responder.reservationModel.find(searchQuery).lean().then(function(reservation_data){
-      resp.render('lab-profile', {
-        layout: 'user-index',
-        title: 'Lab Profile',
-        style: '/common/lab-style.css',
-        script: '/common/lab-profile.js',
-        upcomingReservations: reservation_data,
-        viewReservation: reservation_data
+  const searchQuery = {};
+ 
+  responder.reservationModel.find(searchQuery).lean().then(function(reservation_data){
+    const lab = [...new Set(reservation_data.map(reservation => reservation.laboratory))];
+    const startTime = [...new Set(reservation_data.map(reservation => reservation.start_time))];
+    const endTime = [...new Set(reservation_data.map(reservation => reservation.end_time))];
+      
+    console.log(searchQuery);
+    resp.render('lab-profile', {
+      layout: 'user-index',
+      title: 'Lab Profile',
+      style: '/common/lab-style.css',
+      script: '/common/lab-profile.js',
+      upcomingReservations: reservation_data,
+      lab: lab, 
+      startTime: startTime, 
+      endTime: endTime, 
+      viewReservation: reservation_data 
     });
   }).catch(responder.errorFn());
 });
