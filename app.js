@@ -173,9 +173,7 @@ server.get('/receipt', function(req, resp){
 
 server.get('/reservation-details', function(req, resp){
 const searchQuery = {
-        name: req.query.name,
         reservation_id: req.query.reservation_id,
-        laboratory: req.query.laboratory,
         time_start: req.query.start_time
     };
 
@@ -199,7 +197,6 @@ const searchQuery = {
         resp.status(500).send('Internal Server Error');
     });
 });
-
 
 process.on('SIGTERM',responder.finalClose);  //general termination signal
 process.on('SIGINT', responder.finalClose);   //catches when ctrl + c is used
