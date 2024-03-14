@@ -12,6 +12,18 @@
         "equipment": ["Bunsen Burner", "Microscope"]
     },
     {
+        "name": "John Doe",
+        "reservation_id": "123456789",
+        "student_id": "122345",
+        "laboratory": "Computer Lab",
+        "room": "V101",
+        "date": "February 6, 2024",
+        "start_time": 1000, 
+        "end_time": 1100, 
+        "seat_ids": ["S1", "S2", "S3"],
+        "equipment": ["Bunsen Burner", "Microscope"]
+    },
+    {
         "name": "Jane Smith",
         "reservation_id": "789012",
         "student_id": "122347",

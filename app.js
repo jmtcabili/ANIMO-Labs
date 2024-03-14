@@ -35,7 +35,7 @@ server.get('/sign-up', function(req, resp){
 });
 
 server.get('/user-profile', function(req, resp){
-  const searchQuery = { name: "John Doe" }; //replace with proper parameter once log in is working
+  const searchQuery = { student_id: "122345" }; //replace with proper parameter once log in is working
   // Fetch user data
   const userPromise = responder.userModel.find(searchQuery).lean();
     
@@ -45,16 +45,58 @@ server.get('/user-profile', function(req, resp){
   // Wait for both promises to resolve
   Promise.all([userPromise, reservationPromise])
       .then(function([user_data, reservation_data]){
+        console.log(reservation_data);
+        const lab = [...new Set(reservation_data.map(reservation => reservation.laboratory))];
+        const startTime = [...new Set(reservation_data.map(reservation => reservation.start_time))];
+        const endTime = [...new Set(reservation_data.map(reservation => reservation.end_time))];
+        const studentID = [...new Set(reservation_data.map(reservation => reservation.student_id))];
+        console.log(studentID);
           resp.render('user-profile',{
               layout: 'user-index',
               title: 'User Profile',
               style: '/common/user-style.css',
               script: '/common/user-profile.js',
               currentUser: user_data,
-              reservationData: reservation_data
+              reservationData: reservation_data,
+              studentID: studentID,
+              lab: lab, 
+              startTime: startTime, 
+              endTime: endTime, 
           });
       })
       .catch(responder.errorFn());
+});
+
+server.post('/view-filter-user', function(req, res) { 
+  const lab = req.body.laboratory;
+  const start = req.body.start_time;
+  const end = req.body.end_time;
+  
+
+  // Construct the search query based on the received parameters
+  const id = "122345";
+  if(id){
+      searchQuery.student_id = id;
+  }
+  if (lab) {
+      searchQuery.laboratory = lab;
+  }
+  if (start) {
+      searchQuery.start_time = start;
+  }
+  if (end) {
+    searchQuery.end_time = end;
+  }
+
+  // Find reservations based on the constructed query
+  responder.reservationModel.find(searchQuery).lean().then(function(filteredData) {
+      // Send back the filtered data as JSON response
+      res.json(filteredData);
+  }).catch(function(err) {
+      // Handle errors appropriately
+      console.error('Error:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+  });
 });
 
 server.get('/lab-profile', function(req, resp){
@@ -108,6 +150,8 @@ server.post('/view-filter', function(req, res) {
       res.status(500).json({ error: 'Internal Server Error' });
   });
 });
+
+
 
     
 server.get('/lab-selection', function(req, resp){

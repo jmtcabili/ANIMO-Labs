@@ -52,98 +52,6 @@ $(document).ready(function(){
 });
 
 
-
-var itemsPerPage = 3;
-var currentPage = 1;
-var data = [
-    { reservationNumber: "123456", laboratory: "Chemistry Lab", time: "11:00 AM - 12:00 PM" },
-    { reservationNumber: "123789", laboratory: "Computer Lab", time: "10:00 AM - 11:00 AM" },
-    { reservationNumber: "123111", laboratory: "Electronics Lab", time: "1:00 PM - 4:00 PM" },
-];
-
-// Get all unique start and end times
-var uniqueStartTimes = [...new Set(data.map(item => item.time.split(" - ")[0]))];
-var uniqueEndTimes = [...new Set(data.map(item => item.time.split(" - ")[1]))];
-
-// Sort the times if needed
-uniqueStartTimes.sort();
-uniqueEndTimes.sort();
-
-// Populate the select options for start time
-var startTimeSelect = document.getElementById("start-time");
-startTimeSelect.innerHTML = "<option value=''>Start Time</option>"; // Clear previous options
-uniqueStartTimes.forEach(time => {
-    startTimeSelect.innerHTML += `<option value="${time}">${time}</option>`;
-});
-
-// Populate the select options for end time
-var endTimeSelect = document.getElementById("end-time");
-endTimeSelect.innerHTML = "<option value=''>End Time</option>"; // Clear previous options
-uniqueEndTimes.forEach(time => {
-    endTimeSelect.innerHTML += `<option value="${time}">${time}</option>`;
-});
-
-document.getElementById("laboratry").addEventListener("change", displayItems);
-document.getElementById("start-time").addEventListener("change", displayItems);
-document.getElementById("end-time").addEventListener("change", displayItems);
-
-function displayItems() {
-    var startIndex = (currentPage - 1) * itemsPerPage;
-    var content = "";
-    var selectedLab = document.getElementById("laboratry").value;
-    var selectedStartTime = document.getElementById("start-time").value;
-    var selectedEndTime = document.getElementById("end-time").value;
-
-    // Filter data based on selected filters
-    var filteredData = data.filter(item => {
-        var timeComponents = item.time.split(" - "); // Split the time range into start and end components
-        var startTime = timeComponents[0]; // Extract the start time
-        var endTime = timeComponents[1]; // Extract the end time
-        
-        return (
-            (selectedLab === "" || selectedLab === item.laboratory) &&
-            (selectedStartTime === "" || startTime === selectedStartTime) &&
-            (selectedEndTime === "" || endTime === selectedEndTime)
-        );
-    });
-
-    // Check the number of filtered items
-    var numFilteredItems = filteredData.length;
-
-    // Adjust endIndex if the number of filtered items is less than itemsPerPage
-    var endIndex = Math.min(startIndex + itemsPerPage, numFilteredItems);
-
-    // Generate content for the current page
-    for (var i = startIndex; i < endIndex; i++) {
-        var item = filteredData[i];
-        content += `<div class="mini-box">
-                        <div><strong>Reservation #:</strong> ${item.reservationNumber}</div>
-                        <div><strong>Laboratory:</strong> ${item.laboratory}</div>
-                        <div><strong>Time:</strong> ${item.time}</div>
-                    </div>`;
-    }
-
-    // Update HTML with the generated content
-    document.getElementById("content").innerHTML = content;
-    document.getElementById("currentPage").textContent = "Page " + currentPage;
-}
-
-function prevPage() {
-    if (currentPage > 1) {
-        currentPage--;
-        displayItems();
-    }
-}
-
-function nextPage() {
-    if (currentPage < Math.ceil(data.length / itemsPerPage)) {
-        currentPage++;
-        displayItems();
-    }
-}
-
-displayItems(); // Display initial items
-
 function messageModal(){
     var modal = document.getElementById("send-modal");
     // Get the <span> element that closes the modal
@@ -185,7 +93,45 @@ $('#confirm').change(function() {
 $('#confirm-button').prop("disabled", !this.checked);
 })
 
+$(document).ready(function() {
+    console.log('Document ready');
+    // Function to fetch filtered data
+    function fetchData(id, lab, start, end) {
+        $.ajax({
+            url: '/view-filter-user', // Corrected URL
+            method: 'POST',
+            data: { student_id: id, laboratory: lab, start_time: start, end_time: end }, // Corrected data parameters
+            success: function(data) {
+                // Clear previous data
+                $('#content').empty();
+                // Append new data
+                data.forEach(function(item) {
+                    $('#content').append(`
+                    <a href="/reservation-details?reservation_id=${item.reservation_id}&student_id=${item.student_id}">
+                        <div class="mini-box-click">
+                            <div><strong>Reservation #:</strong> ${item.reservation_id}</div>
+                            <div><strong>Laboratory:</strong> ${item.laboratory}</div>
+                            <div><strong>Time:</strong> ${item.start_time} - ${item.end_time}</div>
+                        </div>
+                    </a>
+                    `);
+                });
+            },
+            error: function(err) {
+                console.error('Error fetching data:', err);
+            }
+        });
+    }
 
+    // Event listener for changes in select elements
+    $('#select_id, #select_laboratory, #select_start-time, #select_end-time').on('change', function() {
+        var id = $('#select_id').val();
+        var lab = $('#select_laboratory').val();
+        var start = $('#select_start-time').val();
+        var end = $('#select_end-time').val();
+        fetchData(id, lab, start, end); // Pass correct variables
+    });
+});
 
 
 
