@@ -10,7 +10,7 @@
             <a>{{details.name}}</a>
         </div>
         <div class="idnum">
-            <a>12274534</a>
+            <a>{{details.student_id}}</a>
         </div>
         <div class="occupation">
             <a>Student</a>
@@ -35,12 +35,16 @@
                         <a id = "laboratory-type">{{details.laboratory}}</a>
                     </div>
                     <div class="detail">
+                        <b>Room: </b>
+                        <a id = "room">{{details.room}}</a>
+                    </div>
+                    <div class="detail">
                         <b>Seats reserved: </b>
                         <a id = "seats-reserved">{{details.seat_ids}}</a>
                     </div>
                     <div class="detail">
                         <b>Time: </b>
-                        <a id = "time">{{details.time_start}} - {{details.time_end}}</a>
+                        <a id = "time">{{details.start_time}} - {{details.end_time}}</a>
                     </div>
                 </div>
                 <div class="equipment-details">
@@ -56,13 +60,13 @@
 </div>
 <div class="footer">
     <div class="return to-main-menu">
-        <button onclick = "window.location.href = '/lab-profile';">Return to main menu</button>
+        <button onclick = "window.location.href = '/lab-profile#view-reservation';">Return to main menu</button>
     </div>
     <div class="return to-main-menu" >
         <button onclick = "window.location.href = 'lab-selection.html';">Edit Reservation</button>
     </div>
     <div class="return to-main-menu">
-        <button onclick = "window.location.href = 'user-profile.html';">Remove Reservation</button>
+        <button onclick = "window.location.href = '/user-profile.html';">Remove Reservation</button>
     </div>
 
     <div class="logo">

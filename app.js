@@ -1,4 +1,4 @@
-//npm i express express-handlebars body-parser mongodb mongoose
+//npm i express express-handlebars body-parser mongodb mongoose jquery
 
 const express = require('express');
 const server = express();
@@ -65,7 +65,6 @@ server.get('/lab-profile', function(req, resp){
     const startTime = [...new Set(reservation_data.map(reservation => reservation.start_time))];
     const endTime = [...new Set(reservation_data.map(reservation => reservation.end_time))];
       
-    console.log(searchQuery);
     resp.render('lab-profile', {
       layout: 'user-index',
       title: 'Lab Profile',
@@ -79,8 +78,36 @@ server.get('/lab-profile', function(req, resp){
     });
   }).catch(responder.errorFn());
 });
-    
 
+server.post('/view-filter', function(req, res) {
+  const lab = req.body.laboratory;
+  const start = req.body.start_time;
+  const end = req.body.end_time;
+  
+
+  // Construct the search query based on the received parameters
+  const searchQuery = {};
+  console.log(searchQuery);
+  if (lab) {
+      searchQuery.laboratory = lab;
+  }
+  if (start && end) {
+      searchQuery.start_time = start;
+      searchQuery.end_time = end;
+  }
+
+  // Find reservations based on the constructed query
+  responder.reservationModel.find(searchQuery).lean().then(function(filteredData) {
+      // Send back the filtered data as JSON response
+      res.json(filteredData);
+  }).catch(function(err) {
+      // Handle errors appropriately
+      console.error('Error:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+  });
+});
+
+    
 server.get('/lab-selection', function(req, resp){
   resp.render('lab-selection',{
       layout: 'selection-index',
@@ -200,6 +227,7 @@ const searchQuery = {
         resp.status(500).send('Internal Server Error');
     });
 });
+
 
 process.on('SIGTERM',responder.finalClose);  //general termination signal
 process.on('SIGINT', responder.finalClose);   //catches when ctrl + c is used

@@ -39,6 +39,14 @@ $(document).ready(function(){
         $("#view-reservation").hide();
         $("#contact").show();
     });
+    $(".return-to-main-menu button").click(function() {
+        $("#upcoming-reservations").hide();
+        $("#recent-activity").hide();
+        $("#edit-profile").hide();
+        $("#accept").hide();
+        $("#view-reservation").show();
+        $("#contact").hide();
+    });
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -92,21 +100,19 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// Function to handle image upload
-document.getElementById('image-upload').addEventListener('change', function(event) {
-    const file = event.target.files[0]; // Get the selected image file
+// document.getElementById('image-upload').addEventListener('change', function(event) {
+//     const file = event.target.files[0]; // Get the selected image file
 
-    // Display the selected image as a preview
-    const reader = new FileReader();
-    reader.onload = function() {
-        const imageData = reader.result;
-        document.getElementById('profile-image').src = imageData;
+//     // Display the selected image as a preview
+//     const reader = new FileReader();
+//     reader.onload = function() {
+//         const imageData = reader.result;
+//         document.getElementById('profile-image').src = imageData; // Update src attribute
+//     };
+//     reader.readAsDataURL(file);
+// });
 
-        // Assuming you have a function to save the image data to the server
-        saveImageToServer(imageData); // Call function to save image data to server
-    };
-    reader.readAsDataURL(file);
-});
+
 function prevPage() {
     if (currentPage > 1) {
         currentPage--;
@@ -153,63 +159,52 @@ function deactivateModal(){
 var input = document.querySelector('#send-button');
 var textarea = document.querySelector('#message');
 
-input.addEventListener('click', function () {
-    textarea.value = '';
-}, false);
+// input.addEventListener('click', function () {
+//     textarea.value = '';
+// }, false);
 
 
 $('#confirm').change(function() {
 $('#confirm-button').prop("disabled", !this.checked);
 })
 
-document.addEventListener('DOMContentLoaded', function() {
-    const laboratorySelect = document.getElementById('laboratory');
-    const startTimeSelect = document.getElementById('start-time');
-    const endTimeSelect = document.getElementById('end-time');
-
-    // Function to update filtered data
-    async function updateFilteredData() {
-        console.log("Function updateFilteredData is being called.");
-        const laboratory = laboratorySelect.value;
-        const startTime = startTimeSelect.value;
-        const endTime = endTimeSelect.value;
-
-        console.log('Laboratory:', laboratory);
-        console.log('Start Time:', startTime);
-        console.log('End Time:', endTime);
-
-        const response = await fetch(`/lab-profile?laboratory=${laboratory}&start_time=${startTime}&end_time=${endTime}`);
-        const data = await response.json();
-
-        console.log('Filtered Data:', data);
-
-        // Update reservation list container
-        const reservationListContainer = document.getElementById('reservation-list-container');
-        reservationListContainer.innerHTML = '';
-
-        data.forEach(reservation => {
-            const miniBoxClick = document.createElement('div');
-            miniBoxClick.classList.add('mini-box-click');
-            miniBoxClick.innerHTML = `
-                <div><strong>Student:</strong> ${reservation.name}</div>
-                <div><strong>Student ID:</strong> ${reservation.student_id}</div>
-                <div><strong>Reservation #:</strong> ${reservation.reservation_id}</div>
-                <div><strong>Laboratory:</strong> ${reservation.laboratory}</div>
-                <div><strong>Time:</strong> ${reservation.start_time} - ${reservation.end_time}</div>
-            `;
-            reservationListContainer.appendChild(miniBoxClick);
+$(document).ready(function() {
+    console.log('Document ready');
+    // Function to fetch filtered data
+    function fetchData(lab, start, end) {
+        $.ajax({
+            url: '/view-filter', // Corrected URL
+            method: 'POST',
+            data: { laboratory: lab, start_time: start, end_time: end }, // Corrected data parameters
+            success: function(data) {
+                // Clear previous data
+                $('.box-content').empty();
+                // Append new data
+                data.forEach(function(item) {
+                    $('.box-content').append(`
+                    <a href="/reservation-details?reservation_id=${item.reservation_id}&student_id=${item.student_id}">
+                        <div class="mini-box-click">
+                            <div><strong>Student:</strong> ${item.name}</div>
+                            <div><strong>Student ID:</strong> ${item.student_id}</div>
+                            <div><strong>Reservation #:</strong> ${item.reservation_id}</div>
+                            <div><strong>Laboratory:</strong> ${item.laboratory}</div>
+                            <div><strong>Time:</strong> ${item.start_time} - ${item.end_time}</div>
+                        </div>
+                    </a>
+                    `);
+                });
+            },
+            error: function(err) {
+                console.error('Error fetching data:', err);
+            }
         });
     }
 
-    // Event listeners for select elements
-    laboratorySelect.addEventListener('change', updateFilteredData);
-    startTimeSelect.addEventListener('change', updateFilteredData);
-    endTimeSelect.addEventListener('change', updateFilteredData);
-
-    // Initial data load
-    updateFilteredData();
+    // Event listener for changes in select elements
+    $('#select_laboratory, #select_start-time, #select_end-time').on('change', function() {
+        var lab = $('#select_laboratory').val();
+        var start = $('#select_start-time').val();
+        var end = $('#select_end-time').val();
+        fetchData(lab, start, end); // Pass correct variables
+    });
 });
-
-
-
-        

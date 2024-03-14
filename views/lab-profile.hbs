@@ -37,7 +37,7 @@
                 <div class="edit-profile-picture">
                      <img id="profile-image" src="/common/assets/user-dp.png">
                 </div>
-                <div class="edit-pen-content-profile">
+                <div class="edit-pen-content-profile">  
                     <input type="file" id="image-upload" accept="image/*">
                     <label for="image-upload">
                         <img src="/common/assets/edit-pen.png" class="edit-pen" alt="Edit">
@@ -102,25 +102,22 @@
                 <h1 class>View Reservation</h1>
             </div>
             <div class="filter-content" id="filter-form">
-                <form id="filter-form">
+                <form>
                     <input type="text" class="student-id" placeholder="Student ID: 12234567" maxlength="6">
-                    <select id="laboratory" name="laboratory">
+                    <select id="select_laboratory" name="laboratory">
                         <option value="">Select Laboratory</option>
-                        <option value="">Select All</option>
                         {{#each lab}}
                         <option value="{{this}}">{{this}}</option>
                         {{/each}}
                     </select>
-                    <select id="start-time" name="start-time">
+                    <select id="select_start-time" name="start-time">
                         <option value="">Start Time</option>
-                        <option value="">Select All</option>
                         {{#each startTime}}
                         <option value="{{this}}">{{this}}</option>
                         {{/each}}
                     </select>
-                    <select id="end-time" name="end-time">
+                    <select id="select_end-time" name="end-time">
                         <option value="">End Time</option>
-                        <option value="">Select All</option>
                         {{#each endTime}}
                         <option value="{{this}}">{{this}}</option>
                         {{/each}}
