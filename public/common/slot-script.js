@@ -97,5 +97,11 @@ $(document).ready(function(){
     else 
       flag = 0; 
   });
+  $('.end-time').change(function(){
+    if (checkTime() == 1)
+      flag = 1; 
+    else 
+      flag = 0; 
+  });
 });
 

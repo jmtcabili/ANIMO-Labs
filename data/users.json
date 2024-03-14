@@ -1,15 +1,48 @@
 [
     {
         "name": "John Doe",
-        "student_id": "122345",
-        "image": "binary_data_here",
-        "desc": "Description of John Doe"
+        "user_id": "122345",
+        "acc_type": "student",
+        "password": "password123",
+        "image": "base64_encoded_image_here",
+        "desc": "Student studying chemistry"
     },
 
     {
         "name": "Jane Smith",
-        "student_id": "122347",
-        "image": "binary_data_here",
-        "desc": "Description of Jane Smith"
+        "user_id": "122347",
+        "acc_type": "student",
+        "password": "password123",
+        "image": "base64_encoded_image_here",
+        "desc": "Student interested in chemistry experiments"
+    },
+
+    {
+        "name": "Alice Johnson",
+        "user_id": "122349",
+        "acc_type": "student",
+        "password": "password123",
+        "image": "base64_encoded_image_here",
+        "desc": "Chemistry enthusiast"
+    },
+
+    {
+        "name": "Bob Brown",
+        "user_id": "122351",
+        "acc_type": "student",
+        "password": "password123",
+        "image": "base64_encoded_image_here",
+        "desc": "Student passionate about chemistry"       
+    },
+
+    {
+        "name": "Emily Davis",
+        "user_id": "122353",
+        "acc_type": "student",
+        "password": "password123",
+        "image": "base64_encoded_image_here",
+        "desc": "Chemistry major"  
     }
+
+
 ]

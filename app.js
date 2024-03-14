@@ -136,15 +136,15 @@ server.post('/slot-ajax', function(req, resp){
 
   let date = req.body.date; 
   let room = String(req.body.room);
-  let start_time = req.body.start_time; 
-  let end_time = req.body.end_time; 
+  let start_time_input = req.body.start_time; 
+  let end_time_input = req.body.end_time; 
 
-  console.log("Start time (node): " + start_time); 
-  console.log("End time (node): " + end_time); 
+  console.log("Start time (node): " + start_time_input); 
+  console.log("End time (node): " + end_time_input); 
   const searchQuery = {
     room: room,
-    start_time: {$gte: start_time},
-    end_time: {$lte: end_time}
+    start_time: {$gte: start_time_input},
+    end_time: {$lte: end_time_input}
   }
   responder.reservationModel.find(searchQuery).lean().then(function(reservations){
     if (reservations){

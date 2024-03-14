@@ -22,7 +22,9 @@ const reservationSchema = new mongoose.Schema({
 // was thinking maybe we split the user and lab tech schema 
 const userSchema = new mongoose.Schema({
     name: {type: String}, 
-    student_id: {type: String}, 
+    user_id: {type: String},
+    acc_type: {type: String},
+    password: {type: String},
     image: {type: Buffer},
     desc : {type: String}
 }, {versionKey: false});
