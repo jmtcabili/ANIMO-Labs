@@ -91,9 +91,11 @@ server.post('/view-filter', function(req, res) {
   if (lab) {
       searchQuery.laboratory = lab;
   }
-  if (start && end) {
+  if (start) {
       searchQuery.start_time = start;
-      searchQuery.end_time = end;
+  }
+  if (end) {
+    searchQuery.end_time = end;
   }
 
   // Find reservations based on the constructed query
