@@ -1,15 +1,20 @@
 <div class="container">
         <div class="header">
             <div class="login">
-                <img class="logo" src="/common/assets/ANIMO-LABS LOGO.png" alt="Animo Labs Logo">
-                <p>User ID</p>
-                <input type="text" id="user-id">
-                <p>Password</p>
-                <input type="password" id="password">
-                <button onclick= "login()">Log In</button>
+                <form action="/login" method="post">
+                    <img class="logo" src="/common/assets/ANIMO-LABS LOGO.png" alt="Animo Labs Logo">
+                    <p>User ID</p>
+                    <input type="text" id="user_id" name="user_id">
+                    <p>Password</p>
+                    <input type="password" id="password" name="password">
+                    <button type="submit">Log In</button>
+                </form>
                 <p>Don't have an account?<a class="signup" href = "/sign-up">Sign up here</a></p>
-                
             </div>
+            
             <img class="chem-lab" src="/common/assets/chem-lab.png" alt="Chem Lab Image">
         </div>
+        {{#if error}}
+            <p>{{error}}</p>
+        {{/if}}
 </div>
