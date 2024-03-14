@@ -41,11 +41,13 @@ server.get('/user-profile', function(req, resp){
     
   // Fetch reservation data
   const reservationPromise = responder.reservationModel.find(searchQuery).lean();
-  
+  const searchTech = {acc_type: "lab-administrator"};
+  const techPromise = responder.userModel.find(searchTech).lean();
+  console.log(techPromise);
   // Wait for both promises to resolve
-  Promise.all([userPromise, reservationPromise])
-      .then(function([user_data, reservation_data]){
-        console.log(reservation_data);
+  Promise.all([userPromise, reservationPromise, techPromise])
+      .then(function([user_data, reservation_data, tech_data]){
+        console.log(tech_data);
         const lab = [...new Set(reservation_data.map(reservation => reservation.laboratory))];
         const startTime = [...new Set(reservation_data.map(reservation => reservation.start_time))];
         const endTime = [...new Set(reservation_data.map(reservation => reservation.end_time))];
@@ -58,6 +60,7 @@ server.get('/user-profile', function(req, resp){
               script: '/common/user-profile.js',
               currentUser: user_data,
               reservationData: reservation_data,
+              techUsers: tech_data,
               studentID: studentID,
               lab: lab, 
               startTime: startTime, 

@@ -32,9 +32,6 @@
                 <h1 class>View Reservation</h1>
                 </div>
                 <div class="filter-content" id="filter-form">
-                        {{#each studentID}}
-                        <a id ="select_id" value = "{{this}}">{{this}}</a>
-                        {{/each}}
                         <select id="select_laboratory" name="laboratory">
                             <option value="">Select Laboratory</option>
                             {{#each lab}}
@@ -75,9 +72,9 @@
                         <form method = "get">
                             <label>To:</label>
                             <select name="technician">
-                                <option value="technician1">Sir Computer</option>
-                                <option value="technician2">Sir Chemistry</option>
-                                <option value="technician3">Sir Electronics</option>
+                                {{#each techUsers}}
+                                    <option value="{{user_id}}">{{name}}</option>
+                                {{/each}}
                             </select>
                         </form>
                     </div>
