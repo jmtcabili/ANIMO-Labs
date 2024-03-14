@@ -7,7 +7,7 @@ const reservationSchema = new mongoose.Schema({
     student_id: {type: String, default: function() { return this.parent().student_id; } },
     laboratory: {type: String}, 
     room: {type: String}, 
-    date: {type: Date},
+    date: {type: String},
     start_time: {type: Number}, 
     end_time: {type: Number},
     seat_ids: [{

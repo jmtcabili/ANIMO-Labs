@@ -25,31 +25,34 @@
                 <div class="reservation-details">
                     <div class = detail>
                         <b>Reservation #: </b>
-                        <a id="reservation-number">123123</a>
+                        <a id="reservation-number">{{last.reservation_id}}</a>
                     </div>
                     <div class="detail">
                         <b>Laboratory: </b>
-                        <a id = "laboratory-type">Chemistry</a>
+                        <a id = "laboratory-type">{{last.laboratory}}</a>
                     </div>
                     <div class="detail">
                         <b>Seats reserved: </b>
-                        <a id = "seats-reserved">3C, 3G</a>
+                        <a id = "seats-reserved">
+                            {{#each last.seat_ids}}
+                                {{this}}
+                            {{/each}}
+                        </a>
                     </div>
                     <div class="detail">
                         <b>Time: </b>
-                        <a id = "time">11:00 AM - 12:00 PM</a>
+                        <a id = "time">{{last.start_time}} - {{last.end_time}}</a>
                     </div>
                 </div>
                 <div class="equipment-details">
                     <b>Equipment Reserved:</b>
-                    <div class="equipment">
-                        <span id="number">1.</span>
-                        <span id="item">Erlenmeyer flask</span>
-                    </div>
-                    <div class="equipment">
-                        <span id="number">2.</span>
-                        <span id="item">Beaker</span>
-                    </div>
+                    <ul>
+                    {{#each last.equipment}}
+                        <div class="equipment">
+                            <li><span id="item">{{this}}</span></li>
+                        </div>
+                    {{/each}}
+                    </ul>
                 </div>
             </div>
         </div>

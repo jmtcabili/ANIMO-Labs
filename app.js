@@ -124,14 +124,14 @@ let chem_list = JSON.parse(chem_rooms);
 let comp_list = JSON.parse(comp_rooms);
 let elec_list = JSON.parse(elec_rooms);
 
-
+let isChem = 0, isComp = 0, isElec = 0; 
 server.get('/slot-reservation/:lab', function(req, resp){
   //need student id
   //note that time should be in military format for easier checking
   //the reservations that you have to show have to be within range
-  let isChem = req.params.lab === 'Chemistry Laboratory';
-  let isComp = req.params.lab === 'Computer Laboratory';
-  let isElec = req.params.lab === 'Electronics Laboratory';
+  isChem = req.params.lab === 'Chemistry Laboratory';
+  isComp = req.params.lab === 'Computer Laboratory';
+  isElec = req.params.lab === 'Electronics Laboratory';
   let style = "";
   let room = "";
   if (isChem){
@@ -161,18 +161,22 @@ server.get('/slot-reservation/:lab', function(req, resp){
 
 server.post('/slot-ajax', function(req, resp){
 
-  let date = req.body.date; 
+  let date = String(req.body.date); 
   let room = String(req.body.room);
   let start_time_input = req.body.start_time; 
   let end_time_input = req.body.end_time; 
+
+  console.log(date);
 
   console.log("Start time (node): " + start_time_input); 
   console.log("End time (node): " + end_time_input); 
   const searchQuery = {
     room: room,
-    start_time: {$gte: start_time_input},
+    date: date,
+    start_time: {$gte: start_time_input}, 
     end_time: {$lte: end_time_input}
-  }
+  };
+
   responder.reservationModel.find(searchQuery).lean().then(function(reservations){
     if (reservations){
       console.log("Found"); 
@@ -185,20 +189,58 @@ server.post('/slot-ajax', function(req, resp){
   });
 });
 
-server.get('/add-equipment', function(req, resp){
+
+const chem_eq = '[{"item": "Beaker (100 mL)"}, {"item": "Erlenmyer Flask"},{"item": "Bunsen Burner"}]';
+const comp_eq = '[{"item": "LAN Cable"},{"item": "HDMI Cable"},{"item": "USB (128 GB)"}, {"item": "Keyboard"}]';
+const elec_eq = '[{"item": "VOM"}, {"item": "Oscilloscope"}, {"item": "Wire Stripper"}]';
+
+let chem_eq_list = JSON.parse(chem_eq);
+let comp_eq_list = JSON.parse(comp_eq);
+let elec_eq_list = JSON.parse(elec_eq);
+
+server.post('/add-equipment', function(req, resp){
+  
+  let eq_list = "", lab = "";
+  if (isChem){
+    eq_list = chem_eq_list;
+    lab = "Chemistry"
+  }
+  else if (isComp){
+    eq_list = comp_eq_list;
+    lab = "Computer"
+  } 
+  else{ 
+    eq_list = elec_eq_list;
+    lab = "Electrical"
+  } 
+
   resp.render('add-equipment',{
       layout: 'index',
       title: 'Add Equipment(need to make dynamic url to mention lab)',
-      style: '/common/equipment-style.css'
+      style: '/common/equipment-style.css',
+      list: eq_list,
+      lab: lab
   });
 });
 
 server.get('/receipt', function(req, resp){
-  resp.render('receipt',{
-      layout: 'index',
-      title: 'receipt',
-      style: '/common/receipt-style.css'
+
+  const searchQuery = {};
+  responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(last_reservation){
+    if (last_reservation){
+      console.log(last_reservation);
+      resp.render('receipt',{
+        layout: 'index',
+        title: 'receipt',
+        style: '/common/receipt-style.css', 
+        last: last_reservation
+      });
+    }else{
+      console.log("Not found"); 
+      resp.status(404).send("Reservation not found");
+    }
   });
+  
 });
 
 server.get('/reservation-details', function(req, resp){

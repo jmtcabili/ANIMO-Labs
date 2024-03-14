@@ -25,15 +25,33 @@ function checkTime(){
   let isValid = 0;
 
   getTime();
+  console.log(end_time - start_time);
   if (end_time - start_time <= 0){
     alert("End time should be after start time.");
+  }else if (end_time - start_time > 200){
+    alert("Duration should be at most 2 hours");
   }else
     isValid = 1; 
   
   return isValid;    
 }
 
+function checkDate(){
+  let date_input = $("#date").val()
+  let date_deets = date_input.split("-");
+  let year = Number(date_deets[0]);
+  let month = Number(date_deets[1])-1;
+  let day = Number(date_deets[2]);
+
+  date = new Date(year, month, day);
+  console.log(date.valueOf() < new Date().valueOf);
+  
+  return new Date(date.toDateString()) < new Date(new Date().toDateString());
+
+}
+
 function displaySlots(){
+  console.log("Func" +  String($('#date').val()));
   $.post(
      '/slot-ajax', 
     {
@@ -85,7 +103,6 @@ $(document).ready(function(){
     curr_month = '0' + String(curr_month);
   $("#date").val(curr_year + '-' + curr_month + '-' + curr_day);
 
-
   $('.details').change(function(){
     getTime(); 
     if (flag == 1)
@@ -103,5 +120,13 @@ $(document).ready(function(){
     else 
       flag = 0; 
   });
+  $('#date').change(function(){
+    if (checkDate() == 1){
+      flag = 0; 
+      alert("Date should be at least today.");
+    } else
+      flag = 1; 
+  });
+  
 });
 
