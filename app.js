@@ -106,8 +106,8 @@ server.post('/view-filter', function(req, res) {
       res.status(500).json({ error: 'Internal Server Error' });
   });
 });
-    
 
+    
 server.get('/lab-selection', function(req, resp){
   resp.render('lab-selection',{
       layout: 'selection-index',
@@ -227,6 +227,7 @@ const searchQuery = {
         resp.status(500).send('Internal Server Error');
     });
 });
+
 
 process.on('SIGTERM',responder.finalClose);  //general termination signal
 process.on('SIGINT', responder.finalClose);   //catches when ctrl + c is used
