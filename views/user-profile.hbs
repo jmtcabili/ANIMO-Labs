@@ -15,7 +15,7 @@
                     {{/each}}
                 </div>
             </div>
-            <div class = "box-small" id = "recent-activity">
+            {{!<div class = "box-small" id = "recent-activity">
                 <div class = "box-header">
                     <h1 class>RECENT ACTIVITY</h1>
                 </div>
@@ -26,7 +26,7 @@
                         <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
                     </div>
                 </div>
-            </div>
+            </div>}}
             <div class = "box-big hide" id = "view-reservation">
                 <div class = "box-header">
                     <h1 class>VIEW RESERVATION</h1>
@@ -139,12 +139,12 @@
                 <div class="modal-content">
                 <p>Are you sure you want to <strong>deactivate your account?</strong></p>
                 <p>Deactivating your account will <strong>render all of your reservations invalid</strong> and will remove them from the reservation list.</p>
-                <input type="checkbox" name="confirm" id="confirm" onclick="changeColor()">I understand and want to push through with the deactivation</input><br/>
+                {{!<input type="checkbox" name="confirm" id="confirm" onclick="changeColor()">I understand and want to push through with the deactivation</input><br/>}}
                 
                 <div class ="button-container">
                     <div class = "button-child"><input type ="button" value ="Cancel" id = "cancel-button"></div>
                     <div class = "button-child"></div>
-                    <div class = "button-child"><input type ="button" value ="Deactivate" id = "confirm-button" onClick="window.open('Login.html');" disabled ></div>
+                    <div class = "button-child"><input type ="button" value ="Deactivate" id = "confirm-button" onClick="window.location.href='/';" ></div>
                 </div>
                 </div>
             </div>
