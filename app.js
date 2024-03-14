@@ -26,6 +26,27 @@ server.get('/', function(req, resp){
   });
 });
 
+server.post('/login', (req, res) => {
+  const { user_id, password } = req.body;
+  console.log(user_id, password);
+  responder.userModel.findOne({ user_id, password })
+      .then(user => {
+          if (!user) {
+              res.render('login', { error: 'Invalid credentials' });
+          } else {
+              if (user.acc_type === 'student') {
+                  res.redirect('/user-profile');
+              } else if (user.acc_type === 'lab-administrator') {
+                  res.redirect('/lab-profile');
+              }
+          }
+      })
+      .catch(err => {
+          console.error(err);
+          res.status(500).send('Server error');
+      });
+});
+
 server.get('/sign-up', function(req, resp){
   resp.render('sign-up',{
       layout: 'index',
