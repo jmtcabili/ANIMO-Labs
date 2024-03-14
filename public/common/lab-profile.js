@@ -9,7 +9,6 @@ $(document).ready(function(){
     });
     $("#home-button").click(function(){
         $("#upcoming-reservations").show();
-        $("#recent-activity").show();
         $("#edit-profile").hide();
         $("#accept").hide();
         $("#view-reservation").hide();

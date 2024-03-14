@@ -307,9 +307,9 @@ body{
     border: solid var(--darkgreen); 
     margin: 20px;
     width: 90%;
+    min-height: 90vh; 
     padding-left: 15px;
     padding-right: 15px;
-    height: 85vh;
 }
 
 .filter-content > form{
