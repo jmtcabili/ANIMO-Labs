@@ -1,4 +1,4 @@
-//npm i express express-handlebars body-parser mongodb mongoose
+//npm i express express-handlebars body-parser mongodb mongoose jquery
 
 const express = require('express');
 const server = express();
