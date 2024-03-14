@@ -9,7 +9,6 @@ $(document).ready(function(){
     });
     $("#home-button").click(function(){
         $("#upcoming-reservations").show();
-        $("#recent-activity").show();
         $("#edit-profile").hide();
         $("#accept").hide();
         $("#view-reservation").hide();
@@ -112,22 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
 //     reader.readAsDataURL(file);
 // });
 
-
-function prevPage() {
-    if (currentPage > 1) {
-        currentPage--;
-        displayItems();
-    }
-}
-
-function nextPage() {
-    if (currentPage < Math.ceil(data.length / itemsPerPage)) {
-        currentPage++;
-        displayItems();
-    }
-}
-
-
 function messageModal(){
     var modal = document.getElementById("send-modal");
     // Get the <span> element that closes the modal
@@ -178,10 +161,10 @@ $(document).ready(function() {
             data: { laboratory: lab, start_time: start, end_time: end }, // Corrected data parameters
             success: function(data) {
                 // Clear previous data
-                $('.box-content').empty();
+                $('#reservation-list-container').empty();
                 // Append new data
                 data.forEach(function(item) {
-                    $('.box-content').append(`
+                    $('#reservation-list-container').append(`
                     <a href="/reservation-details?reservation_id=${item.reservation_id}&student_id=${item.student_id}">
                         <div class="mini-box-click">
                             <div><strong>Student:</strong> ${item.name}</div>

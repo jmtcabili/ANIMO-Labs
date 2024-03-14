@@ -8,14 +8,14 @@
                 <div class = "box-content">
                     {{#each reservationData}}
                     <div class="mini-box">
-                        <div><strong>Reservation #:</strong> {{this.reservation_id}}</div>
-                        <div><strong>Laboratory:</strong> {{this.laboratory}}</div>
-                        <div><strong>Time:</strong> {{this.start_time}} - {{this.end_time}}</div>
+                        <div><strong>Reservation #:</strong> {{reservation_id}}</div>
+                        <div><strong>Laboratory:</strong> {{laboratory}}</div>
+                        <div><strong>Time:</strong> {{start_time}} - {{end_time}}</div>
                     </div>
                     {{/each}}
                 </div>
             </div>
-            <div class = "box-small" id = "recent-activity">
+            {{!<div class = "box-small" id = "recent-activity">
                 <div class = "box-header">
                     <h1 class>RECENT ACTIVITY</h1>
                 </div>
@@ -26,42 +26,41 @@
                         <div><strong>Time:</strong> 11:00 AM - 12:00 PM</div>
                     </div>
                 </div>
-            </div>
+            </div>}}
             <div class = "box-big hide" id = "view-reservation">
                 <div class = "box-header">
-                    <h1 class>VIEW RESERVATION</h1>
+                <h1 class>View Reservation</h1>
                 </div>
-                <div class="filter-content">
-                    <select id="laboratry" name="laboratry">
-                        <option value="">Select Laboratory</option>
-                        <option value="Chemistry Lab">Chemistry Lab</option>
-                        <option value="Computer Lab">Computer Lab</option>
-                        <option value="Electronics Lab">Electronics Lab</option>
-                    </select>
-                    <select id="start-time" name="start-time">
-                        <option value="">Start Time</option>
-                    </select>
-                    <select id="end-time" name="end-time">
-                        <option value="">End Time</option>
-                    </select>
+                <div class="filter-content" id="filter-form">
+                        <select id="select_laboratory" name="laboratory">
+                            <option value="">Select Laboratory</option>
+                            {{#each lab}}
+                            <option value="{{this}}">{{this}}</option>
+                            {{/each}}
+                        </select>
+                        <select id="select_start-time" name="start-time">
+                            <option value="">Start Time</option>
+                            {{#each startTime}}
+                            <option value="{{this}}">{{this}}</option>
+                            {{/each}}
+                        </select>
+                        <select id="select_end-time" name="end-time">
+                            <option value="">End Time</option>
+                            {{#each endTime}}
+                            <option value="{{this}}">{{this}}</option>
+                            {{/each}}
+                        </select>
                 </div>
                 <div class = "box-content"  id="content">
                     {{#each reservationData}}
-                    <a href="/reservation-details?reservation_id={{reservation_id}}&name={{name}}&laboratory={{laboratory}}&time_start={{time_start}}"> 
+                    <a href="/reservation-details?reservation_id={{reservation_id}}&laboratory={{laboratory}}&time_start={{time_start}}"> 
                         <div class = "mini-box-click">
-                            <div><strong>Student:</strong> {{name}}</div>
-                            <div><strong>Student ID:</strong> 12345678</div>
                             <div><strong>Reservation #:</strong> {{this.reservation_id}}</div>
                             <div><strong>Laboratory:</strong> {{this.laboratory}}</div>
                             <div><strong>Time:</strong> {{this.start_time}} - {{this.end_time}}</div>
                         </div>
                     </a>
                     {{/each}}
-                </div>
-                <div id="pagination">
-                    <button id="prevButton" onclick="prevPage()">Previous</button>
-                    <span id="currentPage">Page 1</span>
-                    <button id="prevButton" onclick="nextPage()">Next</button>
                 </div>
             </div>
             <div class = "box-big hide" id = "contact">
@@ -73,9 +72,9 @@
                         <form method = "get">
                             <label>To:</label>
                             <select name="technician">
-                                <option value="technician1">Sir Computer</option>
-                                <option value="technician2">Sir Chemistry</option>
-                                <option value="technician3">Sir Electronics</option>
+                                {{#each techUsers}}
+                                    <option value="{{user_id}}">{{name}}</option>
+                                {{/each}}
                             </select>
                         </form>
                     </div>
@@ -96,11 +95,11 @@
             </div>
             <div class = "box-big hide" id = "edit-profile">
                 <div class = "box-header">
-                    <h1 class>YOUR PROFILE</h1>
+                    <h1>YOUR PROFILE</h1>
                 </div>
                 <div class = "edit-profile-picture-parent">
                     <div class="edit-profile-picture">
-                        <img src = "/common/assets/user-dp.png">
+                        <img id="profile-image" src = "/common/assets/user-dp.png">
                     </div>
                     <div class="edit-pen-content-profile">
                         <input type="file" id="image-upload" accept="image/*">
@@ -111,14 +110,14 @@
                 </div>
                 <div class="profile">
                     <div class="text-name">
-                        <span class="display-name">Lab Admin</span>
+                        <span class="display-name">Lance</span>
                         <input type="text" class="edit-name hide">
                         <div class="edit-pen-content-profile">
                             <img src="/common/assets/edit-pen.png" class="edit-pen-name" alt="Edit">
                         </div>
                     </div>
                     <div class="text-student">
-                        <a>Lab Technician</a>
+                        <a>Student</a>
                     </div> 
                     <div class="text-idnumber">
                         <a>12274534</a>
@@ -139,12 +138,12 @@
                 <div class="modal-content">
                 <p>Are you sure you want to <strong>deactivate your account?</strong></p>
                 <p>Deactivating your account will <strong>render all of your reservations invalid</strong> and will remove them from the reservation list.</p>
-                <input type="checkbox" name="confirm" id="confirm" onclick="changeColor()">I understand and want to push through with the deactivation</input><br/>
+                {{!<input type="checkbox" name="confirm" id="confirm" onclick="changeColor()">I understand and want to push through with the deactivation</input><br/>}}
                 
                 <div class ="button-container">
                     <div class = "button-child"><input type ="button" value ="Cancel" id = "cancel-button"></div>
                     <div class = "button-child"></div>
-                    <div class = "button-child"><input type ="button" value ="Deactivate" id = "confirm-button" onClick="window.open('Login.html');" disabled ></div>
+                    <div class = "button-child"><input type ="button" value ="Deactivate" id = "confirm-button" onClick="window.location.href='/';" ></div>
                 </div>
                 </div>
             </div>

@@ -42,7 +42,14 @@
         "password": "password123",
         "image": "base64_encoded_image_here",
         "desc": "Chemistry major"  
+    },
+
+    {
+        "name": "Taylor Swift",
+        "user_id": "922353",
+        "acc_type": "lab-administrator",
+        "password": "password123",
+        "image": "base64_encoded_image_here",
+        "desc": "Lab Administrator"  
     }
-
-
 ]
