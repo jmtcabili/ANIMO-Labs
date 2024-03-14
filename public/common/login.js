@@ -8,9 +8,9 @@ function login() {
     if (user) {
         // Redirect based on account type
         if (user.acc_type === "student" && userId.startsWith("1")) {
-            window.location.href = "/user-profile";
+            window.location.href = "/user-profile/" + userId;
         } else if (user.acc_type === "lab-administrator" && userId.startsWith("9")) {
-            window.location.href = "/lab-profile";
+            window.location.href = "/lab-profile/" + userId;
         } else {
             alert("Invalid account type for this user ID.");
         }

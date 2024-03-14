@@ -132,10 +132,10 @@
                 <div class = "to-field">
                     <form method = "get">
                         <label>To:</label>
-                        <select    name="technician">
-                            <option value="12345678">Shawn</option>
-                            <option value="12254689">Sean</option>
-                            <option value="12145698">Shaun</option>
+                        <select name="technician">
+                            {{#each studentUsers}}
+                                    <option value="{{user_id}}">{{name}}</option>
+                            {{/each}}
                         </select>
                     </form>
                 </div>

@@ -585,4 +585,16 @@ button:hover{
 .edit-pen > img{
     width: 30px;
 }
-  
+
+#cancel-button{
+    height: 5vh;
+    align-items: center;
+    font-size: 120%;
+}
+
+#confirm-button{
+    height: 5vh;
+    align-items: center;
+    font-size: 120%;
+
+}

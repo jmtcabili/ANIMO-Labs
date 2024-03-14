@@ -35,9 +35,9 @@ server.post('/login', (req, res) => {
               res.render('login', { error: 'Invalid credentials' });
           } else {
               if (user.acc_type === 'student') {
-                  res.redirect('/user-profile');
+                  res.redirect('/user-profile/' + user_id);
               } else if (user.acc_type === 'lab-administrator') {
-                  res.redirect('/lab-profile');
+                  res.redirect('/lab-profile/' + user_id);
               }
           }
       })
@@ -55,8 +55,8 @@ server.get('/sign-up', function(req, resp){
   });
 });
 
-server.get('/user-profile', function(req, resp){
-  const searchQuery = { student_id: "122345" }; //replace with proper parameter once log in is working
+server.get('/user-profile/:id/', function(req, resp){
+  const searchQuery = { student_id: req.params.id }; 
   // Fetch user data
   const userPromise = responder.userModel.find(searchQuery).lean();
     
@@ -64,11 +64,10 @@ server.get('/user-profile', function(req, resp){
   const reservationPromise = responder.reservationModel.find(searchQuery).lean();
   const searchTech = {acc_type: "lab-administrator"};
   const techPromise = responder.userModel.find(searchTech).lean();
-  console.log(techPromise);
   // Wait for both promises to resolve
   Promise.all([userPromise, reservationPromise, techPromise])
       .then(function([user_data, reservation_data, tech_data]){
-        console.log(tech_data);
+        
         const lab = [...new Set(reservation_data.map(reservation => reservation.laboratory))];
         const startTime = [...new Set(reservation_data.map(reservation => reservation.start_time))];
         const endTime = [...new Set(reservation_data.map(reservation => reservation.end_time))];
@@ -86,6 +85,7 @@ server.get('/user-profile', function(req, resp){
               lab: lab, 
               startTime: startTime, 
               endTime: endTime, 
+
           });
       })
       .catch(responder.errorFn());
@@ -122,10 +122,14 @@ server.post('/view-filter-user', function(req, res) {
   });
 });
 
-server.get('/lab-profile', function(req, resp){
+server.get('/lab-profile/:id/', function(req, resp){
   const searchQuery = {};
- 
-  responder.reservationModel.find(searchQuery).lean().then(function(reservation_data){
+  const searchStudent = {acc_type: "student"};
+  const studentPromise = responder.userModel.find(searchStudent).lean();
+  const reservationPromise = responder.reservationModel.find(searchQuery).lean();
+
+  Promise.all([reservationPromise, studentPromise])
+  .then(function([reservation_data, student_data]){
     const lab = [...new Set(reservation_data.map(reservation => reservation.laboratory))];
     const startTime = [...new Set(reservation_data.map(reservation => reservation.start_time))];
     const endTime = [...new Set(reservation_data.map(reservation => reservation.end_time))];
@@ -136,6 +140,7 @@ server.get('/lab-profile', function(req, resp){
       style: '/common/lab-style.css',
       script: '/common/lab-profile.js',
       upcomingReservations: reservation_data,
+      studentUsers: student_data,
       lab: lab, 
       startTime: startTime, 
       endTime: endTime, 
