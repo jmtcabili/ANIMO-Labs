@@ -51,6 +51,68 @@ $(document).ready(function(){
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Select edit pens
+    const editPenName = document.querySelector('.edit-pen-name');
+    const editPenDescription = document.querySelector('.edit-pen-description');
+
+    // Add click event listener for name edit pen
+    editPenName.addEventListener('click', () => {
+        const displayName = document.querySelector('.display-name');
+        const editName = document.querySelector('.edit-name');
+
+        displayName.classList.add('hide');
+        editName.classList.remove('hide');
+        editName.value = displayName.textContent.trim();
+        editName.focus();
+    });
+
+    // Add blur event listener for name input
+    const editName = document.querySelector('.edit-name');
+    editName.addEventListener('blur', () => {
+        const displayName = document.querySelector('.display-name');
+        const editName = document.querySelector('.edit-name');
+
+        displayName.textContent = editName.value.trim();
+        displayName.classList.remove('hide');
+        editName.classList.add('hide');
+    });
+
+    // Add click event listener for description edit pen
+    editPenDescription.addEventListener('click', () => {
+        const displayDescription = document.querySelector('.display-description');
+        const editDescription = document.querySelector('.edit-description');
+
+        displayDescription.classList.add('hide');
+        editDescription.classList.remove('hide');
+        editDescription.value = displayDescription.textContent.trim();
+        editDescription.focus();
+    });
+
+    // Add blur event listener for description textarea
+    const editDescription = document.querySelector('.edit-description');
+    editDescription.addEventListener('blur', () => {
+        const displayDescription = document.querySelector('.display-description');
+        const editDescription = document.querySelector('.edit-description');
+
+        displayDescription.textContent = editDescription.value.trim();
+        displayDescription.classList.remove('hide');
+        editDescription.classList.add('hide');
+    });
+});
+
+
+// document.getElementById('image-upload').addEventListener('change', function(event) {
+//     const file = event.target.files[0]; // Get the selected image file
+
+//     // Display the selected image as a preview
+//     const reader = new FileReader();
+//     reader.onload = function() {
+//         const imageData = reader.result;
+//         document.getElementById('profile-image').src = imageData; // Update src attribute
+//     };
+//     reader.readAsDataURL(file);
+// });
 
 function messageModal(){
     var modal = document.getElementById("send-modal");
