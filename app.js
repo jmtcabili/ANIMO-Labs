@@ -71,10 +71,9 @@ server.post('/view-filter-user', function(req, res) {
   const lab = req.body.laboratory;
   const start = req.body.start_time;
   const end = req.body.end_time;
-  
-
   // Construct the search query based on the received parameters
   const id = "122345";
+  const searchQuery = {};
   if(id){
       searchQuery.student_id = id;
   }
