@@ -59,15 +59,29 @@
     </div>
 </div>
 <div class="footer">
-    <div class="return to-main-menu">
-        <button onclick = "window.location.href = '/lab-profile';">Return to main menu</button>
-    </div>
-    <div class="return to-main-menu" >
-        <button onclick = "window.location.href = 'lab-selection.html';">Edit Reservation</button>
-    </div>
-    <div class="return to-main-menu">
-        <button onclick = "window.location.href = '/user-profile.html';">Remove Reservation</button>
-    </div>
+    {{#if isStudent}}
+        <div class="return to-main-menu">
+        <button onclick = "window.location.href = '/user-profile/{{current_user.id}}'">Return to main menu</button>
+        </div>
+        <div class="return to-main-menu" >
+            <button onclick = "window.location.href = '/lab-selection'">Edit Reservation</button>
+        </div>
+        <div class="return to-main-menu">
+            <button onclick = "window.location.href = '/user-profile/{{current_user.id}}'">Remove Reservation</button>
+        </div>
+    {{/if}}
+    {{#if isLabTech}}
+        <div class="return to-main-menu">
+        <button onclick = "window.location.href = '/lab-profile/{{current_user.id}}'">Return to main menu</button>
+        </div>
+        <div class="return to-main-menu" >
+            <button onclick = "window.location.href = '/lab-selection'">Edit Reservation</button>
+        </div>
+        <div class="return to-main-menu">
+            <button onclick = "window.location.href = '/lab-profile/{{current_user.id}}'">Remove Reservation</button>
+        </div>
+    {{/if}}
+    
 
     <div class="logo">
         <div class="logo-image">

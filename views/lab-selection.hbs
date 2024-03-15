@@ -4,13 +4,13 @@
         </div>
         <div class="details">
             <div class="name">
-                <a>Juan Dela Cruz</a>
+                <a>{{current_user.name}}</a>
             </div>
             <div class="idnum">
-                <a>12274534</a>
+                <a>{{current_user.id}}</a>
             </div>
             <div class="occupation">
-                <a>Student</a>
+                <a>{{current_user.type}}</a>
             </div>
         </div>
 </div>
@@ -42,7 +42,13 @@
 </div>
 <div class="footer">
     <div class="return">
-        <button onclick="window.location.href = '/user-profile'" >Return</button>
+        {{#if isStudent}}
+            <button onclick="window.location.href = '/user-profile/{{current_user.id}}'" >Return</button>
+        {{/if}}
+        {{#if isLabTech}}
+            <button onclick="window.location.href = '/lab-profile/{{current_user.id}}'" >Return</button>
+        {{/if}}
+        
     </div>
     <div class="logo">
         <div class="logo-image">

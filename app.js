@@ -195,10 +195,18 @@ server.post('/view-filter', function(req, res) {
 
     
 server.get('/lab-selection', function(req, resp){
+  let isStudent = 0, isLabTech = 0; 
+  if (current_user.type === 'student')
+    isStudent = 1;
+  else if (current_user.type === 'lab-administrator')
+    isLabTech = 1;
   resp.render('lab-selection',{
       layout: 'selection-index',
       title: 'Lab Selection',
-      style: '/common/selection-style.css'
+      style: '/common/selection-style.css',
+      current_user: current_user,
+      isStudent: isStudent, 
+      isLabTech: isLabTech
   });
 });
 
@@ -240,8 +248,7 @@ server.get('/slot-reservation/:lab', function(req, resp){
     isChem: isChem,
     isComp: isComp, 
     isElec: isElec,
-    rooms: room,
-    currentUser: current_user
+    rooms: room
   });
 
 });
@@ -303,7 +310,7 @@ server.post('/add-equipment', function(req, resp){
 
   resp.render('add-equipment',{
       layout: 'index',
-      title: 'Add Equipment(need to make dynamic url to mention lab)',
+      title: 'Add Equipment',
       style: '/common/equipment-style.css',
       list: eq_list,
       lab: lab
@@ -320,7 +327,8 @@ server.get('/receipt', function(req, resp){
         layout: 'index',
         title: 'receipt',
         style: '/common/receipt-style.css', 
-        last: last_reservation
+        last: last_reservation,
+        current_user: current_user
       });
     }else{
       console.log("Not found"); 
@@ -340,11 +348,20 @@ const searchQuery = {
     responder.reservationModel.findOne(searchQuery).lean().then(function(details_data){
         if (details_data) {
             // If reservation details are found in the database, render the page with the retrieved data
+            let isStudent = 0, isLabTech = 0; 
+            if (current_user.type === 'student')
+              isStudent = 1;
+            else if (current_user.type === 'lab-administrator')
+              isLabTech = 1;
             resp.render('reservation-details',{
                 layout: 'index',
                 title: 'Reservation Details',
                 style: '/common/receipt-style.css',
-                details: details_data
+                details: details_data,
+                isStudent: isStudent,
+                isLabTech: isLabTech, 
+                current_user: current_user
+                
             });
         } else {
             // If reservation details are not found, handle the error or display a message

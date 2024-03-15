@@ -2,7 +2,7 @@
     {
         "name": "John Doe",
         "user_id": "122345",
-        "acc_type": "student",
+        "acc_type": "Student",
         "password": "password123",
         "image": "base64_encoded_image_here",
         "desc": "Student studying chemistry"
