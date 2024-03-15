@@ -15,6 +15,7 @@ body {
     background-color: White;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
     border-radius: 5px;
+    align-items: center;
 }
 
 .header {
@@ -38,12 +39,21 @@ body {
     margin-right: 20px;
 }
 
+.login-child{
+    display: flex;
+    flex-direction: row;
+     
+}
+.login-form{
+    display: flex;
+    padding-left: 20%;
+}
 .login {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 25px;
+    
 }
 
 .login p {
