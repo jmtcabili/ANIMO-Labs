@@ -4,7 +4,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 1000px;
 }
 
 .container {
@@ -77,6 +76,10 @@ body {
 
 .login a {
     color: green;
+}
+
+.feedback{
+    color: red; 
 }
 
 .login p {

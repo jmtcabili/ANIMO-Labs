@@ -22,9 +22,12 @@ server.get('/', function(req, resp){
   resp.render('login',{
       layout: 'index',
       title: 'Login Page',
-      style: '/common/login-style.css'
+      style: '/common/login-style.css',
+      isInvalid: 0
   });
 });
+
+let current_user = {name: "", id: 0, type: "", desc: ""};
 
 server.post('/login', (req, res) => {
   const { user_id, password } = req.body;
@@ -32,8 +35,16 @@ server.post('/login', (req, res) => {
   responder.userModel.findOne({ user_id, password })
       .then(user => {
           if (!user) {
-              res.render('login', { error: 'Invalid credentials' });
+              res.render('login', { 
+                layout: 'index',
+                title: 'Login Page',
+                style: '/common/login-style.css',
+                isInvalid: 1 });
           } else {
+              current_user.name = user.name;
+              current_user.id = user.user_id; 
+              current_user.type = user.acc_type; 
+              current_user.desc = user.desc; 
               if (user.acc_type === 'student') {
                   res.redirect('/user-profile/' + user_id);
               } else if (user.acc_type === 'lab-administrator') {
@@ -73,12 +84,13 @@ server.get('/user-profile/:id/', function(req, resp){
         const endTime = [...new Set(reservation_data.map(reservation => reservation.end_time))];
         const studentID = [...new Set(reservation_data.map(reservation => reservation.student_id))];
         console.log(studentID);
+        console.log(current_user.name);
           resp.render('user-profile',{
               layout: 'user-index',
               title: 'User Profile',
               style: '/common/user-style.css',
               script: '/common/user-profile.js',
-              currentUser: user_data,
+              currentUser: current_user,
               reservationData: reservation_data,
               techUsers: tech_data,
               studentID: studentID,
@@ -228,7 +240,8 @@ server.get('/slot-reservation/:lab', function(req, resp){
     isChem: isChem,
     isComp: isComp, 
     isElec: isElec,
-    rooms: room
+    rooms: room,
+    currentUser: current_user
   });
 
 });

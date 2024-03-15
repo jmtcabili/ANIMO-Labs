@@ -9,6 +9,12 @@
                     <input type="password" id="password" name="password">
                     <button type="submit">Log In</button>
                 </form>
+                <br>
+                <div class="feedback">
+                    {{#if isInvalid}}
+                        Invalid username or password
+                    {{/if}}
+                </div>
                 <p>Don't have an account?<a class="signup" href = "/sign-up">Sign up here</a></p>
             </div>
             
