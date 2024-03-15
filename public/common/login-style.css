@@ -4,6 +4,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 1000px;
 }
 
 .container {
@@ -33,7 +34,7 @@ body {
     height: 500px;
     max-width: 70%;
     margin-left: auto;
-    border: 5px solid seagreen;
+    
     border-radius: 5px;
     margin-right: 20px;
 }
@@ -41,17 +42,20 @@ body {
 .login-child{
     display: flex;
     flex-direction: row;
+    
      
 }
 .login-form{
     display: flex;
-    padding-left: 20%;
+    
+    padding-left: 15%;
 }
 .login {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
     
 }
 
@@ -86,10 +90,6 @@ body {
 
 .login a {
     color: green;
-}
-
-.feedback{
-    color: red; 
 }
 
 .login p {
