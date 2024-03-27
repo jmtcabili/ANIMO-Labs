@@ -186,8 +186,12 @@ $(document).ready(function() {
     }
 
     // Event listener for changes in select elements
-    $('#select_id, #select_laboratory, #select_start-time, #select_end-time').on('change', function() {
-        var id = $('#select_id').val();
+    $('.text-idnumber a, #select_laboratory, #select_start-time, #select_end-time').on('change', function() {
+        var id_text = $('.text-idnumber a').text();
+        var id_trim = id_text.trim(); // Trim any leading or trailing whitespace
+        // Convert text content to .val() equivalent
+        var input = $('<input>').val(id_trim);
+        var id = input.val();
         var lab = $('#select_laboratory').val();
         var start = $('#select_start-time').val();
         var end = $('#select_end-time').val();

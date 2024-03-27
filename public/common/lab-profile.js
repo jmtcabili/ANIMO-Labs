@@ -52,6 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Select edit pens
     const editPenName = document.querySelector('.edit-pen-name');
     const editPenDescription = document.querySelector('.edit-pen-description');
+    const editPenPassword = document.querySelector('.edit-pen-password');
+    const editPenImage = document.querySelector('.edit-pen-image');
 
     // Add click event listener for name edit pen
     editPenName.addEventListener('click', () => {
@@ -96,7 +98,50 @@ document.addEventListener('DOMContentLoaded', function() {
         displayDescription.classList.remove('hide');
         editDescription.classList.add('hide');
     });
+
+    // Add click event listener for password edit pen
+    editPenPassword.addEventListener('click', () => {
+        const editOldPassword = document.querySelector('.edit-old-password');
+        const editNewPassword = document.querySelector('.edit-new-password');
+
+        editOldPassword.classList.remove('hide');
+        editNewPassword.classList.remove('hide');
+    });
+
+    // Add click event listener for image edit pen
+    editPenImage.addEventListener('click', () => {
+        const imageUpload = document.querySelector('#image-upload');
+        // Trigger file input click
+        imageUpload.click();
+    });
+
+    // Add change event listener for file input (image upload)
+    const imageUpload = document.querySelector('#image-upload');
+    imageUpload.addEventListener('change', () => {
+        const profileImage = document.querySelector('#profile-image');
+        const file = imageUpload.files[0];
+        if (file) {
+            // Handle image preview if needed
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                profileImage.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // // Add click event listener for update profile button
+    // const updateProfileBtn = document.querySelector('#update-profile');
+    // updateProfileBtn.addEventListener('click', () => {
+    //     const newName = document.querySelector('.edit-name').value.trim();
+    //     const newDescription = document.querySelector('.edit-description').value.trim();
+    //     const oldPassword = document.querySelector('.edit-old-password').value.trim();
+    //     const newPassword = document.querySelector('.edit-new-password').value.trim();
+    //     // You can now use these values to send an AJAX request to update the user profile on the server
+    //     // Make sure to handle empty values appropriately
+    // });
 });
+
 
 
 // document.getElementById('image-upload').addEventListener('change', function(event) {
@@ -191,3 +236,69 @@ $(document).ready(function() {
         fetchData(lab, start, end); // Pass correct variables
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Select the Update button
+    const updateButton = document.getElementById('update-profile');
+
+    // Add click event listener to the Update button
+    updateButton.addEventListener('click', function() {
+        // Get the new values from the input fields
+        const newName = document.querySelector('.edit-name').value.trim();
+        const newDescription = document.querySelector('.edit-description').value.trim();
+        const newImage = document.querySelector('#profile-image').src;
+        const oldPassword = document.querySelector('.edit-old-password').value.trim();
+        const newPassword = document.querySelector('.edit-new-password').value.trim();
+
+        // Create an object to hold the updated profile data
+        const updatedProfile = {};
+
+        // Add fields to the updatedProfile object only if they are not empty
+        if (newName !== '') {
+            updatedProfile.name = newName;
+        }
+        if (newDescription !== '') {
+            updatedProfile.desc = newDescription;
+        }
+        // Include logic to handle image updates if needed
+
+        // Add password fields only if both old and new passwords are provided
+        if (oldPassword !== '' && newPassword !== '') {
+            updatedProfile.oldPassword = oldPassword;
+            updatedProfile.newPassword = newPassword;
+        }
+
+        // Check if any fields are being updated
+        if (Object.keys(updatedProfile).length === 0) {
+            console.log('No fields to update');
+            return; // No need to send update request if no fields are being updated
+        }
+
+        // Send the updated profile data to the server using an AJAX request
+        fetch('/update-profile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedProfile)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update profile');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle successful profile update
+            console.log('Profile updated successfully:', data);
+            // Optionally, you can display a success message or redirect the user
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('Error updating profile:', error);
+            // Optionally, you can display an error message to the user
+        });
+    });
+});
+
+

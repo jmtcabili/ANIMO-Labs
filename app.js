@@ -1,4 +1,5 @@
 //npm i express express-handlebars body-parser mongodb mongoose jquery
+//npm install multer
 
 const express = require('express');
 const server = express();
@@ -17,6 +18,8 @@ server.engine('hbs', handlebars.engine({
 server.use(express.static('public'));
 
 const responder = require('./models/responder');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 server.get('/', function(req, resp){
   resp.render('login',{
@@ -47,6 +50,7 @@ server.post('/login', (req, res) => {
               current_user.desc = user.desc; 
               if (user.acc_type === 'student') {
                   res.redirect('/user-profile/' + user_id);
+                  
               } else if (user.acc_type === 'lab-administrator') {
                   res.redirect('/lab-profile/' + user_id);
               }
@@ -68,6 +72,7 @@ server.get('/sign-up', function(req, resp){
 
 server.get('/user-profile/:id/', function(req, resp){
   const searchQuery = { student_id: req.params.id }; 
+  
   // Fetch user data
   const userPromise = responder.userModel.find(searchQuery).lean();
     
@@ -83,36 +88,36 @@ server.get('/user-profile/:id/', function(req, resp){
         const startTime = [...new Set(reservation_data.map(reservation => reservation.start_time))];
         const endTime = [...new Set(reservation_data.map(reservation => reservation.end_time))];
         const studentID = [...new Set(reservation_data.map(reservation => reservation.student_id))];
+
         console.log(studentID);
         console.log(current_user.name);
-          resp.render('user-profile',{
-              layout: 'user-index',
-              title: 'User Profile',
-              style: '/common/user-style.css',
-              script: '/common/user-profile.js',
-              currentUser: current_user,
-              reservationData: reservation_data,
-              techUsers: tech_data,
-              studentID: studentID,
-              lab: lab, 
-              startTime: startTime, 
-              endTime: endTime, 
-
-          });
+        resp.render('user-profile',{
+            layout: 'user-index',
+            title: 'User Profile',
+            style: '/common/user-style.css',
+            script: '/common/user-profile.js',
+            currentUser: current_user,
+            reservationData: reservation_data,
+            techUsers: tech_data,
+            studentID: studentID,
+            lab: lab, 
+            startTime: startTime, 
+            endTime: endTime, 
+        });
       })
       .catch(responder.errorFn());
 });
 
+
 server.post('/view-filter-user', function(req, res) { 
+  const student_id = req.body.student_id;
   const lab = req.body.laboratory;
   const start = req.body.start_time;
   const end = req.body.end_time;
-  // Construct the search query based on the received parameters
-  const id = "122345";
-  const searchQuery = {};
-  if(id){
-      searchQuery.student_id = id;
-  }
+
+  console.log(student_id);
+  
+  const searchQuery = { student_id: student_id };
   if (lab) {
       searchQuery.laboratory = lab;
   }
@@ -122,7 +127,7 @@ server.post('/view-filter-user', function(req, res) {
   if (end) {
     searchQuery.end_time = end;
   }
-
+  console.log(searchQuery);
   // Find reservations based on the constructed query
   responder.reservationModel.find(searchQuery).lean().then(function(filteredData) {
       // Send back the filtered data as JSON response
@@ -151,6 +156,7 @@ server.get('/lab-profile/:id/', function(req, resp){
       title: 'Lab Profile',
       style: '/common/lab-style.css',
       script: '/common/lab-profile.js',
+      currentUser: current_user,
       upcomingReservations: reservation_data,
       studentUsers: student_data,
       lab: lab, 
@@ -191,6 +197,58 @@ server.post('/view-filter', function(req, res) {
   });
 });
 
+server.post('/update-profile', upload.single('image'), function(req, res) {
+  const userId = req.body.userId; // Assuming you have a way to retrieve the user ID
+  const newName = req.body.name;
+  const newDescription = req.body.description;
+  const newPassword = req.body.password;
+  const oldPassword = req.body.oldPassword; // Assuming you're providing a way for users to enter their old password
+
+  // Fetch the user from the database
+  User.findById(userId, function(err, user) {
+      if (err) {
+          return res.status(500).json({ error: 'Internal Server Error' });
+      }
+
+      if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Check if the old password matches
+      if (oldPassword && !user.isValidPassword(oldPassword)) {
+          return res.status(400).json({ error: 'Invalid old password' });
+      }
+
+      // Update name if the new name is not empty
+      if (newName && newName.trim() !== '') {
+          user.name = newName;
+      }
+
+      // Update description if the new description is not empty
+      if (newDescription && newDescription.trim() !== '') {
+          user.desc = newDescription;
+      }
+
+      // Update password if the new password is not empty
+      if (newPassword && newPassword.trim() !== '') {
+          user.password = newPassword;
+      }
+
+      // Handle file upload for the image if a file is uploaded
+      if (req.file) {
+          user.image.data = fs.readFileSync(req.file.path);
+          user.image.contentType = req.file.mimetype;
+      }
+
+      // Save the updated user document
+      user.save(function(err) {
+          if (err) {
+              return res.status(500).json({ error: 'Error saving user profile' });
+          }
+          res.status(200).json({ message: 'User profile updated successfully' });
+      });
+  });
+});
 
 
     
