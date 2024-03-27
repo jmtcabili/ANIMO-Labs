@@ -1,9 +1,9 @@
 //npm i express express-handlebars body-parser mongodb mongoose jquery
 //npm install multer
+//npm install bcrypt
 
 const express = require('express');
 const server = express();
-
 
 const bodyParser = require('body-parser');
 server.use(express.json()); 
@@ -18,8 +18,21 @@ server.engine('hbs', handlebars.engine({
 server.use(express.static('public'));
 
 const responder = require('./models/responder');
+const bcrypt = require('bcrypt');
+
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, 'uploads/');
+  },
+  filename: function(req, file, cb) {
+      cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
+
 
 server.get('/', function(req, resp){
   resp.render('login',{
@@ -107,7 +120,6 @@ server.get('/user-profile/:id/', function(req, resp){
       })
       .catch(responder.errorFn());
 });
-
 
 server.post('/view-filter-user', function(req, res) { 
   const student_id = req.body.student_id;
@@ -197,60 +209,46 @@ server.post('/view-filter', function(req, res) {
   });
 });
 
-server.post('/update-profile', upload.single('image'), function(req, res) {
-  const userId = req.body.userId; // Assuming you have a way to retrieve the user ID
-  const newName = req.body.name;
-  const newDescription = req.body.description;
-  const newPassword = req.body.password;
-  const oldPassword = req.body.oldPassword; // Assuming you're providing a way for users to enter their old password
+server.post('/update-profile', upload.single('image'), async function(req, res) {
+  const userID = req.body.id; // Assuming 'id' is the field name in your FormData for user ID
+  const oldPassword = req.body.oldPassword; // Assuming 'password' is the field name for old password
+  const newPassword = req.body.newPassword; // Assuming 'newPassword' is the field name for new password
+  try {
+    // Find the user by their ID
+    const user = await responder.userModel.findOne({ user_id: userID });
 
-  // Fetch the user from the database
-  User.findById(userId, function(err, user) {
-      if (err) {
-          return res.status(500).json({ error: 'Internal Server Error' });
-      }
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+    
+    if (req.body.name){
+      user.name = req.body.name;
+      await user.save();
+    } 
+    if (req.body.desc){
+      user.desc = req.body.desc;
+      await user.save();
+    } 
+    if (req.file) {
+      // Assuming you're storing images as buffers
+      user.image = req.file.buffer;
+      await user.save();
+    }
+    if (oldPassword && oldPassword !== user.password) {
+      return res.status(403).json({ message: 'Old password incorrect. Update failed.' });
+    }
+    else{
+      if (newPassword) user.password = newPassword;
+      await user.save();
+    }
 
-      if (!user) {
-          return res.status(404).json({ error: 'User not found' });
-      }
-
-      // Check if the old password matches
-      if (oldPassword && !user.isValidPassword(oldPassword)) {
-          return res.status(400).json({ error: 'Invalid old password' });
-      }
-
-      // Update name if the new name is not empty
-      if (newName && newName.trim() !== '') {
-          user.name = newName;
-      }
-
-      // Update description if the new description is not empty
-      if (newDescription && newDescription.trim() !== '') {
-          user.desc = newDescription;
-      }
-
-      // Update password if the new password is not empty
-      if (newPassword && newPassword.trim() !== '') {
-          user.password = newPassword;
-      }
-
-      // Handle file upload for the image if a file is uploaded
-      if (req.file) {
-          user.image.data = fs.readFileSync(req.file.path);
-          user.image.contentType = req.file.mimetype;
-      }
-
-      // Save the updated user document
-      user.save(function(err) {
-          if (err) {
-              return res.status(500).json({ error: 'Error saving user profile' });
-          }
-          res.status(200).json({ message: 'User profile updated successfully' });
-      });
-  });
+    res.status(200).json({ message: 'Data updated successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
 });
-
-
     
 server.get('/lab-selection', function(req, resp){
   let isStudent = 0, isLabTech = 0; 

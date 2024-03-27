@@ -129,32 +129,40 @@ document.addEventListener('DOMContentLoaded', function() {
             reader.readAsDataURL(file);
         }
     });
-
-    // // Add click event listener for update profile button
-    // const updateProfileBtn = document.querySelector('#update-profile');
-    // updateProfileBtn.addEventListener('click', () => {
-    //     const newName = document.querySelector('.edit-name').value.trim();
-    //     const newDescription = document.querySelector('.edit-description').value.trim();
-    //     const oldPassword = document.querySelector('.edit-old-password').value.trim();
-    //     const newPassword = document.querySelector('.edit-new-password').value.trim();
-    //     // You can now use these values to send an AJAX request to update the user profile on the server
-    //     // Make sure to handle empty values appropriately
-    // });
+    // Update profile when Update button is clicked
+    const updateButton = document.getElementById('update-profile');
+    updateButton.addEventListener('click', () => {
+        const newName = document.querySelector('.display-name').textContent.trim();
+        const newDescription = document.querySelector('.display-description').textContent.trim();
+        const oldPassword = document.querySelector('.edit-old-password').value.trim(); // Added
+        const newPassword = document.querySelector('.edit-new-password').value.trim();
+        const userID = document.querySelector('.text-idnumber a').textContent.trim(); // Changed from .text to .textContent
+        const formData = new FormData();
+        
+        formData.append('id', userID);
+        formData.append('name', newName);
+        formData.append('desc', newDescription);
+        formData.append('oldPassword', oldPassword); // Added
+        formData.append('newPassword', newPassword);
+        formData.append('image', document.getElementById('image-upload').files[0]); // Added
+        
+        $.ajax({
+            url: '/update-profile',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response){
+                console.log(response.message);
+                // Optionally, display a success message to the user
+            },
+            error: function(xhr, status, error){
+                console.error(xhr.responseText); // Log the detailed error message
+                // Optionally, display an error message to the user
+            }
+        });
+    });
 });
-
-
-
-// document.getElementById('image-upload').addEventListener('change', function(event) {
-//     const file = event.target.files[0]; // Get the selected image file
-
-//     // Display the selected image as a preview
-//     const reader = new FileReader();
-//     reader.onload = function() {
-//         const imageData = reader.result;
-//         document.getElementById('profile-image').src = imageData; // Update src attribute
-//     };
-//     reader.readAsDataURL(file);
-// });
 
 function messageModal(){
     var modal = document.getElementById("send-modal");
@@ -186,11 +194,6 @@ function deactivateModal(){
         
 var input = document.querySelector('#send-button');
 var textarea = document.querySelector('#message');
-
-// input.addEventListener('click', function () {
-//     textarea.value = '';
-// }, false);
-
 
 $('#confirm').change(function() {
 $('#confirm-button').prop("disabled", !this.checked);
@@ -236,69 +239,3 @@ $(document).ready(function() {
         fetchData(lab, start, end); // Pass correct variables
     });
 });
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Select the Update button
-    const updateButton = document.getElementById('update-profile');
-
-    // Add click event listener to the Update button
-    updateButton.addEventListener('click', function() {
-        // Get the new values from the input fields
-        const newName = document.querySelector('.edit-name').value.trim();
-        const newDescription = document.querySelector('.edit-description').value.trim();
-        const newImage = document.querySelector('#profile-image').src;
-        const oldPassword = document.querySelector('.edit-old-password').value.trim();
-        const newPassword = document.querySelector('.edit-new-password').value.trim();
-
-        // Create an object to hold the updated profile data
-        const updatedProfile = {};
-
-        // Add fields to the updatedProfile object only if they are not empty
-        if (newName !== '') {
-            updatedProfile.name = newName;
-        }
-        if (newDescription !== '') {
-            updatedProfile.desc = newDescription;
-        }
-        // Include logic to handle image updates if needed
-
-        // Add password fields only if both old and new passwords are provided
-        if (oldPassword !== '' && newPassword !== '') {
-            updatedProfile.oldPassword = oldPassword;
-            updatedProfile.newPassword = newPassword;
-        }
-
-        // Check if any fields are being updated
-        if (Object.keys(updatedProfile).length === 0) {
-            console.log('No fields to update');
-            return; // No need to send update request if no fields are being updated
-        }
-
-        // Send the updated profile data to the server using an AJAX request
-        fetch('/update-profile', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedProfile)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to update profile');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Handle successful profile update
-            console.log('Profile updated successfully:', data);
-            // Optionally, you can display a success message or redirect the user
-        })
-        .catch(error => {
-            // Handle errors
-            console.error('Error updating profile:', error);
-            // Optionally, you can display an error message to the user
-        });
-    });
-});
-
-
