@@ -133,6 +133,19 @@ server.get('/user-profile/:id/', function(req, resp){
       .catch(responder.errorFn());
 });
 
+server.get('/deactivate-account/:id', function(req, resp){
+  const userId = req.params.id;
+  responder.userModel.deleteOne({ user_id: userId })
+    .then(() => {
+      console.log(`Account with ID ${userId} has been deactivated.`);
+      resp.redirect('/');
+    })
+    .catch(err => {
+      console.error(`Error deactivating account: ${err}`);
+      resp.status(500).send('Failed to deactivate account.');
+    });
+});
+
 server.post('/view-filter-user', function(req, res) { 
   const student_id = req.body.student_id;
   const lab = req.body.laboratory;

@@ -194,6 +194,23 @@ function deactivateModal(){
     }
 }
 
+function deactivateAccount() {
+    const currentUrl = window.location.href;
+    const userId = currentUrl.split('/').pop();
+    
+    fetch(`/deactivate-account/${userId}`, { method: 'GET' })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = '/';
+        } else {
+          console.error('Failed to deactivate account.');
+        }
+      })
+      .catch(error => {
+        console.error('Error deactivating account:', error);
+      });
+}
+
 function message(){
     var input = document.querySelector('#send-button');
     var textarea = document.querySelector('#message');
