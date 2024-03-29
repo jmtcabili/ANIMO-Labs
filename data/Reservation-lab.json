@@ -70,5 +70,17 @@
         "end_time": 1500,
         "seat_ids": ["S13", "S14", "S15"],
         "equipment": ["Pipettes", "Magnetic Stirrer"]
+    },
+    {
+        "name": "John Doe",
+        "reservation_id": "123456",
+        "student_id": "122345",
+        "laboratory": "Computer Lab",
+        "room": "G302",
+        "date": "2024-03-20",
+        "start_time": 900, 
+        "end_time": 1100, 
+        "seat_ids": ["S1", "S2", "S3"],
+        "equipment": []
     }
 ]

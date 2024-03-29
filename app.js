@@ -108,7 +108,8 @@ server.post('/view-filter-user', function(req, res) {
   const start = req.body.start_time;
   const end = req.body.end_time;
   // Construct the search query based on the received parameters
-  const id = "122345";
+  const id = current_user.id;
+  console.log(id);
   const searchQuery = {};
   if(id){
       searchQuery.student_id = id;

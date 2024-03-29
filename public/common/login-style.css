@@ -42,12 +42,14 @@ body {
 .login-child{
     display: flex;
     flex-direction: row;
-    
-     
 }
+
+.feedback{
+    color: red;
+}
+
 .login-form{
     display: flex;
-    
     padding-left: 15%;
 }
 .login {
@@ -103,4 +105,5 @@ body {
     transition: .5s ease;
     transform: scale(1.1);
 }
+
 
