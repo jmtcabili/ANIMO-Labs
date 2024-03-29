@@ -44,6 +44,18 @@ server.get('/', function(req, resp){
 });
 
 let current_user = {name: "", id: 0, type: "", desc: ""};
+let reservationInstance = responder.reservationModel({
+  name: "", 
+  reservation_id: "", 
+  student_id: "",
+  laboratory: "", 
+  room: "", 
+  date: "", 
+  start_time: "", 
+  end_time: "", 
+  seat_ids: [""], 
+  equipment: [""]
+});
 
 server.post('/login', (req, res) => {
   const { user_id, password } = req.body;
@@ -190,7 +202,6 @@ server.post('/view-filter', function(req, res) {
 
   // Construct the search query based on the received parameters
   const searchQuery = {};
-  console.log(searchQuery);
   if (lab) {
       searchQuery.laboratory = lab;
   }
@@ -319,10 +330,10 @@ server.post('/slot-ajax', function(req, resp){
   let start_time_input = req.body.start_time; 
   let end_time_input = req.body.end_time; 
 
-  console.log(date);
+  //console.log(date);
 
-  console.log("Start time (node): " + start_time_input); 
-  console.log("End time (node): " + end_time_input); 
+  //console.log("Start time (node): " + start_time_input); 
+  //console.log("End time (node): " + end_time_input); 
   const searchQuery = {
     room: room,
     date: date,
@@ -333,7 +344,6 @@ server.post('/slot-ajax', function(req, resp){
   responder.reservationModel.find(searchQuery).lean().then(function(reservations){
     if (reservations){
       console.log("Found"); 
-      console.log(reservations);
       resp.send(reservations);
     }else{
       console.log("Not found"); 
@@ -353,6 +363,46 @@ let elec_eq_list = JSON.parse(elec_eq);
 
 server.post('/add-equipment', function(req, resp){
   
+  //pre-processing time and seats
+
+  //Time 
+  console.log(req.body);
+  console.log(req.body.start_hour); 
+  let start_hour = Number(req.body.start_hour);
+  let start_min = Number(req.body.start_min);
+  let end_hour = Number(req.body.end_hour);
+  let end_min = Number(req.body.end_min);
+
+  console.log(start_hour); 
+  if (String(req.body.start_period) === 'AM' && start_hour == 12)
+    start_hour = 0; 
+  if (String(req.body.end_period) === 'AM' && end_hour == 12)
+    end_hour = 0; 
+
+  if (String(req.body.start_period) === 'PM' && start_hour != 12)
+    start_hour += 12;    
+  if (String(req.body.end_period) === 'PM' && end_hour != 12)
+    end_hour += 12;
+
+  start_time = String(start_hour*100 + start_min); 
+  console.log(start_time); 
+  end_time = end_hour*100 + end_min; 
+
+  //seats
+  seat_arr = String(req.body.seats).split(" ");
+  seat_arr.pop();
+
+
+  //update reservation instance
+  reservationInstance.name = current_user.name;
+  reservationInstance.student_id = current_user.id; 
+  reservationInstance.room = req.body.room; 
+  reservationInstance.date = req.body.date; 
+  reservationInstance.start_time = start_time; 
+  reservationInstance.end_time = end_time; 
+  reservationInstance.seat_ids = seat_arr;
+
+  //submit -> post to save then redirect to receipt
   let eq_list = "", lab = "";
   if (isChem){
     eq_list = chem_eq_list;
@@ -367,6 +417,8 @@ server.post('/add-equipment', function(req, resp){
     lab = "Electrical"
   } 
 
+  reservationInstance.laboratory = lab + " Laboratory";
+  console.log(reservationInstance);
   resp.render('add-equipment',{
       layout: 'index',
       title: 'Add Equipment',
@@ -374,27 +426,44 @@ server.post('/add-equipment', function(req, resp){
       list: eq_list,
       lab: lab
   });
+
+
+
 });
 
-server.get('/receipt', function(req, resp){
+server.post('/receipt', function(req, resp){
 
+  reservationInstance.equipment = [];
+  //fetch equipment data
+  console.log(req.body);
+  for (let item in req.body){
+    console.log("item count: " + req.body[item]);
+    if (req.body[item] > 0)
+      reservationInstance.equipment.push(item);
+  }
+  console.log("in instance: " + reservationInstance.equipment);
+  //add equipment data to reservation instance
+  
+
+  //save instance to db
   const searchQuery = {};
   responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(last_reservation){
-    if (last_reservation){
-      console.log(last_reservation);
-      resp.render('receipt',{
-        layout: 'index',
-        title: 'receipt',
-        style: '/common/receipt-style.css', 
-        last: last_reservation,
-        current_user: current_user
+    last_id = last_reservation.reservation_id;
+    reservationInstance.reservation_id = last_id +1; 
+    reservationInstance.save().then(function(){
+      responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(last_reservation){
+        resp.render('receipt',{
+          layout: 'index',
+          title: 'receipt',
+          style: '/common/receipt-style.css', 
+          last: last_reservation,
+          current_user: current_user
+        });
       });
-    }else{
-      console.log("Not found"); 
-      resp.status(404).send("Reservation not found");
-    }
+        
+
+    });
   });
-  
 });
 
 server.get('/reservation-details', function(req, resp){

@@ -16,11 +16,11 @@
                     <div class="details">
                         <span class="date">
                             Date:
-                            <input type = "date" id = "date">
+                            <input type = "date" id = "date" name = "date">
                         </span>
                         <span class="room-number">
                             Room:
-                            <select name = "room" id = "room">
+                            <select name = "room" id = "room" name = "room">
                                 {{#each rooms}}
                                     <option value = {{room}}>{{room}}</option>
                                 {{/each}}
@@ -28,7 +28,7 @@
                         </span>
                         <span class="start-time">
                             <label>Start: </label>
-                            <select name = "start-hour" id = "start-hour">
+                            <select name = "start_hour" id = "start-hour">
                                 <option value = 12>12</option> <option value = 11>11</option>
                                 <option value = 10>10</option> <option value = 9>9</option>
                                 <option value = 8>8</option>   <option value = 7>7</option>
@@ -37,20 +37,20 @@
                                 <option value = 2>2</option>   <option value = 1>1</option>
                             </select>
                             <a><b>:</b></a>
-                            <select name = "start-min" id = "start-min">
+                            <select name = "start_min" id = "start-min">
                                 <option value = 00>00</option>
                                 <option value = 15>15</option>
                                 <option value = 30>30</option>
                                 <option value = 45>45</option>
                             </select>
-                            <select name = "start-period" id = "start-period">
+                            <select name = "start_period" id = "start-period">
                                 <option value = "AM">AM</option>
                                 <option value = "PM">PM</option>
                             </select>
                         </span>
                         <span class="end-time">
                             <label>End: </label>
-                            <select name = "end-hour" id = "end-hour">
+                            <select name = "end_hour" id = "end-hour">
                                 <option value = 12>12</option> <option value = 11>11</option>
                                 <option value = 10>10</option> <option value = 9>9</option>
                                 <option value = 8>8</option>   <option value = 7>7</option>
@@ -59,20 +59,20 @@
                                 <option value = 2>2</option>   <option value = 1>1</option>
                             </select>
                             <a><b>:</b></a>
-                            <select name = "end-min" id = "end-min">
+                            <select name = "end_min" id = "end-min">
                                 <option value = 00>00</option>
                                 <option value = 15>15</option>
                                 <option value = 30>30</option>
                                 <option value = 45>45</option>
                             </select>
-                            <select name = "end-period" id = "end-period">
+                            <select name = "end_period" id = "end-period">
                                 <option value = "AM">AM</option>
                                 <option value = "PM">PM</option>
                             </select>
                         </span>
                         <span class="seats-selected">
                             Seats Selected: 
-                            <input type = "text" id = "seats-selected" readonly value = "">
+                            <input type = "text" id = "seats_selected" readonly value = "" name = 'seats'>
                         </span>
                     </div>
                     <div class="buttons">

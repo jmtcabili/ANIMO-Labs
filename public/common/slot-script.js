@@ -72,7 +72,7 @@ function displaySlots(){ //display proper slot status at given filter
         //reset seat status
         $(".seat").removeClass("reserved").removeClass("selected").addClass("available");
         //empty selected seats from previous query if existing
-        $('#seats-selected').val('');
+        $('#seats_selected').val('');
         reserved_seats = new Array(); 
         data.forEach(function(reservation){
           //console.log("Room:" + reservation.room);
@@ -102,22 +102,20 @@ function displaySlots(){ //display proper slot status at given filter
 
 function pickSeats(){
   $('.seat').on("click", function(){
-    console.log("Flag: " + flag);
     if (flag){ //if inputs are validated
       //get current seats
-      seats_selected = $('#seats-selected').val();
-      console.log("Seat sel: " + seats_selected);
+      seats_selected = $('#seats_selected').val();
       //if reserved, you can't click
       //if selected, first click -> add to seats selected
       //             second click -> remove from seats
       if (this.classList.contains("available")){
         seats_selected += (this.id + " "); 
-        $('#seats-selected').val(seats_selected);
+        $('#seats_selected').val(seats_selected);
         $('#' + this.id).removeClass("available").addClass("selected");
       } else if (this.classList.contains("selected")){
         //find seat in seats_selected
         seats_selected = seats_selected.replace(this.id+' ', '');
-        $('#seats-selected').val(seats_selected);
+        $('#seats_selected').val(seats_selected);
         $('#' + this.id).removeClass("selected").addClass("available");
       }
     } 

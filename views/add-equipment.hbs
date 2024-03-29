@@ -3,13 +3,13 @@
       <img class="logo" src="/common/assets/ANIMO-LABS LOGO.png" alt="Animo Labs Logo">
       <h2>{{lab}} Laboratory Equipment</h2>
     </div>
-    <form action = '/receipt' method = "get">
+    <form action = '/receipt' method = "post">
       <div class="equipment-list">
         {{#each list}}
           <div class="equipment-item">
           <span class="equipment-name">{{item}}</span>
           <label for="beaker" class="equipment-quantity">
-            <input type="number" id="beaker" name="beaker" value="1" min="0">
+            <input type="number" name= {{item}} value="0" min="0">
           </label>
         </div>
         {{/each}}
