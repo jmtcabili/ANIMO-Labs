@@ -15,25 +15,25 @@
                 {{/each}}
             </div>
         </div>
-        <div class= "lab-reservation hide" id = "edit-profile">
-            <div class = "box-header">
+       <div class="lab-reservation hide" id="edit-profile">
+            <div class="box-header">
                 <h1>YOUR PROFILE</h1>
             </div>
             <div class="edit-profile-picture-parent">
                 <div class="edit-profile-picture">
-                     <img id="profile-image" src="/common/assets/user-dp.png">
+                    <img id="profile-image" src="/common/assets/user-dp.png">
                 </div>
                 <div class="edit-pen-content-profile">  
                     <input type="file" id="image-upload" accept="image/*">
                     <label for="image-upload">
-                        <img src="/common/assets/edit-pen.png" class="edit-pen" alt="Edit">
+                        <img src="/common/assets/edit-pen.png" class="edit-pen-image" alt="Edit">
                     </label>
                 </div>
             </div>
             <div class="profile">
                 <div class="text-name">
-                    <span class="display-name">Lab Admin</span>
-                    <input type="text" class="edit-name hide">
+                    <span class="display-name">{{currentUser.name}}</span>
+                    <input type="text" class="edit-name hide" placeholder="Enter your new name">
                     <div class="edit-pen-content-profile">
                         <img src="/common/assets/edit-pen.png" class="edit-pen-name" alt="Edit">
                     </div>
@@ -42,15 +42,26 @@
                     <a>Lab Technician</a>
                 </div> 
                 <div class="text-idnumber">
-                    <a>12274534</a>
+                    <a>{{currentUser.id}}</a>
                 </div> 
                 <div class="add-description">
-                    <span class="display-description">Enter your description</span>
-                    <textarea class="edit-description hide" placeholder="Enter your description"></textarea>
+                    <span class="display-description">{{currentUser.desc}}</span>
+                    <textarea class="edit-description hide" placeholder="Enter your new description"></textarea>
                     <div class="edit-pen-content-profile">
                         <img src="/common/assets/edit-pen.png" class="edit-pen-description" alt="Edit">
                     </div>
                 </div>
+                <div class="edit-password-section">
+                    <span class="change-password">Change Password</span>
+                    <div class="edit-pen-content-profile">
+                        <img src="/common/assets/edit-pen.png" class="edit-pen-password" alt="Edit">
+                    </div>
+                    <input type="text" class="edit-old-password hide" placeholder="Enter your old password">
+                    <input type="text" class="edit-new-password hide" placeholder="Enter your new password">
+                </div>
+            </div>
+            <div class="user-footer">
+                <button id="update-profile">Update</button>
             </div>
         </div>
         <div class = "lab-reservation hide" id = "accept">

@@ -1,8 +1,9 @@
 //npm i express express-handlebars body-parser mongodb mongoose jquery
+//npm install multer
+//npm install bcrypt
 
 const express = require('express');
 const server = express();
-
 
 const bodyParser = require('body-parser');
 server.use(express.json()); 
@@ -17,6 +18,21 @@ server.engine('hbs', handlebars.engine({
 server.use(express.static('public'));
 
 const responder = require('./models/responder');
+const bcrypt = require('bcrypt');
+
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, 'uploads/');
+  },
+  filename: function(req, file, cb) {
+      cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
+
 
 server.get('/', function(req, resp){
   resp.render('login',{
@@ -47,6 +63,7 @@ server.post('/login', (req, res) => {
               current_user.desc = user.desc; 
               if (user.acc_type === 'student') {
                   res.redirect('/user-profile/' + user_id);
+                  
               } else if (user.acc_type === 'lab-administrator') {
                   res.redirect('/lab-profile/' + user_id);
               }
@@ -68,6 +85,7 @@ server.get('/sign-up', function(req, resp){
 
 server.get('/user-profile/:id/', function(req, resp){
   const searchQuery = { student_id: req.params.id }; 
+  
   // Fetch user data
   const userPromise = responder.userModel.find(searchQuery).lean();
     
@@ -83,27 +101,28 @@ server.get('/user-profile/:id/', function(req, resp){
         const startTime = [...new Set(reservation_data.map(reservation => reservation.start_time))];
         const endTime = [...new Set(reservation_data.map(reservation => reservation.end_time))];
         const studentID = [...new Set(reservation_data.map(reservation => reservation.student_id))];
+
         console.log(studentID);
         console.log(current_user.name);
-          resp.render('user-profile',{
-              layout: 'user-index',
-              title: 'User Profile',
-              style: '/common/user-style.css',
-              script: '/common/user-profile.js',
-              currentUser: current_user,
-              reservationData: reservation_data,
-              techUsers: tech_data,
-              studentID: studentID,
-              lab: lab, 
-              startTime: startTime, 
-              endTime: endTime, 
-
-          });
+        resp.render('user-profile',{
+            layout: 'user-index',
+            title: 'User Profile',
+            style: '/common/user-style.css',
+            script: '/common/user-profile.js',
+            currentUser: current_user,
+            reservationData: reservation_data,
+            techUsers: tech_data,
+            studentID: studentID,
+            lab: lab, 
+            startTime: startTime, 
+            endTime: endTime, 
+        });
       })
       .catch(responder.errorFn());
 });
 
 server.post('/view-filter-user', function(req, res) { 
+  const student_id = req.body.student_id;
   const lab = req.body.laboratory;
   const start = req.body.start_time;
   const end = req.body.end_time;
@@ -123,7 +142,7 @@ server.post('/view-filter-user', function(req, res) {
   if (end) {
     searchQuery.end_time = end;
   }
-
+  console.log(searchQuery);
   // Find reservations based on the constructed query
   responder.reservationModel.find(searchQuery).lean().then(function(filteredData) {
       // Send back the filtered data as JSON response
@@ -152,6 +171,7 @@ server.get('/lab-profile/:id/', function(req, resp){
       title: 'Lab Profile',
       style: '/common/lab-style.css',
       script: '/common/lab-profile.js',
+      currentUser: current_user,
       upcomingReservations: reservation_data,
       studentUsers: student_data,
       lab: lab, 
@@ -192,8 +212,46 @@ server.post('/view-filter', function(req, res) {
   });
 });
 
+server.post('/update-profile', upload.single('image'), async function(req, res) {
+  const userID = req.body.id; // Assuming 'id' is the field name in your FormData for user ID
+  const oldPassword = req.body.oldPassword; // Assuming 'password' is the field name for old password
+  const newPassword = req.body.newPassword; // Assuming 'newPassword' is the field name for new password
+  try {
+    // Find the user by their ID
+    const user = await responder.userModel.findOne({ user_id: userID });
 
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+    
+    if (req.body.name){
+      user.name = req.body.name;
+      await user.save();
+    } 
+    if (req.body.desc){
+      user.desc = req.body.desc;
+      await user.save();
+    } 
+    if (req.file) {
+      // Assuming you're storing images as buffers
+      user.image = req.file.buffer;
+      await user.save();
+    }
+    if (oldPassword && oldPassword !== user.password) {
+      return res.status(403).json({ message: 'Old password incorrect. Update failed.' });
+    }
+    else{
+      if (newPassword) user.password = newPassword;
+      await user.save();
+    }
 
+    res.status(200).json({ message: 'Data updated successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
+});
     
 server.get('/lab-selection', function(req, resp){
   let isStudent = 0, isLabTech = 0; 

@@ -55,6 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Select edit pens
     const editPenName = document.querySelector('.edit-pen-name');
     const editPenDescription = document.querySelector('.edit-pen-description');
+    const editPenPassword = document.querySelector('.edit-pen-password');
+    const editPenImage = document.querySelector('.edit-pen-image');
 
     // Add click event listener for name edit pen
     editPenName.addEventListener('click', () => {
@@ -99,20 +101,71 @@ document.addEventListener('DOMContentLoaded', function() {
         displayDescription.classList.remove('hide');
         editDescription.classList.add('hide');
     });
+
+    // Add click event listener for password edit pen
+    editPenPassword.addEventListener('click', () => {
+        const editOldPassword = document.querySelector('.edit-old-password');
+        const editNewPassword = document.querySelector('.edit-new-password');
+
+        editOldPassword.classList.remove('hide');
+        editNewPassword.classList.remove('hide');
+    });
+
+    // Add click event listener for image edit pen
+    editPenImage.addEventListener('click', () => {
+        const imageUpload = document.querySelector('#image-upload');
+        // Trigger file input click
+        imageUpload.click();
+    });
+
+    // Add change event listener for file input (image upload)
+    const imageUpload = document.querySelector('#image-upload');
+    imageUpload.addEventListener('change', () => {
+        const profileImage = document.querySelector('#profile-image');
+        const file = imageUpload.files[0];
+        if (file) {
+            // Handle image preview if needed
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                profileImage.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    // Update profile when Update button is clicked
+    const updateButton = document.getElementById('update-profile');
+    updateButton.addEventListener('click', () => {
+        const newName = document.querySelector('.display-name').textContent.trim();
+        const newDescription = document.querySelector('.display-description').textContent.trim();
+        const oldPassword = document.querySelector('.edit-old-password').value.trim(); // Added
+        const newPassword = document.querySelector('.edit-new-password').value.trim();
+        const userID = document.querySelector('.text-idnumber a').textContent.trim(); // Changed from .text to .textContent
+        const formData = new FormData();
+        
+        formData.append('id', userID);
+        formData.append('name', newName);
+        formData.append('desc', newDescription);
+        formData.append('oldPassword', oldPassword); // Added
+        formData.append('newPassword', newPassword);
+        formData.append('image', document.getElementById('image-upload').files[0]); // Added
+        
+        $.ajax({
+            url: '/update-profile',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response){
+                console.log(response.message);
+                // Optionally, display a success message to the user
+            },
+            error: function(xhr, status, error){
+                console.error(xhr.responseText); // Log the detailed error message
+                // Optionally, display an error message to the user
+            }
+        });
+    });
 });
-
-
-// document.getElementById('image-upload').addEventListener('change', function(event) {
-//     const file = event.target.files[0]; // Get the selected image file
-
-//     // Display the selected image as a preview
-//     const reader = new FileReader();
-//     reader.onload = function() {
-//         const imageData = reader.result;
-//         document.getElementById('profile-image').src = imageData; // Update src attribute
-//     };
-//     reader.readAsDataURL(file);
-// });
 
 function messageModal(){
     var modal = document.getElementById("send-modal");
@@ -186,8 +239,12 @@ $(document).ready(function() {
     }
 
     // Event listener for changes in select elements
-    $('#select_id, #select_laboratory, #select_start-time, #select_end-time').on('change', function() {
-        var id = $('#select_id').val();
+    $('.text-idnumber a, #select_laboratory, #select_start-time, #select_end-time').on('change', function() {
+        var id_text = $('.text-idnumber a').text();
+        var id_trim = id_text.trim(); // Trim any leading or trailing whitespace
+        // Convert text content to .val() equivalent
+        var input = $('<input>').val(id_trim);
+        var id = input.val();
         var lab = $('#select_laboratory').val();
         var start = $('#select_start-time').val();
         var end = $('#select_end-time').val();
