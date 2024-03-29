@@ -13,19 +13,26 @@ function getTime(){
   start_min = Number($('#start-min').val());
   end_min = Number($("#end-min").val());
 
-  if ($('#start-period').val() === 'PM')
+  //if 12:00am
+  if ($('#start-period').val() === 'AM' && ($('#start-hour').val() == 12))
+    start_hour = 0; 
+  if ($('#end-period').val() === 'AM' && ($('#end-hour').val() == 12))
+    end_hour = 0; 
+
+  if ($('#start-period').val() === 'PM' && ($('#start-hour').val() != 12))
     start_hour += 12;    
-  if ($('#end-period').val() === 'PM')
+  if ($('#end-period').val() === 'PM' && ($('#end-hour').val() != 12))
     end_hour += 12;
+
   start_time = start_hour*100 + start_min; 
   end_time = end_hour*100 + end_min; 
+
 }
 
-function checkTime(){
+function checkTime(){ //validates time and returns status
   let isValid = 0;
 
   getTime();
-  console.log(end_time - start_time);
   if (end_time - start_time <= 0){
     alert("End time should be after start time.");
   }else if (end_time - start_time > 200){
@@ -36,7 +43,7 @@ function checkTime(){
   return isValid;    
 }
 
-function checkDate(){
+function checkDate(){ //validates date and returns status
   let date_input = $("#date").val()
   let date_deets = date_input.split("-");
   let year = Number(date_deets[0]);
@@ -44,14 +51,13 @@ function checkDate(){
   let day = Number(date_deets[2]);
 
   date = new Date(year, month, day);
-  console.log(date.valueOf() < new Date().valueOf);
+  console.log("Date is at least today: " + date.valueOf() < new Date().valueOf);
   
   return new Date(date.toDateString()) < new Date(new Date().toDateString());
 
 }
 
-function displaySlots(){
-  console.log("Func" +  String($('#date').val()));
+function displaySlots(){ //display proper slot status at given filter
   $.post(
      '/slot-ajax', 
     {
@@ -62,8 +68,11 @@ function displaySlots(){
     }, 
     function(data, status){
       if (status === 'success'){
-        console.log("Query Success")
-        $(".seat").removeClass("reserved").addClass("available");
+        console.log("Query Success");
+        //reset seat status
+        $(".seat").removeClass("reserved").removeClass("selected").addClass("available");
+        //empty selected seats from previous query if existing
+        $('#seats-selected').val('');
         reserved_seats = new Array(); 
         data.forEach(function(reservation){
           //console.log("Room:" + reservation.room);
@@ -91,11 +100,38 @@ function displaySlots(){
 }
 
 
+function pickSeats(){
+  $('.seat').on("click", function(){
+    console.log("Flag: " + flag);
+    if (flag){ //if inputs are validated
+      //get current seats
+      seats_selected = $('#seats-selected').val();
+      console.log("Seat sel: " + seats_selected);
+      //if reserved, you can't click
+      //if selected, first click -> add to seats selected
+      //             second click -> remove from seats
+      if (this.classList.contains("available")){
+        seats_selected += (this.id + " "); 
+        $('#seats-selected').val(seats_selected);
+        $('#' + this.id).removeClass("available").addClass("selected");
+      } else if (this.classList.contains("selected")){
+        //find seat in seats_selected
+        seats_selected = seats_selected.replace(this.id+' ', '');
+        $('#seats-selected').val(seats_selected);
+        $('#' + this.id).removeClass("selected").addClass("available");
+      }
+    } 
+  });
+}
+
+
 $(document).ready(function(){
   const date = new Date();
   let curr_day = date.getDate();
   let curr_month = date.getMonth()+1; 
   let curr_year = date.getFullYear();
+
+  displaySlots();
 
   if (curr_day < 10)
     curr_day = '0' + String(curr_day);
@@ -127,6 +163,7 @@ $(document).ready(function(){
     } else
       flag = 1; 
   });
-  
+  pickSeats();
+
 });
 
