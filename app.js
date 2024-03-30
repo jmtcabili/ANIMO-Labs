@@ -124,15 +124,32 @@ server.get('/user-profile/:id/', function(req, resp){
 
 server.get('/deactivate-account/:id', function(req, resp){
   const userId = req.params.id;
-  responder.userModel.deleteOne({ user_id: userId })
+  let userPromise = responder.userModel.deleteOne({ user_id: userId });
+  let reservationPromise = responder.reservationModel.deleteMany({ student_id: userId });
+
+  Promise.all([userPromise, reservationPromise])
     .then(() => {
       console.log(`Account with ID ${userId} has been deactivated.`);
+      console.log(`Reservations with ${userId} have been deleted.`);
       resp.redirect('/');
     })
     .catch(err => {
-      console.error(`Error deactivating account: ${err}`);
-      resp.status(500).send('Failed to deactivate account.');
+      console.error(`Error deactivating account or reservations: ${err}`);
+      resp.status(500).send('Failed to deactivate account or delete reservations.');
     });
+});
+
+server.get('/delete-reservation/:id', function(req, resp){
+  const reservationId = req.params.id;
+  responder.reservationModel.deleteOne({ reservation_id: reservationId })
+  .then(() => {
+    console.log(`Reservation with ID ${reservationId} has been deleted.`);
+    resp.redirect('/');
+  })
+  .catch(err => {
+    console.error(`Error deletiong reservation: ${err}`);
+    resp.status(500).send('Failed to delete reservation.');
+  });
 });
 
 server.post('/view-filter-user', function(req, res) { 
@@ -610,7 +627,8 @@ const searchQuery = {
             else if (current_user.type === 'lab-administrator')
               isLabTech = 1;
             resp.render('reservation-details',{
-                layout: 'index',
+                layout: 'reservation-details',
+                script: '/common/reservation-details.js',
                 title: 'Reservation Details',
                 style: '/common/receipt-style.css',
                 details: details_data,
