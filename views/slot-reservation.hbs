@@ -13,9 +13,9 @@
                     <a><strong>{{lab}}</strong></a>
                 </div>
                 {{#if isUpdate}}
-                <form action="/add-equipment" method = "post">
+                <form action = "/update-equipment" method = "post">
                 {{else}}
-                <form action = "/add-equipment/{{id}}" method = "post">
+                <form action="/add-equipment" method = "post">
                 {{/if}}
                     <div class="details">
                         <span class="date">
@@ -81,7 +81,11 @@
                     </div>
                     <div class="buttons">
                             <div class="button-parent">
+                                {{#if isUpdate}}
+                                <a href = "/user-profile/{{student_id}}">
+                                {{else}}
                                 <a href = "/lab-selection">
+                                {{/if}}
                                     <input type = "button" value = "Return" class = "button" size = "100">
                                 </a>
                             </div>
@@ -99,6 +103,9 @@
                 <a id= "date-selected"></a><br>
                 <a id= "room-selected"></a><br>
                 <a id= "time-selected"></a><br>
+                {{#if isUpdate}}
+                    <a id = "reservation_number">{{id}}</a><br>
+                {{/if}}
             </div>
             {{#if isChem}}
                 {{>chem-seating}}

@@ -58,13 +58,21 @@ function checkDate(){ //validates date and returns status
 }
 
 function displaySlots(){ //display proper slot status at given filter
+  
+  let server = "";
+  if ($('#reservation_number').text())
+    server = '/slot-update-ajax'; 
+  else 
+    server = '/slot-ajax';
+
   $.post(
-     '/slot-ajax', 
+     server, 
     {
       date: $('#date').val(),
       room: $('#room').val(),
       start_time: start_time, 
-      end_time: end_time
+      end_time: end_time,
+      id : $('#reservation_number').text()
     }, 
     function(data, status){
       if (status === 'success'){

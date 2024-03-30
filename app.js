@@ -45,6 +45,7 @@ server.get('/', function(req, resp){
 
 let current_user = {name: "", id: 0, type: "", desc: ""};
 let reservationInstance = []; 
+let updateInstance = []; 
 
 server.post('/login', (req, res) => {
   const { user_id, password } = req.body;
@@ -355,18 +356,13 @@ server.get('/slot-reservation/:lab', function(req, resp){
 });
 
 server.get('/update-reservation/:lab/:id', function(req, resp){
-  reservationInstance = responder.reservationModel({
-    name: "", 
-    reservation_id: req.params.id, 
-    student_id: "",
-    laboratory: "", 
-    room: "", 
-    date: "", 
-    start_time: "", 
-    end_time: "", 
-    seat_ids: [""], 
-    equipment: [""]
+
+  const searchQuery = {reservation_id: req.params.id}; 
+  responder.reservationModel.findOne(searchQuery).lean().then(function(reservation){
+    updateInstance = reservation; 
   });
+  
+  console.log("Update RI: " + reservationInstance); 
   //need student id
   //note that time should be in military format for easier checking
   //the reservations that you have to show have to be within range
@@ -396,8 +392,9 @@ server.get('/update-reservation/:lab/:id', function(req, resp){
     isComp: isComp, 
     isElec: isElec,
     rooms: room,
-    isUpdate: true,
-    id: req.params.id
+    isUpdate: 1,
+    id: req.params.id,
+    student_id: current_user.id
   });
 
 });
@@ -429,7 +426,7 @@ server.post('/slot-ajax', function(req, resp){
       let end = end_time_input; 
       let inRange = 0;
       while (!inRange && runner <= end){
-        if (runner > reservations[i].start_time){
+        if (runner > reservations[i].start_time && runner < reservations[i].end_time){
           inRange = 1; 
         }else{
           if (runner % 100 == 45)
@@ -454,13 +451,13 @@ server.post('/slot-update-ajax', function(req, resp){
 
   let date = String(req.body.date); 
   let room = String(req.body.room);
+  
   let start_time_input = Number(req.body.start_time); 
   let end_time_input = Number(req.body.end_time); 
 
-  //console.log(date);
+  //get id
+  let id = String(req.body.id);
 
-  //console.log("Start time (node): " + start_time_input); 
-  //console.log("End time (node): " + end_time_input); 
   const searchQuery = {
     room: room,
     date: date
@@ -475,7 +472,7 @@ server.post('/slot-update-ajax', function(req, resp){
       let runner = start_time_input; 
       let end = end_time_input; 
       let inRange = 0;
-      while (!inRange && runner <= end){
+      while (!inRange && runner <= end && id != reservations[i].reservation_id){
         if (runner > reservations[i].start_time){
           inRange = 1; 
         }else{
@@ -572,19 +569,93 @@ server.post('/add-equipment', function(req, resp){
       lab: lab
   });
 
+});
 
+server.post('/update-equipment', function(req, resp){
+  
+  //pre-processing time and seats
+
+  //Time 
+  console.log(req.body);
+  console.log(req.body.start_hour); 
+  let start_hour = Number(req.body.start_hour);
+  let start_min = Number(req.body.start_min);
+  let end_hour = Number(req.body.end_hour);
+  let end_min = Number(req.body.end_min);
+
+  console.log(start_hour); 
+  if (String(req.body.start_period) === 'AM' && start_hour == 12)
+    start_hour = 0; 
+  if (String(req.body.end_period) === 'AM' && end_hour == 12)
+    end_hour = 0; 
+
+  if (String(req.body.start_period) === 'PM' && start_hour != 12)
+    start_hour += 12;    
+  if (String(req.body.end_period) === 'PM' && end_hour != 12)
+    end_hour += 12;
+
+  start_time = String(start_hour*100 + start_min); 
+  console.log(start_time); 
+  end_time = end_hour*100 + end_min; 
+
+  //seats
+  seat_arr = String(req.body.seats).split(" ");
+  seat_arr.pop();
+
+
+  //update reservation instance
+  updateInstance.name = current_user.name;
+  updateInstance.student_id = current_user.id; 
+  updateInstance.room = req.body.room; 
+  updateInstance.date = req.body.date; 
+  updateInstance.start_time = start_time; 
+  updateInstance.end_time = end_time; 
+  updateInstance.seat_ids = seat_arr;
+
+  //submit -> post to save then redirect to receipt
+  let eq_list = "", lab = "";
+  if (isChem){
+    eq_list = chem_eq_list;
+    lab = "Chemistry"
+  }
+  else if (isComp){
+    eq_list = comp_eq_list;
+    lab = "Computer"
+  } 
+  else{ 
+    eq_list = elec_eq_list;
+    lab = "Electrical"
+  } 
+
+  updateInstance.laboratory = lab + " Laboratory";
+  console.log(updateInstance);
+  resp.render('add-equipment',{
+      layout: 'index',
+      title: 'Add Equipment',
+      style: '/common/equipment-style.css',
+      list: eq_list,
+      lab: lab,
+      isUpdate: 1
+  });
 
 });
 
+
+
 server.post('/receipt', function(req, resp){
 
+  console.log("RI at receipt: " + reservationInstance); 
+  const searchQuery2 = {reservation_id: reservationInstance.reservation_id}; 
   reservationInstance.equipment = [];
+  updateInstance.equipment = []; 
   //fetch equipment data
   console.log(req.body);
   for (let item in req.body){
     console.log("item count: " + req.body[item]);
-    if (req.body[item] > 0)
+    if (req.body[item] > 0){
       reservationInstance.equipment.push(item);
+      updateInstance.equipment.push(item); 
+    }
   }
   console.log("in instance: " + reservationInstance.equipment);
   //add equipment data to reservation instance
@@ -592,24 +663,53 @@ server.post('/receipt', function(req, resp){
 
   //save instance to db
   const searchQuery = {};
-  responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(last_reservation){
-    last_id = last_reservation.reservation_id;
-    reservationInstance.reservation_id = Number(last_id) +1; 
-    reservationInstance.save().then(function(){
-      responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(new_res){
-        resp.render('receipt',{
-          layout: 'index',
-          title: 'receipt',
-          style: '/common/receipt-style.css', 
-          last: new_res,
-          current_user: current_user
+  if (reservationInstance.reservation_id === ""){
+    responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(last_reservation){
+      last_id = last_reservation.reservation_id;
+      reservationInstance.reservation_id = Number(last_id) +1; 
+      reservationInstance.save().then(function(){
+        responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(new_res){
+          resp.render('receipt',{
+            layout: 'index',
+            title: 'receipt',
+            style: '/common/receipt-style.css', 
+            last: new_res,
+            current_user: current_user
+          });
         });
       });
-        
-
     });
-  });
+  }else{
+    console.log("you are updating"); 
+    const searchQuery2 = {reservation_id: updateInstance.reservation_id}; 
+    responder.reservationModel.findOne(searchQuery2).then(function(result){
+      result.room = updateInstance.room; 
+      result.date = updateInstance.date; 
+      result.start_time = updateInstance.start_time; 
+      result.end_time = updateInstance.end_time;
+      result.seat_ids = updateInstance.seat_ids; 
+      result.equipment = updateInstance.equipment; 
+      result.save().then(function(out){
+        if (out){
+          resp.render('receipt',{
+            layout: 'index',
+            title: 'receipt',
+            style: '/common/receipt-style.css', 
+            last: updateInstance,
+            current_user: current_user
+          });
+        }else{
+          console.log("somethign bad happened"); 
+        } 
+      })
+    });
+  }  
 });
+
+
+
+
+
 
 server.get('/reservation-details', function(req, resp){
 const searchQuery = {
