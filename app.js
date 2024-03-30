@@ -44,18 +44,7 @@ server.get('/', function(req, resp){
 });
 
 let current_user = {name: "", id: 0, type: "", desc: ""};
-let reservationInstance = responder.reservationModel({
-  name: "", 
-  reservation_id: "", 
-  student_id: "",
-  laboratory: "", 
-  room: "", 
-  date: "", 
-  start_time: "", 
-  end_time: "", 
-  seat_ids: [""], 
-  equipment: [""]
-});
+let reservationInstance = []; 
 
 server.post('/login', (req, res) => {
   const { user_id, password } = req.body;
@@ -303,6 +292,19 @@ let elec_list = JSON.parse(elec_rooms);
 
 let isChem = 0, isComp = 0, isElec = 0; 
 server.get('/slot-reservation/:lab', function(req, resp){
+  
+  reservationInstance = responder.reservationModel({
+    name: "", 
+    reservation_id: "", 
+    student_id: "",
+    laboratory: "", 
+    room: "", 
+    date: "", 
+    start_time: "", 
+    end_time: "", 
+    seat_ids: [""], 
+    equipment: [""]
+  });
   //need student id
   //note that time should be in military format for easier checking
   //the reservations that you have to show have to be within range
@@ -340,8 +342,8 @@ server.post('/slot-ajax', function(req, resp){
 
   let date = String(req.body.date); 
   let room = String(req.body.room);
-  let start_time_input = req.body.start_time; 
-  let end_time_input = req.body.end_time; 
+  let start_time_input = Number(req.body.start_time); 
+  let end_time_input = Number(req.body.end_time); 
 
   //console.log(date);
 
@@ -349,17 +351,35 @@ server.post('/slot-ajax', function(req, resp){
   //console.log("End time (node): " + end_time_input); 
   const searchQuery = {
     room: room,
-    date: date,
-    start_time: {$gte: start_time_input}, 
-    end_time: {$lte: end_time_input}
+    date: date
   };
 
   responder.reservationModel.find(searchQuery).lean().then(function(reservations){
+
+    //filter reservations
+    let reserved = new Array(); 
+
+    for (let i = 0; i < reservations.length; i++){
+      let runner = start_time_input; 
+      let end = end_time_input; 
+      let inRange = 0;
+      while (!inRange && runner <= end){
+        if (runner > reservations[i].start_time){
+          inRange = 1; 
+        }else{
+          if (runner % 100 == 45)
+            runner += 55; 
+          else 
+            runner += 15; 
+        }
+        if (inRange){
+          reserved.push(reservations[i])
+        }
+      }
+    } 
     if (reservations){
-      console.log("Found"); 
-      resp.send(reservations);
+      resp.send(reserved);
     }else{
-      console.log("Not found"); 
       resp.status(404).send("Reservation not found");
     }
   });
@@ -462,14 +482,14 @@ server.post('/receipt', function(req, resp){
   const searchQuery = {};
   responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(last_reservation){
     last_id = last_reservation.reservation_id;
-    reservationInstance.reservation_id = last_id +1; 
+    reservationInstance.reservation_id = Number(last_id) +1; 
     reservationInstance.save().then(function(){
-      responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(last_reservation){
+      responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(new_res){
         resp.render('receipt',{
           layout: 'index',
           title: 'receipt',
           style: '/common/receipt-style.css', 
-          last: last_reservation,
+          last: new_res,
           current_user: current_user
         });
       });
