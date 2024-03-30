@@ -257,6 +257,8 @@ body{
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
+    height: 30vh; 
+    overflow: auto; 
 }
 
 .box-content > a{
@@ -313,8 +315,8 @@ body{
 
 
 .mini-box:hover{
-    transition: .5s ease;
-    transform: scale(1.1);
+    transition: .4s ease;
+    transform: scale(1.05);
 }
 
 .hide{

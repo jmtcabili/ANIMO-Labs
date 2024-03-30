@@ -244,6 +244,8 @@ body{
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
+    height: 25vh; 
+    overflow: hidden;
 }
 
 .box-content > a{
@@ -296,7 +298,7 @@ body{
 
 .mini-box:hover{
     transition: .5s ease;
-    transform: scale(1.1);
+    transform: scale(1.04);
 }
 
 .lab-reservation{
