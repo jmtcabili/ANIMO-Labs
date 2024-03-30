@@ -21,7 +21,7 @@
     <div class="receipt-container">
         <div class="receipt-body">
             <div class="receipt-title">
-                <a>Detail of the Reservation<a>
+                <a>Details of the Reservation<a>
             </div>
             <hr>
             <div class="receipt-details">
@@ -49,10 +49,13 @@
                 </div>
                 <div class="equipment-details">
                     <b>Equipment Reserved:</b>
-                    <div class="equipment">
-                        <span id="number">1.</span>
-                        <span id="item">{{details.equipment}}</span>
-                    </div>
+                    <ul>
+                    {{#each details.equipment}}
+                        <div class="equipment">
+                            <li><span id="item">{{this}}</span></li>
+                        </div>
+                    {{/each}}
+                    </ul>
                 </div>
             </div>
         </div>
@@ -64,7 +67,7 @@
         <button onclick = "window.location.href = '/user-profile/{{current_user.id}}'">Return to main menu</button>
         </div>
         <div class="return to-main-menu" >
-            <button onclick = "window.location.href = '/lab-selection'">Edit Reservation</button>
+            <button onclick = "window.location.href = '/update-reservation/{{details.laboratory}}/{{details.reservation_id}}'">Edit Reservation</button>
         </div>
         <div class="return to-main-menu">
             <button onclick = "window.location.href = '/user-profile/{{current_user.id}}'">Remove Reservation</button>

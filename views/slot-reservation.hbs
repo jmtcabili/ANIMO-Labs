@@ -12,7 +12,11 @@
                 <div class="laboratory">
                     <a><strong>{{lab}}</strong></a>
                 </div>
+                {{#if isUpdate}}
                 <form action="/add-equipment" method = "post">
+                {{else}}
+                <form action = "/add-equipment/{{id}}" method = "post">
+                {{/if}}
                     <div class="details">
                         <span class="date">
                             Date:

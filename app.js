@@ -292,7 +292,6 @@ let elec_list = JSON.parse(elec_rooms);
 
 let isChem = 0, isComp = 0, isElec = 0; 
 server.get('/slot-reservation/:lab', function(req, resp){
-  
   reservationInstance = responder.reservationModel({
     name: "", 
     reservation_id: "", 
@@ -338,7 +337,103 @@ server.get('/slot-reservation/:lab', function(req, resp){
 
 });
 
+server.get('/update-reservation/:lab/:id', function(req, resp){
+  reservationInstance = responder.reservationModel({
+    name: "", 
+    reservation_id: req.params.id, 
+    student_id: "",
+    laboratory: "", 
+    room: "", 
+    date: "", 
+    start_time: "", 
+    end_time: "", 
+    seat_ids: [""], 
+    equipment: [""]
+  });
+  //need student id
+  //note that time should be in military format for easier checking
+  //the reservations that you have to show have to be within range
+  isChem = req.params.lab === 'Chemistry Laboratory';
+  isComp = req.params.lab === 'Computer Laboratory';
+  isElec = req.params.lab === 'Electronics Laboratory';
+  let style = "";
+  let room = "";
+  if (isChem){
+    style = '/common/slot-style-chem.css';
+    room = chem_list; 
+  }else if (isComp){
+    style = "/common/slot-style-comp.css";
+    room = comp_list; 
+  }else{
+    style = "/common/slot-style-elec.css";
+    room = elec_list;
+  } 
+  
+  resp.render('slot-reservation',{
+    layout: 'slot-index',
+    title: req.params.lab,
+    style: style, 
+    script: '/common/slot-script.js',
+    lab: req.params.lab,
+    isChem: isChem,
+    isComp: isComp, 
+    isElec: isElec,
+    rooms: room,
+    isUpdate: true,
+    id: req.params.id
+  });
+
+});
+
+
 server.post('/slot-ajax', function(req, resp){
+
+  let date = String(req.body.date); 
+  let room = String(req.body.room);
+  let start_time_input = Number(req.body.start_time); 
+  let end_time_input = Number(req.body.end_time); 
+
+  //console.log(date);
+
+  //console.log("Start time (node): " + start_time_input); 
+  //console.log("End time (node): " + end_time_input); 
+  const searchQuery = {
+    room: room,
+    date: date
+  };
+
+  responder.reservationModel.find(searchQuery).lean().then(function(reservations){
+
+    //filter reservations
+    let reserved = new Array(); 
+
+    for (let i = 0; i < reservations.length; i++){
+      let runner = start_time_input; 
+      let end = end_time_input; 
+      let inRange = 0;
+      while (!inRange && runner <= end){
+        if (runner > reservations[i].start_time){
+          inRange = 1; 
+        }else{
+          if (runner % 100 == 45)
+            runner += 55; 
+          else 
+            runner += 15; 
+        }
+        if (inRange){
+          reserved.push(reservations[i])
+        }
+      }
+    } 
+    if (reservations){
+      resp.send(reserved);
+    }else{
+      resp.status(404).send("Reservation not found");
+    }
+  });
+});
+
+server.post('/slot-update-ajax', function(req, resp){
 
   let date = String(req.body.date); 
   let room = String(req.body.room);
