@@ -139,6 +139,19 @@ server.get('/deactivate-account/:id', function(req, resp){
     });
 });
 
+server.get('/delete-reservation/:id', function(req, resp){
+  const reservationId = req.params.id;
+  responder.reservationModel.deleteOne({ reservation_id: reservationId })
+  .then(() => {
+    console.log(`Reservation with ID ${reservationId} has been deleted.`);
+    resp.redirect('/');
+  })
+  .catch(err => {
+    console.error(`Error deletiong reservation: ${err}`);
+    resp.status(500).send('Failed to delete reservation.');
+  });
+});
+
 server.post('/view-filter-user', function(req, res) { 
   const student_id = req.body.student_id;
   const lab = req.body.laboratory;
@@ -519,7 +532,8 @@ const searchQuery = {
             else if (current_user.type === 'lab-administrator')
               isLabTech = 1;
             resp.render('reservation-details',{
-                layout: 'index',
+                layout: 'reservation-details',
+                script: '/common/reservation-details.js',
                 title: 'Reservation Details',
                 style: '/common/receipt-style.css',
                 details: details_data,
