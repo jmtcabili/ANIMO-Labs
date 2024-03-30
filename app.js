@@ -124,14 +124,18 @@ server.get('/user-profile/:id/', function(req, resp){
 
 server.get('/deactivate-account/:id', function(req, resp){
   const userId = req.params.id;
-  responder.userModel.deleteOne({ user_id: userId })
+  let userPromise = responder.userModel.deleteOne({ user_id: userId });
+  let reservationPromise = responder.reservationModel.deleteMany({ student_id: userId });
+
+  Promise.all([userPromise, reservationPromise])
     .then(() => {
       console.log(`Account with ID ${userId} has been deactivated.`);
+      console.log(`Reservations with ${userId} have been deleted.`);
       resp.redirect('/');
     })
     .catch(err => {
-      console.error(`Error deactivating account: ${err}`);
-      resp.status(500).send('Failed to deactivate account.');
+      console.error(`Error deactivating account or reservations: ${err}`);
+      resp.status(500).send('Failed to deactivate account or delete reservations.');
     });
 });
 
