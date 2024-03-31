@@ -3,10 +3,14 @@
       <img class="logo" src="/common/assets/ANIMO-LABS LOGO.png" alt="Animo Labs Logo">
       <p>Sign up to reserve a lab.</p>
     </div>
-    <form action="user-profile.html">
+    <form action="/sign-up" method ="post">
+      <div class = "form-field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+      </div>
       <div class="form-field">
-        <label for="user-id">User ID</label>
-        <input type="text" id="user-id" name="user-id">
+        <label for="user_id">User ID</label>
+        <input type="text" id="user_id" name="user_id">
       </div>
       <div class="form-field">
         <label for="password">Password</label>
@@ -17,8 +21,8 @@
         <input type="password" id="confirm-password" name="confirm-password">
       </div>
       <div class="form-field">
-        <label for="account-type">Account Type</label>
-        <select id="account-type" name="account-type">
+        <label for="acc_type">Account Type</label>
+        <select id="acc_type" name="acc_type">
           <option value="student">Student</option>
           <option value="lab-administrator">Lab Administrator</option>
         </select>
