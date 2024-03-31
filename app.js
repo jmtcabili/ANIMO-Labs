@@ -85,6 +85,30 @@ server.get('/sign-up', function(req, resp){
   });
 });
 
+const user = require('./models/responder').userModel;
+
+server.post('/sign-up', async (req, res) => {
+  try {
+      const newUser = new user({
+          name: req.body.name,
+          user_id: req.body.user_id,
+          acc_type: req.body.acc_type,
+          password: req.body.password,
+          image: req.body.image,
+          desc: req.body.desc
+      });
+
+      await newUser.save();
+      res.render('login', { 
+        layout: 'index',
+        title: 'Login Page',
+        style: '/common/login-style.css'});
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Error signing up.');
+  }
+});
+
 server.get('/user-profile/:id/', function(req, resp){
   const searchQuery = { student_id: req.params.id }; 
   
