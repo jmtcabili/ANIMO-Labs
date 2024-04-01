@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/labDB');
+mongoose.connect('mongodb+srv://johnmaverickcisneros:qFHZMTWstIzxEfkB@cluster0.a3jrub1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 const reservationSchema = new mongoose.Schema({
     name: {type: String, default: function() { return this.parent().name; } }, 
