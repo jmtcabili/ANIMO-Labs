@@ -54,3 +54,12 @@ process.on('SIGINT', () => {
     process.exit(0);
   });
 });
+
+// responder.js
+
+function finalClose() {
+  console.log('Final close function called');
+  // Any cleanup code you want to run before exiting
+}
+
+module.exports.finalClose = finalClose;
