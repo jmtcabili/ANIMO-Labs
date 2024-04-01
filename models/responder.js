@@ -57,6 +57,8 @@ process.on('SIGINT', () => {
 
 // responder.js
 
+const responder = require('./responder'); // Assuming responder.js is in the same directory
+
 function finalClose() {
   console.log('Final close function called');
   // Any cleanup code you want to run before exiting
