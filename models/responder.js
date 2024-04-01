@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://johnmaverickcisneros:qFHZMTWstIzxEfkB@cluster0.xld8ueb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+mongoose.connect('mongodb+srv://johnmaverickcisneros:qFHZMTWstIzxEfkB@cluster0.xld8ueb.mongodb.net/');
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://johnmaverickcisneros:qFHZMTWstIzxEfkB@cluster0.xld8ueb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb+srv://johnmaverickcisneros:qFHZMTWstIzxEfkB@cluster0.xld8ueb.mongodb.net/";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
