@@ -774,14 +774,12 @@ const searchQuery = {
     });
 });
 
-const responder = require('./responder'); // Assuming responder.js is in the same directory
 
-// Register event listeners using finalClose from responder
-process.on('SIGINT', responder.finalClose); // Catches when ctrl + c is used
-process.on('SIGQUIT', responder.finalClose); // Catches other termination commands
+process.on('SIGTERM',responder.finalClose);  //general termination signal
+process.on('SIGINT', responder.finalClose);   //catches when ctrl + c is used
+process.on('SIGQUIT', responder.finalClose); //catches other termination commands
 
 const port = process.env.PORT | 3000;
 server.listen(port, function(){
   console.log('Listening at port '+port);
 });
-
