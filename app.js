@@ -779,7 +779,7 @@ process.on('SIGTERM',responder.finalClose);  //general termination signal
 process.on('SIGINT', responder.finalClose);   //catches when ctrl + c is used
 process.on('SIGQUIT', responder.finalClose); //catches other termination commands
 
-const port = process.env.PORT | 3000;
+const port = process.env.PORT || 3000;
 server.listen(port, function(){
   console.log('Listening at port '+port);
 });
