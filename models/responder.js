@@ -1,67 +1,53 @@
 const mongoose = require('mongoose');
-const { ServerApiVersion } = require('mongodb');
+mongoose.connect('mongodb://127.0.0.1:27017/labDB');
 
-// Connect to MongoDB Atlas using Mongoose
-mongoose.connect('mongodb+srv://johnmaverickcisneros:qFHZMTWstIzxEfkB@cluster0.xld8ueb.mongodb.net/', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000 // Timeout after 5 seconds if connection fails
-})
-.then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('Error connecting to MongoDB:', err));
-
-// Define reservation schema
 const reservationSchema = new mongoose.Schema({
-  name: { type: String, default: '' }, 
-  reservation_id:  { type: String }, 
-  student_id: { type: String, default: '' },
-  laboratory: { type: String }, 
-  room: { type: String }, 
-  date: { type: String },
-  start_time: { type: Number }, 
-  end_time: { type: Number },
-  seat_ids: [{ type: String }],
-  equipment: [{ type: String }],
-}, { versionKey: false });
+    name: {type: String, default: function() { return this.parent().name; } }, 
+    reservation_id:  {type : String}, 
+    student_id: {type: String, default: function() { return this.parent().student_id; } },
+    laboratory: {type: String}, 
+    room: {type: String}, 
+    date: {type: String},
+    start_time: {type: Number}, 
+    end_time: {type: Number},
+    seat_ids: [{
+        type: String
+    }],
+    equipment: [{
+        type: String
+    }],
+}, {versionKey: false});
 
-// Define user schema
+
+// was thinking maybe we split the user and lab tech schema 
 const userSchema = new mongoose.Schema({
-  name: { type: String }, 
-  user_id: { type: String },
-  acc_type: { type: String },
-  password: { type: String },
-  image: { type: Buffer },
-  desc: { type: String }
-}, { versionKey: false });
+    name: {type: String}, 
+    user_id: {type: String},
+    acc_type: {type: String},
+    password: {type: String},
+    image: {type: Buffer},
+    desc : {type: String}
+}, {versionKey: false});
 
-// Create models
-const Reservation = mongoose.model('Reservation', reservationSchema);
-const User = mongoose.model('User', userSchema);
 
-// Export models
-module.exports.Reservation = Reservation; 
-module.exports.User = User; 
 
-// Handle errors
-mongoose.connection.on('error', err => {
-  console.error('MongoDB connection error:', err);
-});
+const reservationModel = mongoose.model('reservation', reservationSchema);
+const userModel = mongoose.model('user', userSchema); 
 
-// Close connection on process exit
-process.on('SIGINT', () => {
-  mongoose.connection.close(() => {
-    console.log('MongoDB connection closed');
-    process.exit(0);
-  });
-});
-
-// responder.js
-
-const responder = require('./responder'); // Assuming responder.js is in the same directory
-
-function finalClose() {
-  console.log('Final close function called');
-  // Any cleanup code you want to run before exiting
+function errorFn(err){
+    console.log('Error found. Please trace!');
+    console.error(err);
 }
 
-module.exports.finalClose = finalClose;
+function finalClose(){
+    console.log('Close connection at the end!');
+    mongoose.connection.close();
+    process.exit();
+}
+
+
+module.exports.reservationModel = reservationModel; 
+module.exports.userModel = userModel; 
+module.exports.errorFn = errorFn;
+module.exports.finalClose = finalClose; 
+
