@@ -350,6 +350,8 @@ let elec_list = JSON.parse(elec_rooms);
 
 let isChem = 0, isComp = 0, isElec = 0; 
 server.get('/slot-reservation/:lab', function(req, resp){
+
+  //create new intsance whenever slot-reservation is reached
   reservationInstance = responder.reservationModel({
     name: "", 
     reservation_id: "", 
@@ -362,7 +364,7 @@ server.get('/slot-reservation/:lab', function(req, resp){
     seat_ids: [""], 
     equipment: [""]
   });
-  //need student id
+
   //note that time should be in military format for easier checking
   //the reservations that you have to show have to be within range
   isChem = req.params.lab === 'Chemistry Laboratory';

@@ -50,9 +50,7 @@ function checkDate(){ //validates date and returns status
   let month = Number(date_deets[1])-1;
   let day = Number(date_deets[2]);
 
-  date = new Date(year, month, day);
-  console.log("Date is at least today: " + date.valueOf() < new Date().valueOf);
-  
+  date = new Date(year, month, day);  
   return new Date(date.toDateString()) < new Date(new Date().toDateString());
 
 }
