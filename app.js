@@ -19,8 +19,9 @@ server.use(express.static('public'));
 
 const responder = require('./models/responder');
 const bcrypt = require('bcrypt');
-
 const multer = require('multer');
+
+const fs = require('fs').promises;
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -43,7 +44,7 @@ server.get('/', function(req, resp){
   });
 });
 
-let current_user = {name: "", id: 0, type: "", desc: ""};
+let current_user = {name: "", id: 0, type: "", desc: "", image: Buffer.from("")};
 let reservationInstance = []; 
 let updateInstance = []; 
 
@@ -63,6 +64,7 @@ server.post('/login', (req, res) => {
               current_user.id = user.user_id; 
               current_user.type = user.acc_type; 
               current_user.desc = user.desc; 
+              current_user.image = user.image.toString('base64');
               if (user.acc_type === 'student') {
                   res.redirect('/user-profile/' + user_id);
                   
@@ -273,6 +275,7 @@ server.post('/update-profile', upload.single('image'), async function(req, res) 
   const userID = req.body.id; // Assuming 'id' is the field name in your FormData for user ID
   const oldPassword = req.body.oldPassword; // Assuming 'password' is the field name for old password
   const newPassword = req.body.newPassword; // Assuming 'newPassword' is the field name for new password
+  console.log(req.file);
   try {
     // Find the user by their ID
     const user = await responder.userModel.findOne({ user_id: userID });
@@ -291,9 +294,20 @@ server.post('/update-profile', upload.single('image'), async function(req, res) 
       await user.save();
     } 
     if (req.file) {
-      // Assuming you're storing images as buffers
-      user.image = req.file.buffer;
-      await user.save();
+      try {
+        // Read the file as a buffer
+        const fileBuffer = await fs.readFile(req.file.path);
+    
+        // Assign the buffer to the user's image field
+        user.image = fileBuffer;
+    
+        // Save the user object with the updated image field
+        await user.save();
+      } catch (error) {
+        console.error('Error reading file:', error);
+        // Handle the error appropriately, e.g., send an error response
+        return res.status(500).json({ message: 'Internal server error.' });
+      }
     }
     if (oldPassword && oldPassword !== user.password) {
       return res.status(403).json({ message: 'Old password incorrect. Update failed.' });

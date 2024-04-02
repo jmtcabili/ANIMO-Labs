@@ -15,17 +15,17 @@
                 {{/each}}
             </div>
         </div>
-       <div class="lab-reservation hide" id="edit-profile">
+        <div class="lab-reservation hide" id="edit-profile">
             <div class="box-header">
                 <h1>YOUR PROFILE</h1>
             </div>
             <div class="edit-profile-picture-parent">
                 <div class="edit-profile-picture">
-                    <img id="profile-image" src="/common/assets/user-dp.png">
+                    <img id="profile-image" src="data:image/png;base64,{{currentUser.image}}" alt="User Image">
                 </div>
-                <div class="edit-pen-content-profile">  
-                    <input type="file" id="image-upload" accept="image/*">
-                    <label for="image-upload">
+                <div class="edit-pen-content-profile-no">  
+                    <label class="image-upload" for="image-upload-file">
+                        <input type="file" id="image-upload" accept="image/*" style="display: none;">
                         <img src="/common/assets/edit-pen.png" class="edit-pen-image" alt="Edit">
                     </label>
                 </div>
@@ -62,6 +62,14 @@
             </div>
             <div class="user-footer">
                 <button id="update-profile">Update</button>
+            </div>
+        </div>
+        <div class="result">
+            <div class="result-content">
+                <span class="close-button">&times;</span>
+                <p id="result-message"> 
+
+                </p>
             </div>
         </div>
         <div class = "lab-reservation hide" id = "accept">

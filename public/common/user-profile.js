@@ -106,9 +106,13 @@ document.addEventListener('DOMContentLoaded', function() {
     editPenPassword.addEventListener('click', () => {
         const editOldPassword = document.querySelector('.edit-old-password');
         const editNewPassword = document.querySelector('.edit-new-password');
-
-        editOldPassword.classList.remove('hide');
-        editNewPassword.classList.remove('hide');
+    
+        // Toggle visibility of password input fields
+        editOldPassword.classList.toggle('hide');
+        editNewPassword.classList.toggle('hide');
+    
+        // Optionally, set focus to the first input field
+        editOldPassword.focus();
     });
 
     // Add click event listener for image edit pen
@@ -157,13 +161,44 @@ document.addEventListener('DOMContentLoaded', function() {
             contentType: false,
             success: function(response){
                 console.log(response.message);
-                // Optionally, display a success message to the user
+                // Display success message
+                const successMessage = document.querySelector('.result'); // Use querySelector for class
+                const message = document.querySelector('#result-message'); // Use querySelector for ID
+                message.textContent = response.message;
+                successMessage.style.display = 'block';
+                        
+                // Optionally, reset password inputs
+                document.querySelector('.edit-old-password').value = '';
+                document.querySelector('.edit-new-password').value = '';
             },
             error: function(xhr, status, error){
                 console.error(xhr.responseText); // Log the detailed error message
-                // Optionally, display an error message to the user
+                // Display error message
+                const errorMessage = document.createElement('div');
+                errorMessage.classList.add('result'); // Add the 'result' class
+                errorMessage.innerHTML = `
+                    <div class="result-content">
+                        <span class="close-button">&times;</span>
+                        <p id="result-message">Error: ${xhr.responseText}</p>
+                    </div>
+                `;
+                errorMessage.style.display = 'block';
+                 // Add event listener to close button
+                const closeButton = errorMessage.querySelector('.close-button');
+                closeButton.addEventListener('click', function() {
+                    errorMessage.remove(); // Remove the error message from the DOM
+                });
+
+                // Append the error message to the document body
+                document.body.appendChild(errorMessage);
             }
         });
+    });
+    const closeButton = document.querySelector('.close-button');
+    closeButton.addEventListener('click', function() {
+        // Hide the pop-up message
+        const result = document.querySelector('.result');
+        result.style.display = 'none';
     });
 });
 
