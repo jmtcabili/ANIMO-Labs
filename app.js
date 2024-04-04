@@ -34,6 +34,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+const {body, validationResult} = require('express-validator');
+
 
 server.get('/', function(req, resp){
   resp.render('login',{
@@ -44,32 +46,57 @@ server.get('/', function(req, resp){
   });
 });
 
-let current_user = {name: "", id: 0, type: "", desc: "", image: Buffer.from("")};
+let current_user = {name: "", id: 0, type: "", desc: ""};
 let reservationInstance = []; 
 let updateInstance = []; 
 
-server.post('/login', (req, res) => {
+server.post('/login', [
+  body('user_id').notEmpty().withMessage('User ID is required'),
+  body('password').notEmpty().withMessage('Password is required'),
+], (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.render('login', { 
+      layout: 'index',
+      title: 'Login Page',
+      style: '/common/login-style.css',
+      isInvalid: 1, 
+      errors: errors.array()
+    });
+  }
+
   const { user_id, password } = req.body;
   console.log(user_id, password);
-  responder.userModel.findOne({ user_id, password })
-      .then(user => {
+  responder.userModel.findOne({ user_id })
+      .then(async (user) => {
           if (!user) {
               res.render('login', { 
                 layout: 'index',
                 title: 'Login Page',
                 style: '/common/login-style.css',
-                isInvalid: 1 });
+                isInvalid: 1,
+                message: 'User ID not found'
+              });
           } else {
-              current_user.name = user.name;
-              current_user.id = user.user_id; 
-              current_user.type = user.acc_type; 
-              current_user.desc = user.desc; 
-              current_user.image = user.image.toString('base64');
-              if (user.acc_type === 'student') {
-                  res.redirect('/user-profile/' + user_id);
-                  
-              } else if (user.acc_type === 'lab-administrator') {
-                  res.redirect('/lab-profile/' + user_id);
+              const match = await bcrypt.compare(password, user.password);
+              if (match) {
+                  current_user.name = user.name;
+                  current_user.id = user.user_id; 
+                  current_user.type = user.acc_type; 
+                  current_user.desc = user.desc; 
+                  if (user.acc_type === 'student') {
+                      res.redirect('/user-profile/' + user_id);
+                  } else if (user.acc_type === 'lab-administrator') {
+                      res.redirect('/lab-profile/' + user_id);
+                  }
+              } else {
+                  res.render('login', { 
+                    layout: 'index',
+                    title: 'Login Page',
+                    style: '/common/login-style.css',
+                    isInvalid: 1,
+                    message: 'Incorrect password'
+                  });
               }
           }
       })
@@ -87,29 +114,45 @@ server.get('/sign-up', function(req, resp){
   });
 });
 
-const user = require('./models/responder').userModel;
+server.post('/sign-up', [
+  body('name').notEmpty().withMessage('Name is required'),
+  body('user_id').notEmpty().withMessage('User ID is required'),
+  body('acc_type').notEmpty().withMessage('Account type is required'),
+  body('password').notEmpty().withMessage('Password is required'),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.render('sign-up', { 
+      layout: 'index',
+      title: 'Sign Up',
+      style: '/common/signup-style.css',
+      isInvalid: 1,
+      errors: errors.array()
+    });
+  }
 
-server.post('/sign-up', async (req, res) => {
   try {
-      const newUser = new user({
-          name: req.body.name,
-          user_id: req.body.user_id,
-          acc_type: req.body.acc_type,
-          password: req.body.password,
-          image: req.body.image,
-          desc: req.body.desc
-      });
+    const newUser = new responder.userModel({
+      name: req.body.name,
+      user_id: req.body.user_id,
+      acc_type: req.body.acc_type,
+      password: await bcrypt.hash(req.body.password, 10),
+      image: req.body.image,
+      desc: req.body.desc
+    });
 
-      await newUser.save();
-      res.render('login', { 
-        layout: 'index',
-        title: 'Login Page',
-        style: '/common/login-style.css'});
+    await newUser.save();
+    res.render('login', { 
+      layout: 'index',
+      title: 'Login Page',
+      style: '/common/login-style.css'
+    });
   } catch (error) {
-      console.error(error);
-      res.status(500).send('Error signing up.');
+    console.error(error);
+    res.status(500).send('Error signing up.');
   }
 });
+
 
 server.get('/user-profile/:id/', function(req, resp){
   const searchQuery = { student_id: req.params.id }; 
