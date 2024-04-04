@@ -52,6 +52,59 @@ $(document).ready(function(){
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+    const logOutButton = document.getElementById('log-out-button');
+    
+    logOutButton.addEventListener('click', function(event) {
+        console.log("CLICKED");
+        event.preventDefault(); // Prevent the default link behavior
+
+        fetch('/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({}) // Send an empty body or any necessary data
+        })
+        .then(response => {
+            if (response.ok) {
+                // Redirect to the home page or perform any other action
+                window.location.href = '/';
+            } else {
+                console.error('Logout failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error during logout:', error);
+        });
+    });
+
+    const deactivateButton = document.getElementById('deactivate-modal');
+    
+    deactivateButton.addEventListener('click', function(event) {
+        console.log("CLICKED");
+        event.preventDefault(); // Prevent the default link behavior
+
+        fetch('/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({}) // Send an empty body or any necessary data
+        })
+        .then(response => {
+            if (response.ok) {
+                // Redirect to the home page or perform any other action
+                window.location.href = '/';
+            } else {
+                console.error('Logout failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error during logout:', error);
+        });
+    });
+    
+
     // Select edit pens
     const editPenName = document.querySelector('.edit-pen-name');
     const editPenDescription = document.querySelector('.edit-pen-description');

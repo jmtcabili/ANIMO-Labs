@@ -1,9 +1,10 @@
-//npm i express express-handlebars body-parser mongodb mongoose jquery
+//npm i express express-handlebars body-parser mongodb mongoose jquery express-session mongoose connect-mongodb-session
 //npm install multer
 //npm install bcrypt
 
 const express = require('express');
 const server = express();
+const mongoURI = "mongodb://127.0.0.1:27017/labDB"; //replace with the right link (was testing it on local)
 
 const bodyParser = require('body-parser');
 server.use(express.json()); 
@@ -16,6 +17,20 @@ server.engine('hbs', handlebars.engine({
 }));
 
 server.use(express.static('public'));
+
+const session = require('express-session');
+const mongoStore = require('connect-mongodb-session')(session);
+
+server.use(session({
+  secret: 'a secret fruit',
+  saveUninitialized: true, 
+  resave: false,
+  store: new mongoStore({ 
+    uri: mongoURI,
+    collection: 'Sessions',
+    expires: 1000*60*60 // 1 hour
+  })
+}));
 
 const responder = require('./models/responder');
 const bcrypt = require('bcrypt');
@@ -49,6 +64,7 @@ server.get('/', function(req, resp){
 let current_user = {name: "", id: 0, type: "", desc: ""};
 let reservationInstance = []; 
 let updateInstance = []; 
+let userSessionID = 0;
 
 server.post('/login', [
   body('user_id').notEmpty().withMessage('User ID is required'),
@@ -85,8 +101,14 @@ server.post('/login', [
                   current_user.type = user.acc_type; 
                   current_user.desc = user.desc; 
                   if (user.acc_type === 'student') {
+                      req.session.login_user = user.user_id;
+                      req.session.login_id = req.sessionID;
+                      userSessionID = req.session.login_user;
                       res.redirect('/user-profile/' + user_id);
                   } else if (user.acc_type === 'lab-administrator') {
+                      req.session.login_user = user.user_id;
+                      req.session.login_id = req.sessionID;
+                      userSessionID = req.session.login_user;
                       res.redirect('/lab-profile/' + user_id);
                   }
               } else {
@@ -153,8 +175,29 @@ server.post('/sign-up', [
   }
 });
 
+function checkUserId(req, res, next) {
+  const requestedUserId = req.params.id;
+  const sessionUserId = req.session.login_user;
 
-server.get('/user-profile/:id/', function(req, resp){
+  if (requestedUserId === sessionUserId) {
+      next(); // User ID matches, proceed to the route handler
+  } else {
+      res.redirect('/'); // Redirect to back to login
+  }
+}
+
+server.post('/logout', (req, res) => {
+  req.session.destroy(err => {
+      if (err) {
+          console.error('Error destroying session:', err);
+          res.status(500).send('Failed to log out');
+      } else {
+          res.status(200).send('Logged out successfully');
+      }
+  });
+});
+
+server.get('/user-profile/:id/', checkUserId, function(req, resp){
   const searchQuery = { student_id: req.params.id }; 
   
   // Fetch user data
@@ -257,7 +300,7 @@ server.post('/view-filter-user', function(req, res) {
   });
 });
 
-server.get('/lab-profile/:id/', function(req, resp){
+server.get('/lab-profile/:id/', checkUserId, function(req, resp){
   const searchQuery = {};
   const searchStudent = {acc_type: "student"};
   const studentPromise = responder.userModel.find(searchStudent).lean();
@@ -368,6 +411,10 @@ server.post('/update-profile', upload.single('image'), async function(req, res) 
 });
     
 server.get('/lab-selection', function(req, resp){
+  if(req.session.login_id == undefined){
+    resp.redirect('/');
+    return;
+  }
   let isStudent = 0, isLabTech = 0; 
   if (current_user.type === 'student')
     isStudent = 1;
@@ -393,7 +440,10 @@ let elec_list = JSON.parse(elec_rooms);
 
 let isChem = 0, isComp = 0, isElec = 0; 
 server.get('/slot-reservation/:lab', function(req, resp){
-
+  if(req.session.login_id == undefined){
+    resp.redirect('/');
+    return;
+  }
   //create new intsance whenever slot-reservation is reached
   reservationInstance = responder.reservationModel({
     name: "", 
@@ -441,7 +491,10 @@ server.get('/slot-reservation/:lab', function(req, resp){
 });
 
 server.get('/update-reservation/:lab/:id', function(req, resp){
-
+  if(req.session.login_id == undefined){
+    resp.redirect('/');
+    return;
+  }
   const searchQuery = {reservation_id: req.params.id}; 
   responder.reservationModel.findOne(searchQuery).lean().then(function(reservation){
     updateInstance = reservation; 
@@ -594,6 +647,13 @@ server.post('/add-equipment', [
   .withMessage("No seats selected")
 ],function(req, resp){
 
+
+  if(req.session.login_id == undefined){
+    resp.redirect('/');
+    return;
+  } //unsure if this is the right place to put this code TODO: please double check 
+
+
   let eq_list = "", lab = "";
   if (isChem){
     eq_list = chem_eq_list;
@@ -678,6 +738,11 @@ server.post('/update-equipment', [
   .withMessage("No seats selected")
 ],function(req, resp){
 
+  if(req.session.login_id == undefined){
+    resp.redirect('/');
+    return;
+  } //unsure if this is the right place to put this code TODO: please double check 
+
   let eq_list = "", lab = "";
   if (isChem){
     eq_list = chem_eq_list;
@@ -758,7 +823,10 @@ server.post('/update-equipment', [
 
 
 server.post('/receipt', function(req, resp){
-
+  if(req.session.login_id == undefined){
+    resp.redirect('/');
+    return;
+  }
   console.log("RI at receipt: " + reservationInstance); 
   const searchQuery2 = {reservation_id: reservationInstance.reservation_id}; 
   reservationInstance.equipment = [];
@@ -822,11 +890,30 @@ server.post('/receipt', function(req, resp){
 });
 
 
+function checkReservationOwnership(req, res, next) {
+  const searchQuery = {
+      reservation_id: req.query.reservation_id,
+      time_start: req.query.start_time
+  };
+
+  responder.reservationModel.findOne(searchQuery).lean().then(function(details_data){
+      if (details_data && details_data.student_id === req.session.login_user) {
+          // User is the owner of the reservation, allow access to the route
+          next();
+      } else {
+          // User is not the owner of the reservation, redirect to an error page or perform another action
+          res.redirect('/');
+      }
+  }).catch(function(err){
+      // Handle errors
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+  });
+}
 
 
 
-
-server.get('/reservation-details', function(req, resp){
+server.get('/reservation-details', checkReservationOwnership, function(req, resp){
 const searchQuery = {
         reservation_id: req.query.reservation_id,
         time_start: req.query.start_time
