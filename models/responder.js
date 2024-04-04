@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 // MongoDB connection string with your actual password
-const mongoURI = "mongodb+srv://johnmaverickcisneros:qFHZMTWstIzxEfkB@cluster0.a3jrub1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const mongoURI = "mongodb://localhost:27017/labDB";
 
 // Connect to MongoDB using mongoose
 mongoose.connect(mongoURI, {

@@ -34,6 +34,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+const { check, validationResult } = require('express-validator');
+
 
 server.get('/', function(req, resp){
   resp.render('login',{
@@ -545,8 +547,37 @@ let chem_eq_list = JSON.parse(chem_eq);
 let comp_eq_list = JSON.parse(comp_eq);
 let elec_eq_list = JSON.parse(elec_eq);
 
-server.post('/add-equipment', function(req, resp){
-  
+server.post('/add-equipment', [
+  check('seats')
+  .isLength({ min: 1})
+  .withMessage("No seats selected")
+],function(req, resp){
+
+  let eq_list = "", lab = "";
+  if (isChem){
+    eq_list = chem_eq_list;
+    lab = "Chemistry";
+    style = '/common/slot-style-chem.css';
+    room = chem_list;
+  }
+  else if (isComp){
+    eq_list = comp_eq_list;
+    lab = "Computer";
+    style = '/common/slot-style-chem.css';
+    room = chem_list;
+  } 
+  else{ 
+    eq_list = elec_eq_list;
+    lab = "Electrical";
+    style = '/common/slot-style-chem.css';
+    room = chem_list;
+  } 
+  const errors = validationResult(req);
+  console.log(errors);
+  if (!errors.isEmpty()){
+    console.log("List of errors: " + errors); 
+    resp.redirect("/slot-reservation/"+lab + " Laboratory");
+  }
   //pre-processing time and seats
 
   //Time 
@@ -587,19 +618,6 @@ server.post('/add-equipment', function(req, resp){
   reservationInstance.seat_ids = seat_arr;
 
   //submit -> post to save then redirect to receipt
-  let eq_list = "", lab = "";
-  if (isChem){
-    eq_list = chem_eq_list;
-    lab = "Chemistry"
-  }
-  else if (isComp){
-    eq_list = comp_eq_list;
-    lab = "Computer"
-  } 
-  else{ 
-    eq_list = elec_eq_list;
-    lab = "Electrical"
-  } 
 
   reservationInstance.laboratory = lab + " Laboratory";
   console.log(reservationInstance);
@@ -613,8 +631,37 @@ server.post('/add-equipment', function(req, resp){
 
 });
 
-server.post('/update-equipment', function(req, resp){
-  
+server.post('/update-equipment', [
+  check('seats')
+  .isLength({ min: 1})
+  .withMessage("No seats selected")
+],function(req, resp){
+
+  let eq_list = "", lab = "";
+  if (isChem){
+    eq_list = chem_eq_list;
+    lab = "Chemistry";
+    style = '/common/slot-style-chem.css';
+    room = chem_list;
+  }
+  else if (isComp){
+    eq_list = comp_eq_list;
+    lab = "Computer";
+    style = '/common/slot-style-chem.css';
+    room = chem_list;
+  } 
+  else{ 
+    eq_list = elec_eq_list;
+    lab = "Electrical";
+    style = '/common/slot-style-chem.css';
+    room = chem_list;
+  } 
+  const errors = validationResult(req);
+  console.log(errors);
+  if (!errors.isEmpty()){
+    console.log("List of errors: " + errors); 
+    resp.redirect("/update-reservation/"+lab + " Laboratory/"+updateInstance.reservation_id);
+  }
   //pre-processing time and seats
 
   //Time 
@@ -653,21 +700,6 @@ server.post('/update-equipment', function(req, resp){
   updateInstance.start_time = start_time; 
   updateInstance.end_time = end_time; 
   updateInstance.seat_ids = seat_arr;
-
-  //submit -> post to save then redirect to receipt
-  let eq_list = "", lab = "";
-  if (isChem){
-    eq_list = chem_eq_list;
-    lab = "Chemistry"
-  }
-  else if (isComp){
-    eq_list = comp_eq_list;
-    lab = "Computer"
-  } 
-  else{ 
-    eq_list = elec_eq_list;
-    lab = "Electrical"
-  } 
 
   updateInstance.laboratory = lab + " Laboratory";
   console.log(updateInstance);
