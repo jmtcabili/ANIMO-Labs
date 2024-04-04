@@ -17,10 +17,6 @@
         <input type="password" id="password" name="password">
       </div>
       <div class="form-field">
-        <label for="confirm-password">Confirm Password</label>
-        <input type="password" id="confirm-password" name="confirm-password">
-      </div>
-      <div class="form-field">
         <label for="acc_type">Account Type</label>
         <select id="acc_type" name="acc_type">
           <option value="student">Student</option>
@@ -33,7 +29,11 @@
       <br>
       <div class="feedback">
         {{#if isInvalid}}
-          Please fill out all information
+          Please answer all fields.
+          <br>
+          Name should be letters only.
+          <br>
+          User ID should be 6 digits only.
         {{/if}}
       </div>
     </form>
