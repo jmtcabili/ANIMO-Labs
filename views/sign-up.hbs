@@ -30,6 +30,12 @@
       <div class="form-field">
         <button type="submit">Sign up</button>
       </div>
+      <br>
+      <div class="feedback">
+        {{#if isInvalid}}
+          Please fill out all information
+        {{/if}}
+      </div>
     </form>
     <div class="form-footer">
       <p>Have an account? <a href="/">Log In</a></p>
