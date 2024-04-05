@@ -4,7 +4,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
+    height: 1000px;
 }
 
 .container {
@@ -27,7 +27,6 @@ body {
 
 .logo {
     height: 50px;
-    margin-left: 20px;
 }
 
 .chem-lab {
@@ -45,12 +44,13 @@ body {
 }
 
 .feedback{
+    text-align: center;
     color: red;
 }
 
 .login-form{
     display: flex;
-    padding-left: 15%;
+    padding-left: 20%;
 }
 .login {
     display: flex;
