@@ -814,25 +814,44 @@ server.post('/update-equipment', [
 
 });
 
-server.post('/walk-in', function(req, resp){
+server.post('/walk-in', function(req, res) {
+  // Find the last reservation and get its ID
+  responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(last_reservation) {
+      const last_id = last_reservation ? last_reservation.reservation_id : 0;
+      const new_id = reservationInstance.reservation_id = Number(last_id) +1; 
+      // Parse the request body to get reservation data
+      console.log(req.body);
 
-  if (reservationInstance.reservation_id === ""){
-    responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(last_reservation){
-      last_id = last_reservation.reservation_id;
-      reservationInstance.reservation_id = Number(last_id) +1; 
-      reservationInstance.save().then(function(){
-        responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(new_res){
-          resp.render('receipt',{
-            layout: 'index',
-            title: 'receipt',
-            style: '/common/receipt-style.css', 
-            last: new_res,
-            current_user: current_user
+      const reservationData = {
+          name: req.body.name,
+          reservation_id: new_id,
+          student_id: req.body.id,
+          laboratory: req.body.laboratory,
+          room: req.body.room,
+          date: req.body.date,
+          start_time: parseInt(req.body.start_time),
+          end_time: parseInt(req.body.end_time),
+          seat_ids: [],
+          equipment: [],
+      };
+
+      console.log(reservationData);
+      
+      const newReservation = new responder.reservationModel(reservationData);
+
+      // Save the reservation to the database
+      newReservation.save()
+          .then(savedReservation => {
+              console.log('Reservation saved successfully:', savedReservation);
+              // Handle success response or redirect to another page
+              res.status(200).send('Reservation saved successfully');
+          })
+          .catch(error => {
+              console.error('Error saving reservation:', error);
+              // Handle error response
+              res.status(500).send('Error saving reservation');
           });
-        });
-      });
-    });
-  }
+  });
 });
 
 server.post('/receipt', function(req, resp){
