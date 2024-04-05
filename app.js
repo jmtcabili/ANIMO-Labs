@@ -674,6 +674,7 @@ server.post('/add-equipment', [
   if (!errors.isEmpty()){
     console.log("List of errors: " + errors); 
     resp.redirect("/slot-reservation/"+lab + " Laboratory");
+    alert("Seats cannot be empty.");
   }
   //pre-processing time and seats
 

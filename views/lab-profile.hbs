@@ -86,7 +86,6 @@
                     <option>{{this.user_id}}</option>
                 {{/each}}
                 </select>
-                <input type="text" id="id" name="id" maxlength="6">
                 <select id="laboratory" name="laboratory">
                     <option value="">Select Laboratory</option>
                     <option value="Chemistry Laboratory">Chemistry Laboratory</option>
@@ -140,36 +139,6 @@
                 </a> 
                 {{/each}}
             </div>
-        </div> 
-        <div class = "lab-reservation hide" id = "contact">
-            <div class = "box-header">
-                <h1 class>CONTACT STUDENT</h1>
-            </div>
-            <div class = "contact-content">
-                <div class = "to-field">
-                    <form method = "get">
-                        <label>To:</label>
-                        <select name="technician">
-                            {{#each studentUsers}}
-                                    <option value="{{user_id}}">{{name}}</option>
-                            {{/each}}
-                        </select>
-                    </form>
-                </div>
-                <div class = "message-field">
-                    <textarea id="message" placeholder="Enter your message here"></textarea>
-                </div>
-                <div class = "send-field">
-                    <input type ="button" value ="send" id = "send-button" onclick = "messageModal()">
-                </div>
-                <div id="send-modal" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <p>Message sent!</p>
-                    </div>
-                </div>
-            </div>
-        </div>   
+        </div>  
     </div>
 </div>
