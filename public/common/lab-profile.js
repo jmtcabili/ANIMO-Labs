@@ -264,11 +264,11 @@ $('#confirm-button').prop("disabled", !this.checked);
 $(document).ready(function() {
     console.log('Document ready');
     // Function to fetch filtered data
-    function fetchData(lab, start, end) {
+    function fetchData(id, lab, start, end) {
         $.ajax({
             url: '/view-filter', // Corrected URL
             method: 'POST',
-            data: { laboratory: lab, start_time: start, end_time: end }, // Corrected data parameters
+            data: { student_id: id, laboratory: lab, start_time: start, end_time: end }, // Corrected data parameters
             success: function(data) {
                 // Clear previous data
                 $('#reservation-list-container').empty();
@@ -294,10 +294,45 @@ $(document).ready(function() {
     }
 
     // Event listener for changes in select elements
-    $('#select_laboratory, #select_start-time, #select_end-time').on('change', function() {
+    $('.student-id, #select_laboratory, #select_start-time, #select_end-time').on('change', function() {
+        var id = $('.student-id').val(); 
         var lab = $('#select_laboratory').val();
         var start = $('#select_start-time').val();
         var end = $('#select_end-time').val();
-        fetchData(lab, start, end); // Pass correct variables
+        fetchData(id, lab, start, end); // Pass correct variables
     });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Define the room options for each laboratory
+    const labRooms = {
+        "Chemistry Lab": ["V101", "V102", "V103", "V104", "V105"],
+        "Computer Lab": ["G302", "G303", "G304", "G305"],
+        "Electronics Lab": ["G403", "G404"]
+    };
+
+    // Function to populate room options based on selected laboratory
+    function populateRoomOptions(lab) {
+        const roomSelect = document.getElementById('room');
+        roomSelect.innerHTML = '<option value="">Select Room</option>'; // Reset room options
+        if (lab in labRooms) {
+            labRooms[lab].forEach(room => {
+                const option = document.createElement('option');
+                option.value = room;
+                option.textContent = room;
+                roomSelect.appendChild(option);
+            });
+        }
+    }
+
+    // Event listener for change in laboratory select
+    const labSelect = document.getElementById('laboratry');
+    labSelect.addEventListener('change', function() {
+        const selectedLab = labSelect.value;
+        populateRoomOptions(selectedLab);
+    });
+
+    // Initial population of room options
+    populateRoomOptions(labSelect.value);
 });
