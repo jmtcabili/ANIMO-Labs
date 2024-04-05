@@ -820,7 +820,7 @@ server.post('/update-equipment', [
 server.post('/walk-in', function(req, res) {
   // Find the last reservation and get its ID
   responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(last_reservation) {
-      const last_id = last_reservation ? last_reservation.reservation_id : 0;
+      const last_id = last_reservation ? last_reservation.reservation_id : 100000;
       const new_id = reservationInstance.reservation_id = Number(last_id) +1; 
       // Parse the request body to get reservation data
       console.log(req.body);
@@ -883,7 +883,13 @@ server.post('/receipt', function(req, resp){
   const searchQuery = {};
   if (reservationInstance.reservation_id === ""){
     responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(last_reservation){
-      last_id = last_reservation.reservation_id;
+      if (last_reservation.reservation_id == null)
+      {
+        last_id = 10000; 
+      }else{
+        last_id = last_reservation.reservation_id;
+      }
+      
       reservationInstance.reservation_id = Number(last_id) +1; 
       reservationInstance.save().then(function(){
         responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(new_res){
