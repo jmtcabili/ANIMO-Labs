@@ -62,7 +62,7 @@ server.get('/', function(req, resp){
   });
 });
 
-let current_user = {name: "", id: 0, type: "", desc: ""};
+let current_user = {name: "", id: 0, type: "", desc: "", image: Buffer.from("")};
 let reservationInstance = []; 
 let updateInstance = []; 
 let userSessionID = 0;
@@ -101,6 +101,12 @@ server.post('/login', [
                   current_user.id = user.user_id; 
                   current_user.type = user.acc_type; 
                   current_user.desc = user.desc; 
+                  if(user.image){
+                    current_user.image = user.image.toString('base64');
+                  }
+                  else{
+                    current_user.image = user.image;
+                  }
                   if (user.acc_type === 'student') {
                       req.session.login_user = user.user_id;
                       req.session.login_id = req.sessionID;
@@ -284,41 +290,6 @@ server.get('/delete-reservation/:id', function(req, resp){
   });
 });
 
-
-
-server.post('/view-filter-user', function(req, res) { 
-  const student_id = req.body.student_id;
-  const lab = req.body.laboratory;
-  const start = req.body.start_time;
-  const end = req.body.end_time;
-  // Construct the search query based on the received parameters
-  const id = current_user.id;
-  console.log(id);
-  const searchQuery = {};
-  if(id){
-      searchQuery.student_id = id;
-  }
-  if (lab) {
-      searchQuery.laboratory = lab;
-  }
-  if (start) {
-      searchQuery.start_time = start;
-  }
-  if (end) {
-    searchQuery.end_time = end;
-  }
-  console.log(searchQuery);
-  // Find reservations based on the constructed query
-  responder.reservationModel.find(searchQuery).lean().then(function(filteredData) {
-      // Send back the filtered data as JSON response
-      res.json(filteredData);
-  }).catch(function(err) {
-      // Handle errors appropriately
-      console.error('Error:', err);
-      res.status(500).json({ error: 'Internal Server Error' });
-  });
-});
-
 server.get('/lab-profile/:id/', checkUserId, function(req, resp){
   const searchQuery = {};
   const searchStudent = {acc_type: "student"};
@@ -348,13 +319,17 @@ server.get('/lab-profile/:id/', checkUserId, function(req, resp){
 });
 
 server.post('/view-filter', function(req, res) {
+  const id = req.body.student_id;
   const lab = req.body.laboratory;
   const start = req.body.start_time;
   const end = req.body.end_time;
   
-
-  // Construct the search query based on the received parameters
+  console.log(req.body);
+  
   const searchQuery = {};
+  if(id){
+      searchQuery.student_id = id;
+  }
   if (lab) {
       searchQuery.laboratory = lab;
   }
@@ -364,7 +339,7 @@ server.post('/view-filter', function(req, res) {
   if (end) {
     searchQuery.end_time = end;
   }
-
+  console.log(searchQuery);
   // Find reservations based on the constructed query
   responder.reservationModel.find(searchQuery).lean().then(function(filteredData) {
       // Send back the filtered data as JSON response
@@ -839,7 +814,26 @@ server.post('/update-equipment', [
 
 });
 
+server.post('/walk-in', function(req, resp){
 
+  if (reservationInstance.reservation_id === ""){
+    responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(last_reservation){
+      last_id = last_reservation.reservation_id;
+      reservationInstance.reservation_id = Number(last_id) +1; 
+      reservationInstance.save().then(function(){
+        responder.reservationModel.findOne({}).sort({_id: -1}).lean().then(function(new_res){
+          resp.render('receipt',{
+            layout: 'index',
+            title: 'receipt',
+            style: '/common/receipt-style.css', 
+            last: new_res,
+            current_user: current_user
+          });
+        });
+      });
+    });
+  }
+});
 
 server.post('/receipt', function(req, resp){
   if(req.session.login_id == undefined){

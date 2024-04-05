@@ -318,7 +318,7 @@ $(document).ready(function() {
     // Function to fetch filtered data
     function fetchData(id, lab, start, end) {
         $.ajax({
-            url: '/view-filter-user', // Corrected URL
+            url: '/view-filter', // Corrected URL
             method: 'POST',
             data: { student_id: id, laboratory: lab, start_time: start, end_time: end }, // Corrected data parameters
             success: function(data) {

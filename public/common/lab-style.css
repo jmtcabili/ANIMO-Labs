@@ -244,8 +244,6 @@ body{
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    height: 25vh; 
-    overflow: hidden;
 }
 
 .box-content > a{
