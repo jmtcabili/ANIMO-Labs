@@ -916,7 +916,7 @@ function checkReservationOwnership(req, res, next) {
   };
 
   responder.reservationModel.findOne(searchQuery).lean().then(function(details_data){
-      if (details_data && details_data.student_id === req.session.login_user) {
+      if ((details_data && details_data.student_id === req.session.login_user) || current_user.type === 'lab-administrator') {
           // User is the owner of the reservation, allow access to the route
           next();
       } else {
