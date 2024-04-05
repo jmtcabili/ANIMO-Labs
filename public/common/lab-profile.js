@@ -349,7 +349,7 @@ const dateString = `${year}-${month}-${day}`; // Format: YYYY-MM-DD
 // Get the current time
 const hours = currentDate.getHours(); // Hours (0-23)
 const minutes = currentDate.getMinutes(); // Minutes (0-59)
-const timeString = `${hours}:${minutes}`; // Format: HH:MM:SS
+const timeString = `${hours}${minutes}`; // Format: HH:MM:SS
 
 
 console.log('Current local date:', dateString);
@@ -364,8 +364,8 @@ $(document).ready(function() {
             laboratory: $('#laboratory').val(),
             room: $('#room').val(),
             date: dateString,
-            start_time: timeString,
-            end_time: $('#end-time').val(),
+            start_time: Number(timeString),
+            end_time: Number($('#end-time').val()),
         };
 
         // Send the reservation data to the server

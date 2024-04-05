@@ -82,7 +82,13 @@
                     <div class="buttons">
                             <div class="button-parent">
                                 {{#if isUpdate}}
-                                <a href = "/user-profile/{{student_id}}">
+                                <a href = 
+                                {{#if isLab}}
+                                    "/lab-profile/"
+                                {{else}}
+                                    "/user-profile/"
+                                {{/if}}
+                                "{{student_id}}">
                                 {{else}}
                                 <a href = "/lab-selection">
                                 {{/if}}
@@ -95,6 +101,9 @@
                     </div>
                     <div class="error_msg">
                         <div id="error_msg"></div>
+                        {{#if noSeats}}
+                        <div id="seat_status">Seats should not be empty!</div>
+                        {{/if}}
                     </div>
                 </form>
                 

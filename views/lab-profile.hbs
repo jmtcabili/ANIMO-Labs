@@ -80,7 +80,11 @@
                 <label>Name</label>
                 <input type="text" id="name" name="name">
                 <label>ID</label>
-                <input type="text" id="id" name="id" maxlength="6">
+                <select name = "id" id = "id">
+                {{#each studentUsers}}
+                    <option>{{this.user_id}}</option>
+                {{/each}}
+                </select>
                 <select id="laboratory" name="laboratory">
                     <option value="">Select Laboratory</option>
                     <option value="Chemistry Laboratory">Chemistry Laboratory</option>

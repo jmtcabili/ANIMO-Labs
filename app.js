@@ -526,7 +526,8 @@ server.get('/update-reservation/:lab/:id', function(req, resp){
     rooms: room,
     isUpdate: 1,
     id: req.params.id,
-    student_id: current_user.id
+    student_id: current_user.id,
+    isLab: current_user.type === 'lab-administrator'
   });
 
 });
