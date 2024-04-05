@@ -307,9 +307,9 @@ $(document).ready(function() {
 document.addEventListener('DOMContentLoaded', function() {
     // Define the room options for each laboratory
     const labRooms = {
-        "Chemistry Lab": ["V101", "V102", "V103", "V104", "V105"],
-        "Computer Lab": ["G302", "G303", "G304", "G305"],
-        "Electronics Lab": ["G403", "G404"]
+        "Chemistry Laboratory": ["V101", "V102", "V103", "V104", "V105"],
+        "Computer Laboratory": ["G302", "G303", "G304", "G305"],
+        "Electronics Laboratory": ["G403", "G404"]
     };
 
     // Function to populate room options based on selected laboratory
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Event listener for change in laboratory select
-    const labSelect = document.getElementById('laboratry');
+    const labSelect = document.getElementById('laboratory');
     labSelect.addEventListener('change', function() {
         const selectedLab = labSelect.value;
         populateRoomOptions(selectedLab);
@@ -335,4 +335,54 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial population of room options
     populateRoomOptions(labSelect.value);
+});
+
+// Create a new Date object
+const currentDate = new Date();
+
+// Get the current date
+const year = currentDate.getFullYear(); // Full year (e.g., 2023)
+const month = currentDate.getMonth() + 1; // Month (0-11, add 1 to get 1-12)
+const day = currentDate.getDate(); // Day of the month (1-31)
+const dateString = `${year}-${month}-${day}`; // Format: YYYY-MM-DD
+
+// Get the current time
+const hours = currentDate.getHours(); // Hours (0-23)
+const minutes = currentDate.getMinutes(); // Minutes (0-59)
+const timeString = `${hours}:${minutes}`; // Format: HH:MM:SS
+
+
+console.log('Current local date:', dateString);
+console.log('Current local time:', timeString);
+
+$(document).ready(function() {
+    $('#accept-walk-in').click(function() {
+        // Collect reservation data from the form fields
+        const reservationData = {
+            name: $('#name').val(),
+            id: $('#id').val(),
+            laboratory: $('#laboratory').val(),
+            room: $('#room').val(),
+            date: dateString,
+            start_time: timeString,
+            end_time: $('#end-time').val(),
+        };
+
+        // Send the reservation data to the server
+        $.ajax({
+            url: '/walk-in',
+            type: 'POST',
+            data: reservationData,
+            success: function(response) {
+                // Handle success response
+                console.log(response);
+                // Optionally, show a success message to the user
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                console.error(xhr.responseText);
+                // Optionally, show an error message to the user
+            }
+        });
+    });
 });
