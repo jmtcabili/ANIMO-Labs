@@ -67,16 +67,16 @@ let updateInstance = [];
 let userSessionID = 0;
 
 server.post('/login', [
-  body('user_id').notEmpty().withMessage('User ID is required'),
-  body('password').notEmpty().withMessage('Password is required'),
+  body('user_id').notEmpty().withMessage('User ID is required').isNumeric().withMessage('User ID must contain only numbers'),
+  body('password').notEmpty().withMessage('Password is required')
 ], (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.render('login', { 
+    return res.render('login', {
       layout: 'index',
       title: 'Login Page',
       style: '/common/login-style.css',
-      isInvalid: 1, 
+      isInvalid: 1,
       errors: errors.array()
     });
   }
@@ -137,21 +137,26 @@ server.get('/sign-up', function(req, resp){
 });
 
 server.post('/sign-up', [
-  body('name').notEmpty().withMessage('Name is required'),
-  body('user_id').notEmpty().withMessage('User ID is required'),
-  body('acc_type').notEmpty().withMessage('Account type is required'),
-  body('password').notEmpty().withMessage('Password is required'),
+  body('name')
+  .notEmpty().withMessage('Name is required')
+  .matches(/^[a-zA-Z\s]+$/).withMessage('Name must contain letters and spaces only'),
+  body('user_id')
+  .notEmpty().withMessage('User ID is required')
+  .isNumeric().withMessage('User ID must contain only numbers')
+  .isLength({ min: 6, max: 6 }).withMessage('User ID must be 6 digits'),
+  body('acc_type').notEmpty().withMessage('Account type is required'),body('password')
+  .notEmpty().withMessage('Password is required')
 ], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.render('sign-up', { 
-      layout: 'index',
-      title: 'Sign Up',
-      style: '/common/signup-style.css',
-      isInvalid: 1,
-      errors: errors.array()
-    });
-  }
+const errors = validationResult(req);
+if (!errors.isEmpty()) {
+  return res.render('sign-up', { 
+    layout: 'index',
+    title: 'Sign Up',
+    style: '/common/signup-style.css',
+    isInvalid: 1,
+    errors: errors.array()
+  });
+}
 
   try {
     const newUser = new responder.userModel({
