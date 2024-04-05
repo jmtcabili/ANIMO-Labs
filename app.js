@@ -5,7 +5,7 @@
 
 const express = require('express');
 const server = express();
-const mongoURI = "mongodb://127.0.0.1:27017/labDB"; //replace with the right link (was testing it on local)
+const mongoURI = "mongodb://localhost:27017/labDB"; //replace with the right link (was testing it on local)
 
 const bodyParser = require('body-parser');
 server.use(express.json()); 

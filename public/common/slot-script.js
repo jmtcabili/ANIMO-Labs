@@ -34,9 +34,9 @@ function checkTime(){ //validates time and returns status
 
   getTime();
   if (end_time - start_time <= 0){
-    alert("End time should be after start time.");
+    console.log("End time should be after start time.");
   }else if (end_time - start_time > 200){
-    alert("Duration should be at most 2 hours");
+    console.log("Duration should be at most 2 hours");
   }else
     isValid = 1; 
   
@@ -51,7 +51,7 @@ function checkDate(){ //validates date and returns status
   let day = Number(date_deets[2]);
 
   date = new Date(year, month, day);  
-  return new Date(date.toDateString()) < new Date(new Date().toDateString());
+  return new Date(date.toDateString()) >= new Date(new Date().toDateString());
 
 }
 
@@ -128,6 +128,31 @@ function pickSeats(){
   });
 }
 
+function displayErrors(){
+
+  let inRange = end_time - start_time <= 200;
+  let afterStart = end_time - start_time > 0; 
+  let text = ""; 
+
+
+  if (!checkTime() && !checkDate()){
+    text = "Reservations are at most 2 hours, end time should be after start, and date should be at least today";
+  } else if (!checkTime()){
+    if (!inRange && !afterStart){
+      text = "Reservations are at most 2 hours and end time should be after start."; 
+    }else if (!inRange){
+      text = "Reservation are at most 2 hours.";
+    }else{
+      text = "End time should be after start."
+    }
+  }else if (!checkDate()){
+    text = "Date should be at least today";
+  }else{
+    text = "";
+  }
+  $('#error_msg').text(text);
+} 
+
 
 $(document).ready(function(){
   const date = new Date();
@@ -136,6 +161,7 @@ $(document).ready(function(){
   let curr_year = date.getFullYear();
 
   displaySlots();
+  displayErrors();
 
   if (curr_day < 10)
     curr_day = '0' + String(curr_day);
@@ -145,8 +171,13 @@ $(document).ready(function(){
 
   $('.details').change(function(){
     getTime(); 
-    if (flag == 1)
+    displayErrors();
+    if (flag == 1){
       displaySlots();
+    } else{
+      $('#seats_selected').val("");
+      $('.seat').removeClass("selected").addClass("available");
+    }
   });
   $('.start-time').change(function(){
     if (checkTime() == 1)
@@ -161,9 +192,8 @@ $(document).ready(function(){
       flag = 0; 
   });
   $('#date').change(function(){
-    if (checkDate() == 1){
+    if (!checkDate() == 1){
       flag = 0; 
-      alert("Date should be at least today.");
     } else
       flag = 1; 
   });
