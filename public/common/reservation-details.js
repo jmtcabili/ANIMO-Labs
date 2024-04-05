@@ -1,7 +1,7 @@
-function deleteReservation() {
+function deleteReservation(current_id, isLabTech) {
     const currentUrl = new URL(window.location.href);
     const reservationId = currentUrl.searchParams.get('reservation_id');
-    const userId = currentUrl.searchParams.get('student_id');
+    const userId = current_id;
 
 
     if (!reservationId) {
@@ -12,7 +12,13 @@ function deleteReservation() {
     fetch(`/delete-reservation/${reservationId}`, { method: 'GET' })
         .then(response => {
             if (response.ok) {
-                window.location.href = '/user-profile/'+ userId ;
+                if (isLabTech == 1){
+                    window.location.href = '/lab-profile/'+ userId ;
+                }   
+                else{
+                    window.location.href = '/user-profile/'+ userId ;
+                }
+                
             } else {
                 console.error('Failed to deactivate account.');
             }

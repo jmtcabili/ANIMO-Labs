@@ -952,7 +952,7 @@ const searchQuery = {
         reservation_id: req.query.reservation_id,
         time_start: req.query.start_time
     };
-
+    
     // Assuming you have a reservationModel schema/model
     responder.reservationModel.findOne(searchQuery).lean().then(function(details_data){
         if (details_data) {

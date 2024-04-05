@@ -70,7 +70,7 @@
             <button onclick = "window.location.href = '/update-reservation/{{details.laboratory}}/{{details.reservation_id}}'">Edit Reservation</button>
         </div>
         <div class="return to-main-menu">
-            <button onclick = "deleteReservation();">Remove Reservation</button>
+            <button onclick = "deleteReservation({{current_user.id}},{{isLabTech}});">Remove Reservation</button>
         </div>
     {{/if}}
     {{#if isLabTech}}
@@ -81,7 +81,7 @@
            <button onclick = "window.location.href = '/update-reservation/{{details.laboratory}}/{{details.reservation_id}}'">Edit Reservation</button>
         </div>
         <div class="return to-main-menu">
-            <button onclick = "deleteReservation();">Remove Reservation</button>
+            <button onclick = "deleteReservation({{current_user.id}},{{isLabTech}});">Remove Reservation</button>
         </div>
     {{/if}}
     
