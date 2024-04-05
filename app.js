@@ -139,27 +139,39 @@ server.get('/sign-up', function(req, resp){
 
 server.post('/sign-up', [
   body('name')
-  .notEmpty().withMessage('Name is required')
-  .matches(/^[a-zA-Z\s]+$/).withMessage('Name must contain letters and spaces only'),
+    .notEmpty().withMessage('Name is required')
+    .matches(/^[a-zA-Z\s]+$/).withMessage('Name must contain letters and spaces only'),
   body('user_id')
-  .notEmpty().withMessage('User ID is required')
-  .isNumeric().withMessage('User ID must contain only numbers')
-  .isLength({ min: 6, max: 6 }).withMessage('User ID must be 6 digits'),
-  body('acc_type').notEmpty().withMessage('Account type is required'),body('password')
-  .notEmpty().withMessage('Password is required')
+    .notEmpty().withMessage('User ID is required')
+    .isNumeric().withMessage('User ID must contain only numbers')
+    .isLength({ min: 6, max: 6 }).withMessage('User ID must be 6 digits'),
+  body('acc_type').notEmpty().withMessage('Account type is required'),
+  body('password')
+    .notEmpty().withMessage('Password is required')
 ], async (req, res) => {
-const errors = validationResult(req);
-if (!errors.isEmpty()) {
-  return res.render('sign-up', { 
-    layout: 'index',
-    title: 'Sign Up',
-    style: '/common/signup-style.css',
-    isInvalid: 1,
-    errors: errors.array()
-  });
-}
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.render('sign-up', { 
+      layout: 'index',
+      title: 'Sign Up',
+      style: '/common/signup-style.css',
+      isInvalid: 1,
+      errors: errors.array()
+    });
+  }
 
   try {
+    const existingUser = await responder.userModel.findOne({ user_id: req.body.user_id });
+    if (existingUser) {
+      return res.render('sign-up', {
+        layout: 'index',
+        title: 'Sign Up',
+        style: '/common/signup-style.css',
+        isInvalid: 1,
+        errors: [{ msg: 'User ID is already taken' }]
+      });
+    }
+
     const newUser = new responder.userModel({
       name: req.body.name,
       user_id: req.body.user_id,
@@ -180,6 +192,7 @@ if (!errors.isEmpty()) {
     res.status(500).send('Error signing up.');
   }
 });
+
 
 function checkUserId(req, res, next) {
   const requestedUserId = req.params.id;
