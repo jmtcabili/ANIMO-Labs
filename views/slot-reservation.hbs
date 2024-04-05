@@ -82,15 +82,9 @@
                     <div class="buttons">
                             <div class="button-parent">
                                 {{#if isUpdate}}
-                                <a href = 
-                                {{#if isLab}}
-                                    "/lab-profile/"
+                                    <a href = {{#if isLab}}"/lab-profile/{{student_id}}"{{else}}"/user-profile/{{student_id}}"{{/if}}>
                                 {{else}}
-                                    "/user-profile/"
-                                {{/if}}
-                                "{{student_id}}">
-                                {{else}}
-                                <a href = "/lab-selection">
+                                    <a href = "/lab-selection">
                                 {{/if}}
                                     <input type = "button" value = "Return" class = "button" size = "100">
                                 </a>

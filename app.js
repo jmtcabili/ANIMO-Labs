@@ -298,6 +298,7 @@ server.get('/lab-profile/:id/', checkUserId, function(req, resp){
 
   Promise.all([reservationPromise, studentPromise])
   .then(function([reservation_data, student_data]){
+    
     const lab = [...new Set(reservation_data.map(reservation => reservation.laboratory))];
     const startTime = [...new Set(reservation_data.map(reservation => reservation.start_time))];
     const endTime = [...new Set(reservation_data.map(reservation => reservation.end_time))];
