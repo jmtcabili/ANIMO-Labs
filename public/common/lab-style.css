@@ -275,6 +275,10 @@ body{
     font-size: 20px;
 }
 
+.box-content > a {
+    height: 40%; 
+}
+
 .mini-box-click:hover{
     transition: .5s ease;
     transform: scale(1.1);

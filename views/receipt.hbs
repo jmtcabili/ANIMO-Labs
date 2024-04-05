@@ -60,7 +60,13 @@
 </div>
 <div class="footer">
     <div class="return to-main-menu">
+        {{#if isLab}}
+        <button onclick = "window.location.href = '/lab-profile/{{current_user.id}}'">Return to main menu</button>
+        {{else}}
         <button onclick = "window.location.href = '/user-profile/{{current_user.id}}'">Return to main menu</button>
+        {{/if}}
+        
+        
     </div>
     <div class="logo">
         <div class="logo-image">

@@ -123,7 +123,7 @@
             </div>
             <div class = "box-content" id="reservation-list-container">
                 {{#each viewReservation}}
-                <a href = "/reservation-details?reservation_id={{reservation_id}}&student_id={{student_id}}">
+                <a href="/reservation-details?reservation_id={{reservation_id}}&student_id={{student_id}}&laboratory={{laboratory}}&time_start={{time_start}}"> 
                     <div class = "mini-box-click">
                         <div><strong>Student:</strong> {{name}}</div>
                         <div><strong>Student ID:</strong> {{student_id}}</div>

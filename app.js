@@ -892,7 +892,8 @@ server.post('/receipt', function(req, resp){
             title: 'receipt',
             style: '/common/receipt-style.css', 
             last: updateInstance,
-            current_user: current_user
+            current_user: current_user,
+            isLab: current_user.type === 'lab-administrator'
           });
         }else{
           console.log("somethign bad happened"); 
