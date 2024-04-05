@@ -1,6 +1,7 @@
 //npm i express express-handlebars body-parser mongodb mongoose jquery express-session mongoose connect-mongodb-session
 //npm install multer
 //npm install bcrypt
+//npm install express-validator
 
 const express = require('express');
 const server = express();
