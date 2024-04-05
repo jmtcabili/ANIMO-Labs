@@ -51,19 +51,10 @@ let reservationInstance = [];
 let updateInstance = []; 
 
 server.post('/login', [
-  body('user_id').notEmpty().withMessage('User ID is required'),
-  body('password').notEmpty().withMessage('Password is required'),
+  body('user_id').isEmpty().withMessage('User ID is required'),
+  body('password').isEmpty().withMessage('Password is required'),
 ], (req, res) => {
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.render('login', { 
-      layout: 'index',
-      title: 'Login Page',
-      style: '/common/login-style.css',
-      isInvalid: 1, 
-      errors: errors.array()
-    });
-  }
 
   const { user_id, password } = req.body;
   console.log(user_id, password);
